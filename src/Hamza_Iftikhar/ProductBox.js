@@ -14,7 +14,7 @@ export default class MyText extends React.Component
     render()
     {
         return (
-            <TouchableOpacity style = {[styles.container, styles.boxWithShadow]} onPress = {() => Alert.alert(this.props.item.title, "$" + this.props.item.price)}>
+            <TouchableOpacity style = {[styles.container, styles.boxWithShadow]} onPress = {() => this.props.navigation.navigate('ChaptersListComponent')}>
                 <View style = {styles.innerContainer}>
                     <Image style={styles.image} source={this.props.item.url} />
                     <Text>
@@ -26,7 +26,7 @@ export default class MyText extends React.Component
                 </View>
             </TouchableOpacity>
         );
-    }   
+    }
 }
 
 const styles = StyleSheet.create(
@@ -41,7 +41,7 @@ const styles = StyleSheet.create(
             paddingBottom : 50,
             alignItems : 'center',
             justifyContent : 'center',
-  
+
         },
         innerContainer:
         {
@@ -54,9 +54,9 @@ const styles = StyleSheet.create(
             shadowColor: '#000',
             shadowOffset: { width: 0, height: 1 },
             shadowOpacity: 0.8,
-            shadowRadius: 2,  
+            shadowRadius: 2,
             elevation: 5
-        },        
+        },
         text:
         {
             marginHorizontal : 30,

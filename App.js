@@ -18,7 +18,14 @@ import ProductScreen from './src/Hamza_Iftikhar/Product_Screen_Items/ProductScre
 import ProductsMenu from './src/Hamza_Iftikhar/Product_Screen_Items/ProductsMenu';
 import Allbooks from './src/Hamza_Iftikhar/Allbooks.js'
 import BookDetail from './src/Hamza_Iftikhar/BookDetail.js'
+import ChaptersListComponent from './src/Hamza_Iftikhar/ChaptersListComponent.js'
 import Allchapters from './src/Hamza_Iftikhar/Allchapters.js'
+import ProductDetailsScreen from './src/Hamza_Iftikhar/Product_Screen_Items/ProductDetailsScreen.js';
+import CartDetailsScreen from './src/Hamza_Iftikhar/Product_Screen_Items/CartDetailsScreen.js';
+import CheckAddressScreen from './src/Hamza_Iftikhar/Product_Screen_Items/CheckAddressScreen.js';
+import AddNewAddressScreen from './src/Hamza_Iftikhar/Product_Screen_Items/AddNewAddressScreen.js';
+import PaymentOptionsScreen from './src/Hamza_Iftikhar/Product_Screen_Items/PaymentOptionsScreen.js';
+import PaymentSubmitScreen from './src/Hamza_Iftikhar/Product_Screen_Items/PaymentSubmitScreen.js';
 
 import { Provider } from 'react-native-paper';
 
@@ -28,18 +35,14 @@ const CoachingScreensStack = createStackNavigator();
 
 const BooksScreensStack = createStackNavigator();
 
-export default class App extends React.Component {  
-
+export default class App extends React.Component {
   themeColor = '';
-
   constructor(props){
     super(props);
     this.themeColor = '#1f8e46';
   }
 
   render() {
-
-
     const booksStackScreens = (props) =>
     {
       return(
@@ -48,11 +51,17 @@ export default class App extends React.Component {
           <BooksScreensStack.Screen name= 'Allbooks' component={Allbooks} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
           <BooksScreensStack.Screen name= 'Allchapters' component={Allchapters} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
           <BooksScreensStack.Screen name= 'BookDetail' component={BookDetail} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
+          <BooksScreensStack.Screen name= 'ChaptersListComponent' component={ChaptersListComponent} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
           <BooksScreensStack.Screen name="Products-Screen" component={ProductScreen} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
+          <BooksScreensStack.Screen name="Product-Detail-Screen" component={ProductDetailsScreen} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
+          <BooksScreensStack.Screen name="CartDetailsScreen" component={CartDetailsScreen} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
+          <BooksScreensStack.Screen name="CheckAddressScreen" component={CheckAddressScreen} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
+          <BooksScreensStack.Screen name="AddNewAddressScreen" component={AddNewAddressScreen} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
+          <BooksScreensStack.Screen name="PaymentOptionsScreen" component={PaymentOptionsScreen} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
+          <BooksScreensStack.Screen name="PaymentSubmitScreen" component={PaymentSubmitScreen} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
         </BooksScreensStack.Navigator>
       );
     }
-
 
     const coachingStackScreens = (props) =>
     {
@@ -105,5 +114,5 @@ export default class App extends React.Component {
           </NavigationContainer>
         </Provider>
       );
-  }  
+  }
 }

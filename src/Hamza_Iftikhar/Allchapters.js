@@ -165,7 +165,7 @@ export default class Allchapters extends Component{
       // }
 
     }
-    
+
     componentDidMount() {
 
       // Alert.alert('Value is = ', DATA[0].data[0].title);
@@ -185,7 +185,7 @@ export default class Allchapters extends Component{
     //     this.setState({
     //       bookArray:booksData,
     //       showProgress:false
-    //     }); 
+    //     });
     //     this.booksLoadAction();
     //     }
     //   }
@@ -194,7 +194,7 @@ export default class Allchapters extends Component{
 
     // const usersCollection = firestore().collection('Users');
     // console.log('Total Collections: ', usersCollection);
-    
+
     // const userDocument = firestore().collection('Users').doc('brFR2nBInbv7RPMZn7A5');
     // console.log('Total Documents: ', userDocument);
 
@@ -294,7 +294,7 @@ var newArray = [];
   //   });
   //   this.setState({
   //     bookArrayNew:tempArray
-  //   }); 
+  //   });
   // });
 
   // firestore()
@@ -304,14 +304,14 @@ var newArray = [];
   // .then(() => {
   //   console.log('User deleted!');
   // });
-  
+
   // database()
   // .ref('/Student/1')
   // .once('value')
   // .then(snapshot => {
   //   console.log('User data: ', snapshot.val());
   // });
-    
+
 
   // database()
   // .ref('/books/')
@@ -330,7 +330,7 @@ var newArray = [];
   // });
 
 
-  
+
   // database()
   // .ref('/Student/')
   // .on('value', snapshot => {
@@ -653,7 +653,7 @@ booksLoadAction(){
             //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/anar.jpg'), data:completeBookArrayCarrot};
             // }
             finalBookArrayCarrot.push(aiknaiarrayObjCarrot);
-          } 
+          }
           this.setState({showProgress:false});
           AsyncStorage.setItem('booksData', JSON.stringify(finalBookArrayCarrot));
           // this.horizontalrowselected();
@@ -727,32 +727,24 @@ booksLoadAction(){
         // this.fetchDataFromDB(bookName);
     }
 
-    // componentWillMount(){
-    //   // Alert.alert('componentWillMount');
-    //   // this.state.flag1 = 300;
-    //   this.setState({
-    //     flag1 : 156
-    //   });
-    // }
-
     chaptersLoadAction(){
 
     }
-    
+
     render()
     {
       return (
 
-      
-     
-      
+
+
+
       //   <View style = {Styles.container}>
       //   <TouchableOpacity style = {Styles.backbtn}>
-      //       <Icon name='chevron-left' size={32} color='#699c26'  /> 
+      //       <Icon name='chevron-left' size={32} color='#699c26'  />
       //       </TouchableOpacity>
-      //      <View style={Styles.searchbarDesign}> 
+      //      <View style={Styles.searchbarDesign}>
       //      <TouchableOpacity>
-      //      <Icon name='search' size={23} color='#0e0e0e'  /> 
+      //      <Icon name='search' size={23} color='#0e0e0e'  />
       //      </TouchableOpacity>
       //          <TextInput
       //   style={Styles.bookSearch}
@@ -760,16 +752,16 @@ booksLoadAction(){
       // />
       // </View>
 
-      // <FlatList 
+      // <FlatList
       //       data={this.state.allBooksData}
       //       keyExtractor={(key) => (key.id)}
       //       renderItem={
-      //           ({item}) => 
+      //           ({item}) =>
       //     <TouchableOpacity onPress = {() => this.chaptersLoadAction()}>
       //     <View style={Styles.midSection}>
       //       <View style={Styles.Grid}>
       //           <View style={Styles.Gridimg}>
-      //               <Image 
+      //               <Image
       //               style={Styles.Proimage}
       //               source={{ uri: item.url}} />
       //           </View>
@@ -781,7 +773,7 @@ booksLoadAction(){
       //                   {item.name}
       //               </Text>
       //           </View>
-      //       </View>  
+      //       </View>
       //   </View>
       //   </TouchableOpacity>
       //   }/>
@@ -789,11 +781,11 @@ booksLoadAction(){
 
 
     <View style={styles.parent}>
-        <Text style={styles.child}>  One </Text> 
-        <Text style={styles.child}>  Two </Text> 
+        <Text style={styles.child}>  One </Text>
+        <Text style={styles.child}>  Two </Text>
         <Text style={styles.child}>  Three </Text>
     </View>
-      
+
     );
   }
 }
@@ -801,18 +793,18 @@ booksLoadAction(){
 const styles=StyleSheet.create({
   parent: {
     flex: 1,
-    // flexDirection: 'row', 
-    // flexDirection: 'row-reverse', 
+    // flexDirection: 'row',
+    // flexDirection: 'row-reverse',
     flexDirection: 'column',
-    // flexDirection: 'column-reverse',  
-    alignItems: 'flex-start', 
-    // alignItems: 'flex-end', 
-    backgroundColor: '#F5FCFF', 
-    borderColor: '#0099AA', 
+    // flexDirection: 'column-reverse',
+    alignItems: 'flex-start',
+    // alignItems: 'flex-end',
+    backgroundColor: '#F5FCFF',
+    borderColor: '#0099AA',
     borderWidth: 5,
     marginTop: 30,
     // justifyContent:'center',
-    }, 
+    },
   child: {
     flex: 1,
     borderColor: '#AA0099',
@@ -875,7 +867,7 @@ viewStyleMain:{
   // shadowColor: 'grey',
   // alignItems: 'center',
   // justifyContent: 'center',
-  backgroundColor : 'lightgrey', 
+  backgroundColor : 'lightgrey',
 },
 
 leftView:{

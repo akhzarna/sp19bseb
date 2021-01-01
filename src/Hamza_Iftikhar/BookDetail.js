@@ -42,120 +42,8 @@ import database from '@react-native-firebase/database';
 // Firestore Database
 import firestore from '@react-native-firebase/firestore';
 
-// import Styles from './aliahtashamdata/AllBooks/Styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import BooksData from './aliahtashamdata/AllBooks/BooksData';
-
-import { Chip } from 'react-native-paper';
-
-const BookPosters = [
-  {key:0,
-  poster:require('./aliahtashamdata/Images/bookpo.jpg')},
-  {key:1,
-    poster:require('./aliahtashamdata/Images/bookPoster.jpg')},
-];
-
-
-// const BooksData = [
-//   {
-//     title: 'Ali Jahanzaib',
-//     msg: 'Whatsupp?',
-//     pic: '',
-//     time: '6:51 PM',
-//     unread: '2',
-//     url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
-//   },
-//   {
-//     title: 'Ahmad',
-//     msg: 'Hi',
-//     pic: '',
-//     time: '6:49 PM',
-//     unread: '1',
-//     url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
-//   },
-//   {
-//     title: 'Waleed',
-//     msg: 'Where are you?',
-//     pic: '',
-//     time: '6:45 PM',
-//     unread: '5',
-//     url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
-//   },
-
-//   {
-//     title: 'Faizan',
-//     msg: 'wanna go?',
-//     pic: '',
-//     time: '6:33 PM',
-//     unread: '1',
-//     url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
-//   },
-//   {
-//     title: 'Anas',
-//     msg: 'Very nice!',
-//     pic: '',
-//     time: '6:22 PM',
-//     unread: '3',
-//     url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
-//   },
-//   {
-//     title: 'Dad',
-//     msg: 'Come home',
-//     pic: '',
-//     time: '5:51 PM',
-//     unread: '1',
-//     url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
-//   },
-//   {
-//     title: 'Mom',
-//     msg: 'Where are you going?',
-//     pic: '',
-//     time: '1:12 PM',
-//     unread: '1',
-//     url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
-//   },
-//   {
-//     title: 'Zain',
-//     msg: 'lets party',
-//     pic: '',
-//     time: '8:54 PM',
-//     unread: '3',
-//     url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
-//   },
-//   {
-//     title: 'Wahaj',
-//     msg: 'Join meeting',
-//     pic: '',
-//     time: '4:50 PM',
-//     unread: '12',
-//     url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
-//   },
-
-//   {
-//     title: 'Ali Ahmad',
-//     msg: 'Dude, Lets meet',
-//     pic: '',
-//     time: '9:24 PM',
-//     unread: '4',
-//     url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
-//   },
-//   {
-//     title: 'Amina',
-//     msg: 'Tommorrow?',
-//     pic: '',
-//     time: '7:55 PM',
-//     unread: '22',
-//     url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
-//   },
-//   {
-//     title: 'Client',
-//     msg: 'Excellent job',
-//     pic: '',
-//     time: '3:59 PM',
-//     unread: '3',
-//     url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
-//   },
-// ];
 
 export default class BookDetail extends Component{
 
@@ -176,7 +64,7 @@ export default class BookDetail extends Component{
       // }
 
     }
-    
+
     componentDidMount() {
       console.log('Hello Hello' + this.props.route.params.item.title);
       // Alert.alert('Flag value is = ' + flag1);
@@ -190,7 +78,7 @@ export default class BookDetail extends Component{
     //     this.setState({
     //       bookArray:booksData,
     //       showProgress:false
-    //     }); 
+    //     });
     //     this.booksLoadAction();
     //     }
     //   }
@@ -199,7 +87,7 @@ export default class BookDetail extends Component{
 
     // const usersCollection = firestore().collection('Users');
     // console.log('Total Collections: ', usersCollection);
-    
+
     // const userDocument = firestore().collection('Users').doc('brFR2nBInbv7RPMZn7A5');
     // console.log('Total Documents: ', userDocument);
 
@@ -299,7 +187,7 @@ var newArray = [];
   //   });
   //   this.setState({
   //     bookArrayNew:tempArray
-  //   }); 
+  //   });
   // });
 
   // firestore()
@@ -309,14 +197,14 @@ var newArray = [];
   // .then(() => {
   //   console.log('User deleted!');
   // });
-  
+
   // database()
   // .ref('/Student/1')
   // .once('value')
   // .then(snapshot => {
   //   console.log('User data: ', snapshot.val());
   // });
-    
+
 
   // database()
   // .ref('/books/')
@@ -334,7 +222,7 @@ var newArray = [];
   // });
 
 
-  
+
   // database()
   // .ref('/Student/')
   // .on('value', snapshot => {
@@ -657,7 +545,7 @@ booksLoadAction(){
             //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/anar.jpg'), data:completeBookArrayCarrot};
             // }
             finalBookArrayCarrot.push(aiknaiarrayObjCarrot);
-          } 
+          }
           this.setState({showProgress:false});
           AsyncStorage.setItem('booksData', JSON.stringify(finalBookArrayCarrot));
           // this.horizontalrowselected();
@@ -722,28 +610,20 @@ booksLoadAction(){
       });
     }
 
-    rowSelected(item){
-        var bookName = this.state.bookArray[item.key]
+    rowSelected(){
+        console.log(this.props.route.params.item.chapters);
+        // var bookName = this.state.bookArray[item.key]
         this.props.navigation.navigate('ChaptersListComponent',{
-          finalArray:this.state.bookArray[item.key].data,
-          finalDict:this.state.bookArray[item.key],
+          bookdetail:this.props.route.params.item,
+          // finalDict:this.props.route.params.item,
         });
-        // this.fetchDataFromDB(bookName);
-    }
-
-    componentWillMount(){
-      // Alert.alert('componentWillMount');
-      // this.state.flag1 = 300;
-      this.setState({
-        flag1 : 156
-      });
     }
 
     chaptersLoadAction(chapters){
       console.log('All Books Data is = ', chapters);
       this.props.navigation.navigate('Allchapters',{chapters:chapters});
     }
-    
+
     render()
     {
       return   (
@@ -758,12 +638,12 @@ booksLoadAction(){
       <Icon name="chevron-left" size={22} color="#0e0e0e" />
       </TouchableOpacity>
      <TouchableOpacity>
-        <Icon name="bookmark" size={22} color='#969696' /> 
+        <Icon name="bookmark" size={22} color='#969696' />
      </TouchableOpacity>
         </View>
         <View style ={Styles.ProductView}>
           <View style ={Styles.imgView}>
-              <Image 
+              <Image
               style = {Styles.prodimg}
               source = {{ uri: this.props.route.params.item.url}}/>
           </View>
@@ -771,7 +651,7 @@ booksLoadAction(){
           <Text style= {Styles.prodNam}> {this.props.route.params.item.title} </Text>
           <Text style= {Styles.prodAuthor}> {this.props.route.params.item.author} </Text>
           </View>
-          </View> 
+          </View>
           <View style = {Styles.bookActions}>
             <TouchableOpacity  style = {Styles.bookActionBtn}>
             <Icon name="comments" size={24} color='#969696' />
@@ -793,7 +673,7 @@ booksLoadAction(){
             <Text style ={Styles.description}> {this.props.route.params.item.bookintro} </Text>
           </View>
           <View style ={Styles.FooterSection}>
-          <TouchableOpacity style={Styles.readBtn}>
+          <TouchableOpacity style={Styles.readBtn} onPress={()=>this.rowSelected()}>
             <Text style={Styles.readBtntxt}>Read Now</Text>
           </TouchableOpacity>
           </View>
@@ -809,7 +689,7 @@ const Styles = StyleSheet.create({
   container:{
       flex:1,
       backgroundColor:'#fff',
-      
+
   },
   headerSection:{
       paddingHorizontal:10,
@@ -837,13 +717,13 @@ const Styles = StyleSheet.create({
       width:150,
       height:230,
       margin:10,
-      borderRadius:20, 
+      borderRadius:20,
       shadowColor: '#000',
       shadowOffset: { width: 1, height: 1 },
       shadowOpacity:  0.4,
       shadowRadius: 3,
       elevation: 5,
-      
+
   },
   prodimg:{
       height:'100%',
@@ -852,7 +732,7 @@ const Styles = StyleSheet.create({
       borderRadius:20,
   },
   productContent:{
-      
+
      height:230,
      width:'50%',
      margin:10,
@@ -872,7 +752,7 @@ const Styles = StyleSheet.create({
       flexDirection:'row',
       justifyContent:'space-between',
       margin:10,
-     
+
   },
   bookActionBtn:{
       flexDirection:'row',
@@ -899,7 +779,7 @@ const Styles = StyleSheet.create({
       fontFamily:'Jameel Noori Nastaleeq Regular',
       fontSize:20,
       marginHorizontal:20,
-      
+
   },
   FooterSection:{
       flex:1,

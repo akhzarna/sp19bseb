@@ -9,17 +9,21 @@ import {
   Image,
   TextInput,
   Dimensions,
-  ScrollView
+  ScrollView,
+  Alert
 } from 'react-native';
 
 // Realtime Database
 import database from '@react-native-firebase/database';
-
 // Firestore Database
 import firestore from '@react-native-firebase/firestore';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Chip } from 'react-native-paper';
+
+import books from './books';
+
+import AnimatedLoader from "react-native-animated-loader";
 
 const BookPosters = [
   {
@@ -44,18 +48,23 @@ export default class Allbooks extends Component{
           allBooksData:[],
           dumpArray:[],
           showSearchField:false,
-          searchArray:[]
+          searchArray:[],
+          text:'',
+          visible: false
       }
     }
-    
-    componentDidMount() {
 
+    componentDidMount() {
+      this.setState({visible:true});
       database()
       .ref('/books/')
       .on('value', snapshot => {
-        console.log('User data: ', snapshot.val());
-        this.setState({allBooksData:snapshot.val()});
-        this.setState({dumpArray:snapshot.val()});
+        console.log('Akhzar Data is not responsive =', snapshot.val());
+        this.setState({
+          allBooksData:snapshot.val(),
+          dumpArray:snapshot.val(),
+          visible:false
+        });
       });
 
   // For not Live Update
@@ -95,7 +104,7 @@ export default class Allbooks extends Component{
      }).map(function({chapters, detail, key, name, title, url, author, bookintro, category}){
          return {chapters, detail, key, name, title, url, author, bookintro, category};
      });
-     console.log(cloneArray);
+     console.log('popular Array Length is = ' + cloneArray.length);
      this.setState({allBooksData:cloneArray});
     }
 
@@ -106,16 +115,17 @@ export default class Allbooks extends Component{
        }).map(function({chapters, detail, key, name, title, url, author, bookintro, category}){
            return {chapters, detail, key, name, title, url, author, bookintro, category};
        });
-       console.log(cloneArray);
+       console.log('toprated Array Length is = ' + cloneArray.length);
        this.setState({allBooksData:cloneArray});
     }
 
     actSearch(text){
+      this.state.text = text;
       this.state.showSearchField=true;
       this.setState({
         showSearchField:this.state.showSearchField,
-      })
-    
+      });
+
       var searchWord=text.trim();
       if (searchWord) {
         var tempArray=[];
@@ -146,44 +156,40 @@ export default class Allbooks extends Component{
         console.log('Else Part');
         tempArray=this.state.allBooksData;
       }
-        
     this.setState({
     searchArray:tempArray,
-    })
+  });
+  }
 
-    console.log('After Searching Array temp Array is =',tempArray);
-    console.log('After Searching Array Search Array is =',this.state.searchArray);
-    }
-    
     actionTextBlur(){
-    // Alert.alert('false');
-    // if (this.state.textSearch == '') {
-    //   this.setState({
-    //     showSearchField:false,
-    //   })
-    // }
+    if (this.state.text == '') {
+      this.setState({
+        showSearchField:false,
+      });
     }
+  }
 
     chaptersLoadAction(chapters){
       console.log('All Books Data is = ', chapters);
       this.props.navigation.navigate('Allchapters',{chapters:chapters});
     }
-    
+
     render(){
 
-    console.log('Render All Books Data is =', this.state.allBooksData);
-    console.log('Render Search Data is =', this.state.searchArray);
+    // console.log('Render All Books Data is =', this.state.allBooksData);
+    // console.log('Render Search Data is =', this.state.searchArray);
+
     return (
-    
+
     <View style = {Styles.container}>
-  
-      <View style={{flexDirection:'row', marginTop:10}}> 
+
+      <View style={{flexDirection:'row', marginTop:10}}>
         <TouchableOpacity style = {Styles.backbtn} onPress={()=>this.props.navigation.pop()}>
-        <Icon name='chevron-left' size={30} color='#699c26'  /> 
+        <Icon name='chevron-left' size={30} color='#699c26'  />
         </TouchableOpacity>
-      <View style={Styles.searchbarDesign}> 
+      <View style={Styles.searchbarDesign}>
         <TouchableOpacity>
-          <Icon name='search' size={23} color='#0e0e0e'  /> 
+          <Icon name='search' size={23} color='#0e0e0e'  />
         </TouchableOpacity>
         <TextInput
                 autoFocus={false}
@@ -202,23 +208,23 @@ export default class Allbooks extends Component{
          />
          </View>
       </View>
-        
+
         <View>
-          <FlatList 
+          <FlatList
             style={Styles.posterList}
             showsHorizontalScrollIndicator={false}
             nestedScrollEnabled
             horizontal={true}
             data={BookPosters}
-            keyExtractor={(key) => (key.key)}
+            keyExtractor={(item) => (item.key)}
             renderItem={
             ({item})=>
               <View style = {Styles.poster}>
                 <Image style={Styles.undraw} source={item.poster} />
               </View>
-            } 
+            }
           />
-         </View>       
+         </View>
 
         <View style ={Styles.chipDesign}>
          <Chip icon="slack" onPress={() => this.featured()} >Featured</Chip>
@@ -226,19 +232,32 @@ export default class Allbooks extends Component{
          <Chip icon="tag" onPress={() => this.toprated()}>Top Rated</Chip>
         </View>
 
+        {this.state.visible?(
+            <AnimatedLoader
+              visible={this.state.visible}
+              overlayColor="rgba(255,255,255,0.75)"
+              source={require("./loader.json")}
+              animationStyle={Styles.lottie}
+              speed={1}
+            >
+              <Text> Processing...</Text>
+            </AnimatedLoader>
+        ):
+          (null)
+        }
+
           <View  style={Styles.midSection}>
-            <FlatList 
+            <FlatList
              numColumns={2}
-             keyExtractor={(item) => item.id}
-             nestedScrollEnabled={true}
+             keyExtractor={(item) => item.key}
              data={this.state.showSearchField?this.state.searchArray:this.state.allBooksData}
              renderItem={
-              ({item}) => 
+              ({item}) =>
               <TouchableOpacity  style={Styles.Grid} onPress={()=>this.props.navigation.navigate('BookDetail',{item: item})}>
                 <View style ={Styles.imgBox}>
-                    <Image 
+                    <Image
                     style={Styles.Proimage}
-                    source={{ uri: item.url}} 
+                    source={{ uri: item.url}}
                     />
                 </View>
                 <View style = {Styles.GridContent}>
@@ -249,7 +268,7 @@ export default class Allbooks extends Component{
                     {item.detail}
                   </Text>
                 </View>
-                </TouchableOpacity > 
+                </TouchableOpacity >
               }
             />
           </View>
@@ -295,7 +314,7 @@ chipDesign:{
   },
   midSection:{
     flex:1,
-    margin:10, 
+    margin:10,
 },
 
   Bookheader:{
@@ -325,15 +344,15 @@ chipDesign:{
       borderRadius:20,
       marginVertical:10,
       marginHorizontal:7
-      
+
   },
   undraw:{
       width:'100%',
       height:'100%',
       borderRadius:20,
-     
+
   },
- 
+
   Grid:{
      width:135,
      height:270,
@@ -368,13 +387,16 @@ chipDesign:{
       color:'#18191A',
       fontFamily:'Jameel-Noori-Nastaleeq-Kasheeda',
       fontSize:19,
-      
+
   },
   Details:{
-      fontFamily:'Jameel Noori Nastaleeq Regular',
+  fontFamily:'Jameel Noori Nastaleeq Regular',
   color:'#a5a5a5',
-  fontSize:14, 
+  fontSize:14,
   marginTop:-5
- 
   },
+  lottie: {
+    width: 100,
+    height: 100
+  }
 })

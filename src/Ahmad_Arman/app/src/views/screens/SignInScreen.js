@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {SafeAreaView, View, Text, TextInput, Image, Alert, ToastAndroid, StyleSheet, 
+import {SafeAreaView, View, Text, TextInput, Image, Alert, ToastAndroid, StyleSheet,
   TouchableOpacity, ScrollView, ImageBackground,
   ActivityIndicator,
 } from 'react-native';
@@ -66,10 +66,10 @@ export default class SignInScreen extends React.Component {
     this.setState({visible:true});
     // Get the users ID token
     const { idToken } = await GoogleSignin.signIn();
-  
+
     // Create a Google credential with the token
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-    
+
     // Sign-in the user with the credential
     auth().signInWithCredential(googleCredential).then(() => {
       this.setState({visible:false});
@@ -85,7 +85,7 @@ export default class SignInScreen extends React.Component {
   }
 
   onFacebookButtonPress = async () => {
-    
+
     // Attempt login with permissions
   const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
 
@@ -148,7 +148,7 @@ export default class SignInScreen extends React.Component {
   //     console.log(user);
   //   }
   // })
-  
+
 
 
     // auth()
@@ -198,10 +198,10 @@ export default class SignInScreen extends React.Component {
       Alert.alert('Username or password must not be empty');
     }else{
         this.setState({visible:true});
-        const data = 
-        { 
+        const data =
+        {
           'email':this.state.username,
-          'password':this.state.password  
+          'password':this.state.password
         };
 
         auth()
@@ -234,10 +234,10 @@ export default class SignInScreen extends React.Component {
     //   Alert.alert('Username or password must not be empty');
     // }else{
     //     this.setState({visible:true});
-    //     const data = 
-    //     { 
+    //     const data =
+    //     {
     //       'email':this.state.username,
-    //       'password':this.state.password  
+    //       'password':this.state.password
     //     };
 
     //     auth()
@@ -263,7 +263,7 @@ export default class SignInScreen extends React.Component {
 
 
 
-        // const headers = { 
+        // const headers = {
         //     'content-type':'application/json'
         // };
 
@@ -284,8 +284,8 @@ export default class SignInScreen extends React.Component {
         //     Alert.alert("Error", error.message);
         //     this.setState({visible:false});
         // });
-    
-    
+
+
   }
 
   forgotPasswordAction()
@@ -331,7 +331,7 @@ export default class SignInScreen extends React.Component {
   // });
 
   }
-  
+
   render()
   {
     return (
@@ -339,13 +339,13 @@ export default class SignInScreen extends React.Component {
       //JSX
 
     <ImageBackground source={require('./bcbcbc.png')} style={styles.backgroundImage} >
-     
+
       <View style = {{flex : 1}}>
-        
+
         <ScrollView showsVerticalScrollIndicator={false}>
 
           <View style={{paddingHorizontal: 20, flex: 1}}>
-            
+
             <View style={{marginTop: 50}}>
               {/* Nothing to do with this */}
             </View>
@@ -395,7 +395,6 @@ export default class SignInScreen extends React.Component {
             </View>
 
             {this.state.visible?(
-            
                 <AnimatedLoader
                   visible={this.state.visible}
                   overlayColor="rgba(255,255,255,0.75)"
@@ -404,7 +403,7 @@ export default class SignInScreen extends React.Component {
                   speed={1}
                 >
                   <Text> Processing...</Text>
-                </AnimatedLoader>            
+                </AnimatedLoader>
             ):
               (null)
             }
@@ -414,7 +413,7 @@ export default class SignInScreen extends React.Component {
                     Log In
                   </Text>
               </TouchableOpacity>
-              
+
               <View
                 style={{
                   marginVertical: 0,
@@ -426,7 +425,7 @@ export default class SignInScreen extends React.Component {
                 <Text style={{marginHorizontal: 5, fontWeight: 'bold'}}>OR</Text>
                 <View style={STYLES.line}></View>
               </View>
-              
+
               <TouchableOpacity style={STYLES.btnSecondarySignUp} onPress = {() => this.signUpAction()}>
                   <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 18}}>
                     Sign Up
@@ -442,12 +441,12 @@ export default class SignInScreen extends React.Component {
                 <View>
                   <Text style={{textAlign:'center', marginTop:5, marginBottom:5}}>  Login with: </Text>
                 </View>
-               
+
               <View style={{width: 10,}}></View>
-                                 
-             
+
+
               <TouchableOpacity style={STYLES.btnGuestUser} onPress = {() => this.guestUserAction()}>
-             
+
               <Image
                     style={STYLES.btnImage}
                     source={require('../../assests/guestuser.jpeg')}
@@ -455,12 +454,12 @@ export default class SignInScreen extends React.Component {
                    <Text style={{marginLeft:5, fontWeight: 'bold', fontSize: 14}}>
                       Guest User
                    </Text>
-                   
+
               </TouchableOpacity>
 
-                  
+
               <TouchableOpacity style={STYLES.btnGuestUser} onPress = {() => this.onGoogleButtonPress()}>
-                  
+
                   <Image
                     style={STYLES.btnImage}
                     source={require('../../assests/google.png')}
@@ -473,12 +472,12 @@ export default class SignInScreen extends React.Component {
 
 
                 <TouchableOpacity style={STYLES.btnGuestUser} onPress = {() => this.onFacebookButtonPress()}>
-                  
+
                   <Image
                     style={STYLES.btnImage}
                     source={require('../../assests/google.png')}
                   />
-                  
+
                   <Text style={{marginLeft:5, fontWeight: 'bold', fontSize: 14}}>
                     Facebook
                   </Text>
@@ -499,8 +498,8 @@ export default class SignInScreen extends React.Component {
               </View>
 
             </View>
-            
-    
+
+
             {/* <View
               style={{
                 flexDirection: 'row',
