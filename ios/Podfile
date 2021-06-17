@@ -12,6 +12,20 @@ target 'Dieting_App' do
     :hermes_enabled => false
   )
 
+  pod 'RNCPicker', :path => '../node_modules/@react-native-picker/picker'
+
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
+  pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
+
+  pod 'RNScreens', :path => '../node_modules/react-native-screens'
+
+  pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
+
+  pod 'RNCMaskedView', :path => '../node_modules/@react-native-community/masked-view'
+
   target 'Dieting_AppTests' do
     inherit! :complete
     # Pods for testing
