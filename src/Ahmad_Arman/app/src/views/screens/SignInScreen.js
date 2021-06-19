@@ -6,9 +6,6 @@ import STYLES from '../../styles/index';
 import axios from "axios";
 
 export default class SignInScreen extends React.Component {
-
-  themeColor = "#1f8e46"; 
-
   state = {
     username : '',
     password : ''
@@ -35,7 +32,7 @@ export default class SignInScreen extends React.Component {
 
             if(response.data["status"] === "okay")
             {
-              this.props.navigation.navigate('AfterLogIn', {screen : 'Home', params : { themeColor : this.themeColor, token : response.data["response"]["jwt"], userId : response.data["user"]["id"]}})
+              this.props.navigation.navigate('AfterLogIn', {themeColor : this.props.route.params.themeColor, token : response.data["response"]["jwt"], userId : response.data["user"]["id"]})
             }
         }).
         catch(error => {
@@ -50,7 +47,7 @@ export default class SignInScreen extends React.Component {
 
   signUpAction()
   {
-    this.props.navigation.navigate('SignUp', {themeColor : this.themeColor})
+    this.props.navigation.navigate('SignUp', {themeColor : this.props.route.params.themeColor})
   }
 
   render()
@@ -152,8 +149,7 @@ export default class SignInScreen extends React.Component {
                 flexDirection: 'row',
                 alignItems: 'flex-end',
                 justifyContent: 'center',
-                marginTop: 40,
-                backgroundColor : 'red'
+                marginTop: 40
               }}>
               <Text style={{color: COLORS.light, fontWeight: 'bold'}}>
                 Don`t have an account?

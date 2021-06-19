@@ -13,7 +13,7 @@ const STYLES = StyleSheet.create({
     fontSize: 18,
   },
   inputIcon: {marginTop: 15, position: 'absolute'},
-  btnPrimary: {
+    btnPrimary: {
     backgroundColor: COLORS.primary,
     height: 50,
     borderRadius: 5,

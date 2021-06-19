@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Appbar} from 'react-native-paper';
 import {WebView} from 'react-native-webview';
 import {IconButton, Colors} from 'react-native-paper';
-import { useIsDrawerOpen } from '@react-navigation/drawer';
+import MyHeader from '../Hamza_Iftikhar/MyHeader.js';
 import {
   View,
   Modal,
@@ -14,7 +14,7 @@ import {
   Image,
   Alert,
   ScrollView,
-  BackHandler
+  BackHandler,
 } from 'react-native';
 
 export default class HomeScreen extends Component {
@@ -54,24 +54,16 @@ export default class HomeScreen extends Component {
     this.props.navigation.navigate('Health', {themeColor : this.props.route.params.themeColor, token : this.props.route.params.token, userId : this.props.route.params.userId})
   }
 
+  goToDietPlan()
+  {
+    this.props.navigation.navigate('Diet', {themeColor : this.props.route.params.themeColor, token : this.props.route.params.token, userId : this.props.route.params.userId})
+  }
+
   render() {
-    const showToastDiet = () => {
-      ToastAndroid.show('Diet Plan Pressed ', ToastAndroid.SHORT);
-    };
     return (
       <SafeAreaView>
           {/* App Bar  */}
-          <Appbar.Header style={{backgroundColor : this.props.route.params.themeColor}}>
-            <Appbar.Action
-              icon="menu"
-              onPress={() => this.props.navigation.toggleDrawer()}
-            />
-            <Appbar.Action
-              icon="dots-vertical"
-              onPress={() => Alert.alert('3 Dots Button pressed')}
-              style={styles.icon}
-            />
-          </Appbar.Header>
+        <MyHeader themeColor = {this.props.route.params.themeColor} navigation = {this.props.navigation} homeScreen = {true}/>
         <ScrollView showsVerticalScrollIndicator = {false}>
           <View
             style={{
@@ -180,7 +172,7 @@ export default class HomeScreen extends Component {
 
               <TouchableOpacity
                 style={styles.scheduleBtn}
-                onPress={() => showToastDiet()}>
+                onPress={() => this.goToDietPlan()}>
                 <Text>DIET PLAN</Text>
               </TouchableOpacity>
             </View>

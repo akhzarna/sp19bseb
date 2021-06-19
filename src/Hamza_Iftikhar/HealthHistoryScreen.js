@@ -477,7 +477,7 @@ export default class HealthHistoryScreen extends React.Component
     {
         return(
             <View>
-                <MyHeader themeColor = {this.props.route.params.themeColor}/>
+                <MyHeader themeColor = {this.props.route.params.themeColor} navigation = {this.props.navigation} homeScreen = {false}/>
                 
                 <ScrollView>
                     <View style = {styles.container}>
