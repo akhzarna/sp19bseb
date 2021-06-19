@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView, View, Text, TextInput, Image, Alert, ToastAndroid, StyleSheet, TouchableOpacity} from 'react-native';
+import {SafeAreaView, View, Text, TextInput, Image, Alert, ToastAndroid, StyleSheet, TouchableOpacity, ScrollView} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from '../../consts/color'
 import STYLES from '../../styles/index';
@@ -35,7 +35,7 @@ export default class SignInScreen extends React.Component {
 
             if(response.data["status"] === "okay")
             {
-              this.props.navigation.navigate('Home', {themeColor : this.themeColor, token : response.data["response"]["jwt"], userId : response.data["user"]["id"]})
+              this.props.navigation.navigate('AfterLogIn', {screen : 'Home', params : { themeColor : this.themeColor, token : response.data["response"]["jwt"], userId : response.data["user"]["id"]}})
             }
         }).
         catch(error => {
@@ -50,122 +50,124 @@ export default class SignInScreen extends React.Component {
 
   signUpAction()
   {
-    this.props.navigation.navigate('SignUp', {themeColor : themeColor})
+    this.props.navigation.navigate('SignUp', {themeColor : this.themeColor})
   }
 
   render()
   {
     return (
-      <SafeAreaView
-        style={{paddingHorizontal: 20, flex: 1, backgroundColor: COLORS.white}}>
+      <View style = {{flex : 1}}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={{marginTop: 70}}>
-            <Text style={{fontSize: 27, fontWeight: 'bold', color: COLORS.dark}}>
-              Welcome,
-            </Text>
-            <Text style={{fontSize: 19, fontWeight: 'bold', color: COLORS.light}}>
-              Sign in to continue
-            </Text>
-          </View>
-  
-          <View style={{marginTop: 20}}>
-            <View style={STYLES.inputContainer}>
-              <Icon
-                name="mail-outline"
-                color={COLORS.light}
-                size={20}
-                style={STYLES.inputIcon}
-              />
-              <TextInput placeholder="User name*" style={STYLES.input} value = {this.state.username} onChangeText = {(value) => this.setState({username : value})}/>
-            </View>
-            <View style={STYLES.inputContainer}>
-              <Icon
-                name="lock-outline"
-                color={COLORS.light}
-                size={20}
-                style={STYLES.inputIcon}
-              />
-              <TextInput
-                placeholder="Password*"
-                style={STYLES.input}
-                secureTextEntry
-                value = {this.state.password} onChangeText = {(value) => this.setState({password : value})}
-              />
-            </View>
-
-            <TouchableOpacity style = {{marginTop : 20}} onPress = {() => this.forgotPasswordAction()}>
-                <Text style={{color: COLORS.dark, fontWeight: 'bold'}}>
-                  Forgot a Password?
-                </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={STYLES.btnPrimary} onPress = {() => this.loginAction()}>
-                <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 18}}>
-                  Log In
-                </Text>
-            </TouchableOpacity>
-            
-            <View
-              style={{
-                marginVertical: 20,
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <View style={STYLES.line}></View>
-              <Text style={{marginHorizontal: 5, fontWeight: 'bold'}}>OR</Text>
-              <View style={STYLES.line}></View>
-            </View>
-            
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}>
-              <View style={STYLES.btnSecondary}>
-                <Image
-                  style={STYLES.btnImage}
-                  source={require('../../assests/facebook1.png')}
-                />
-                <Text style={{fontWeight: 'bold', fontSize: 13}}>
-                  Continue with Facebook
-                </Text>
-                
-              </View>
-              <View style={{width: 10}}></View>
-              <View style={STYLES.btnSecondary}>
-                <Image
-                  style={STYLES.btnImage}
-                  source={require('../../assests/google.png')}
-                />
-                <Text style={{fontWeight: 'bold', fontSize: 14}}>
-                  Continue with Google
-                </Text>
-                
-              </View>
-            </View>
-          </View>
-          
-  
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'flex-end',
-              justifyContent: 'center',
-              marginTop: 40,
-              marginBottom: 20,
-            }}>
-            <Text style={{color: COLORS.light, fontWeight: 'bold'}}>
-              Don`t have an account ?
-            </Text>
-            <TouchableOpacity onPress={() => this.signUpAction()}>
-              <Text style={{color: COLORS.pink, fontWeight: 'bold'}}>
-                Sign up
+          <View style={{paddingHorizontal: 20, flex: 1, backgroundColor : 'white'}}>
+            <View style={{marginTop: 70}}>
+              <Text style={{fontSize: 27, fontWeight: 'bold', color: COLORS.dark}}>
+                Welcome,
               </Text>
-            </TouchableOpacity>
+              <Text style={{fontSize: 19, fontWeight: 'bold', color: COLORS.light}}>
+                Sign in to continue
+              </Text>
+            </View>
+    
+            <View style={{marginTop: 20}}>
+              <View style={STYLES.inputContainer}>
+                <Icon
+                  name="mail-outline"
+                  color={COLORS.light}
+                  size={20}
+                  style={STYLES.inputIcon}
+                />
+                <TextInput placeholder="Username*" style={STYLES.input} value = {this.state.username} onChangeText = {(value) => this.setState({username : value})}/>
+              </View>
+              <View style={STYLES.inputContainer}>
+                <Icon
+                  name="lock-outline"
+                  color={COLORS.light}
+                  size={20}
+                  style={STYLES.inputIcon}
+                />
+                <TextInput
+                  placeholder="Password*"
+                  style={STYLES.input}
+                  secureTextEntry
+                  value = {this.state.password} onChangeText = {(value) => this.setState({password : value})}
+                />
+              </View>
+
+              <TouchableOpacity style = {{marginTop : 20}} onPress = {() => this.forgotPasswordAction()}>
+                  <Text style={{color: COLORS.dark, fontWeight: 'bold'}}>
+                    Forgot a Password?
+                  </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={STYLES.btnPrimary} onPress = {() => this.loginAction()}>
+                  <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 18}}>
+                    Log In
+                  </Text>
+              </TouchableOpacity>
+              
+              <View
+                style={{
+                  marginVertical: 20,
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <View style={STYLES.line}></View>
+                <Text style={{marginHorizontal: 5, fontWeight: 'bold'}}>OR</Text>
+                <View style={STYLES.line}></View>
+              </View>
+              
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}>
+                <View style={STYLES.btnSecondary}>
+                  <Image
+                    style={STYLES.btnImage}
+                    source={require('../../assests/facebook1.png')}
+                  />
+                  <Text style={{fontWeight: 'bold', fontSize: 13}}>
+                    Continue with Facebook
+                  </Text>
+                  
+                </View>
+                <View style={{width: 10}}></View>
+                <View style={STYLES.btnSecondary}>
+                  <Image
+                    style={STYLES.btnImage}
+                    source={require('../../assests/google.png')}
+                  />
+                  <Text style={{fontWeight: 'bold', fontSize: 14}}>
+                    Continue with Google
+                  </Text>
+                  
+                </View>
+              </View>
+            </View>
+            
+    
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'flex-end',
+                justifyContent: 'center',
+                marginTop: 40,
+                backgroundColor : 'red'
+              }}>
+              <Text style={{color: COLORS.light, fontWeight: 'bold'}}>
+                Don`t have an account?
+              </Text>
+              <TouchableOpacity onPress={() => this.signUpAction()}>
+                <Text style={{color: COLORS.pink, fontWeight: 'bold'}}>
+                  {'\t'}Sign up
+                </Text>
+              </TouchableOpacity>
+            </View>
+
           </View>
         </ScrollView>
-      </SafeAreaView>
+      </View>
     );
   }
 }
