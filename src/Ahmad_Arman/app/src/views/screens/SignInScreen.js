@@ -58,8 +58,8 @@ export default class SignInScreen extends React.Component {
     return (
       <SafeAreaView
         style={{paddingHorizontal: 20, flex: 1, backgroundColor: COLORS.white}}>
-        
-        <View style={{marginTop: 70}}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={{marginTop: 70}}>
             <Text style={{fontSize: 27, fontWeight: 'bold', color: COLORS.dark}}>
               Welcome,
             </Text>
@@ -164,7 +164,7 @@ export default class SignInScreen extends React.Component {
               </Text>
             </TouchableOpacity>
           </View>
-
+        </ScrollView>
       </SafeAreaView>
     );
   }
