@@ -8,7 +8,8 @@ import {
     StyleSheet,
     ImageBackground,
     Image,
-    Alert
+    Alert,
+    ScrollView
 } from 'react-native';
 
 export default class SignUpScreen extends React.Component {
@@ -77,19 +78,21 @@ export default class SignUpScreen extends React.Component {
 
         return (
 
-            <ImageBackground source={require('./assets/images/bg-material.png')} style={styles.backgroundImage} >
+            <ImageBackground source={require('./assets/images/bcbcbc.png')} style={styles.backgroundImage} >
+
+                <ScrollView>
 
                 <View style={styles.container}>
 
-                    <Text style={styles.pageHeading}>Register</Text>
+                    {/* <Text style={styles.pageHeading}>Register</Text> */}
 
                     <View style={styles.inputView}>
-                        <Image style={styles.inputImage} source={require('./assets/images/user.png')} />
+                        <Image style={styles.inputImage} source={require('./assets/images/name.png')} />
                         <TextInput
                             style={styles.textInput}
                             placeholder="Name *"
-                            placeholderTextColor="#fff"
-                            color="#fff"
+                            placeholderTextColor="#000"
+                            color="#000"
                             value={this.state.name}
                             onChangeText={(text) => { this.setState({ name: text }) }}
                         />
@@ -100,8 +103,8 @@ export default class SignUpScreen extends React.Component {
                         <TextInput
                             style={styles.textInput}
                             placeholder="Email *"
-                            placeholderTextColor="#fff"
-                            color="#fff"
+                            placeholderTextColor="#000"
+                            color="#000"
                             keyboardType="email-address"
                             value={this.state.email}
                             onChangeText={(text) => { this.setState({ email: text }) }}
@@ -109,12 +112,25 @@ export default class SignUpScreen extends React.Component {
                     </View>
 
                     <View style={styles.inputView}>
-                        <Image style={styles.inputImage} source={require('./assets/images/call.png')} />
+                        <Image style={styles.inputImage} source={require('./assets/images/password.png')} />
+                        <TextInput
+                            style={styles.textInput}
+                            placeholder="Password *"
+                            placeholderTextColor="#000"
+                            color="#000"
+                            secureTextEntry={true}
+                            value={this.state.password}
+                            onChangeText={(text) => { this.setState({ password: text }) }}
+                        />
+                    </View>
+
+                    <View style={styles.inputView}>
+                        <Image style={styles.inputImage} source={require('./assets/images/cal_now.png')} />
                         <TextInput
                             style={styles.textInput}
                             placeholder="Phone No *"
-                            placeholderTextColor="#fff"
-                            color="#fff"
+                            placeholderTextColor="#000"
+                            color="#000"
                             keyboardType="number-pad"
                             value={this.state.phone}
                             onChangeText={(text) => { this.setState({ phone: text }) }}
@@ -122,27 +138,14 @@ export default class SignUpScreen extends React.Component {
                     </View>
 
                     <View style={styles.inputView}>
-                        <Image style={styles.inputImage} source={require('./assets/images/key.png')} />
+                        <Image style={styles.inputImage} source={require('./assets/images/address.png')} />
                         <TextInput
                             style={styles.textInput}
                             placeholder="City *"
-                            placeholderTextColor="#fff"
-                            color="#fff"
+                            placeholderTextColor="#000"
+                            color="#000"
                             value={this.state.city}
                             onChangeText={(text) => { this.setState({ city: text }) }}
-                        />
-                    </View>
-
-                    <View style={styles.inputView}>
-                        <Image style={styles.inputImage} source={require('./assets/images/key.png')} />
-                        <TextInput
-                            style={styles.textInput}
-                            placeholder="Password *"
-                            placeholderTextColor="#fff"
-                            color="#fff"
-                            secureTextEntry={true}
-                            value={this.state.password}
-                            onChangeText={(text) => { this.setState({ password: text }) }}
                         />
                     </View>
 
@@ -152,11 +155,8 @@ export default class SignUpScreen extends React.Component {
                         <Text style={styles.signupText}>Sign Up</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.loginButton} onPress = {() => this.backToLogIn()}>
-                        <Text style={styles.loginText}>Login</Text>
-                    </TouchableOpacity>
-
                 </View>
+                </ScrollView>
             </ImageBackground>
         );
     }
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "center",
-        margin: 10,
+        marginTop: 50,
     },
 
     backgroundImage: {
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     },
 
     pageHeading: {
-        color: "#fff",
+        color: "#000",
         fontSize: 40,
         alignSelf: "center",
         marginBottom: 50,
@@ -195,6 +195,8 @@ const styles = StyleSheet.create({
     inputImage: {
         margin: 10,
         alignSelf: "center",
+        width:20,
+        height:20,
     },
 
     textInput: {
@@ -204,6 +206,7 @@ const styles = StyleSheet.create({
     signupBtn: {
         width: "80%",
         height: 45,
+        marginTop:20,
         alignSelf: "center",
         justifyContent: "center",
         backgroundColor: "#408F48",
@@ -225,7 +228,7 @@ const styles = StyleSheet.create({
     },
 
     loginText: {
-        color: "#fff",
+        color: "#000",
         fontSize: 16,
         fontStyle: "italic",
         textDecorationLine: "underline",

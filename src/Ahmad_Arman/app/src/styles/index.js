@@ -12,29 +12,48 @@ const STYLES = StyleSheet.create({
     flex: 1,
     fontSize: 18,
   },
-  inputIcon: {marginTop: 15, position: 'absolute'},
+  inputIcon: {
+    marginTop: 15, 
+    position: 'absolute'
+  },
+
   btnPrimary: {
     backgroundColor: COLORS.primary,
     height: 50,
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 50,
+    marginTop: 30,
+  },
+
+  btnSecondarySignUp: {
+    backgroundColor: COLORS.primary,
+    height: 50,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 5,
   },
 
   btnSecondary: {
-    height: 50,
-    borderWidth: 1,
+    height: 35,
     borderColor: '#a5a5a5',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 5,
     flex: 1,
     flexDirection: 'row',
   },
-  btnImage: {width: 20, height: 20, marginLeft: 5},
+  btnImage: {
+    width: 20, 
+    height: 20, 
+    marginLeft: 5
+  },
 
-  line: {height: 1, width: 30, backgroundColor: '#a5a5a5'},
+  line: {
+    height: 1, 
+    width: 30, 
+    backgroundColor: '#a5a5a5'
+  },
 });
 
 export default STYLES;

@@ -1,5 +1,8 @@
 import React from 'react';
-import {SafeAreaView, View, Text, TextInput, Image, Alert, ToastAndroid, StyleSheet, TouchableOpacity, ScrollView} from 'react-native';
+import {SafeAreaView, View, Text, TextInput, Image, Alert, ToastAndroid, StyleSheet, 
+  TouchableOpacity, ScrollView, ImageBackground,
+  ActivityIndicator,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from '../../consts/color'
 import STYLES from '../../styles/index';
@@ -11,11 +14,17 @@ export default class SignInScreen extends React.Component {
 
   state = {
     username : '',
-    password : ''
+    password : '',
+    activityIndicator:0,
   }
 
   loginAction()
   {
+
+    if(this.state.username.length == 0 || this.state.password.length == 0){
+      Alert.alert('Username or password must not be empty');
+    }else{
+    this.setState({activityIndicator:1});
     const data = 
         { 
           'email':this.state.username,
@@ -28,6 +37,7 @@ export default class SignInScreen extends React.Component {
 
         axios.post('https://thefoodpharmacy.pk/api/auth/login', data, {headers}).
         then(response => {
+            this.setState({activityIndicator:0});
             if(response.data["status"] === "error")
             {
                 Alert.alert("Error", response.data["response"]);
@@ -40,7 +50,9 @@ export default class SignInScreen extends React.Component {
         }).
         catch(error => {
             Alert.alert("Error", error.message);
+            this.setState({activityIndicator:0});
         });
+    }
   }
 
   forgotPasswordAction()
@@ -56,16 +68,14 @@ export default class SignInScreen extends React.Component {
   render()
   {
     return (
+    <ImageBackground source={require('./bcbcbc.png')} style={styles.backgroundImage} >
       <View style = {{flex : 1}}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={{paddingHorizontal: 20, flex: 1, backgroundColor : 'white'}}>
-            <View style={{marginTop: 70}}>
-              <Text style={{fontSize: 27, fontWeight: 'bold', color: COLORS.dark}}>
-                Welcome,
-              </Text>
-              <Text style={{fontSize: 19, fontWeight: 'bold', color: COLORS.light}}>
-                Sign in to continue
-              </Text>
+
+          <View style={{paddingHorizontal: 20, flex: 1}}>
+            
+            <View style={{marginTop: 50}}>
+              {/* Nothing to do with this */}
             </View>
     
             <View style={{marginTop: 20}}>
@@ -92,12 +102,24 @@ export default class SignInScreen extends React.Component {
                   value = {this.state.password} onChangeText = {(value) => this.setState({password : value})}
                 />
               </View>
+            <View style={{flex:1,flexDirection:'row'}}>
+              <TouchableOpacity style = {{marginTop : 20, marginLeft:10, marginRight:40}} onPress = {() => this.forgotPasswordAction()}>
+                  <Text style={{color: COLORS.dark, fontWeight: 'bold'}}>
+                    Remember me
+                  </Text>
+              </TouchableOpacity>
 
               <TouchableOpacity style = {{marginTop : 20}} onPress = {() => this.forgotPasswordAction()}>
                   <Text style={{color: COLORS.dark, fontWeight: 'bold'}}>
                     Forgot a Password?
                   </Text>
               </TouchableOpacity>
+
+            </View>
+
+            {this.state.activityIndicator?(<ActivityIndicator size="large" color="#00ff00" />):
+              (null)
+            }
 
               <TouchableOpacity style={STYLES.btnPrimary} onPress = {() => this.loginAction()}>
                   <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 18}}>
@@ -107,7 +129,7 @@ export default class SignInScreen extends React.Component {
               
               <View
                 style={{
-                  marginVertical: 20,
+                  marginVertical: 0,
                   flexDirection: 'row',
                   justifyContent: 'center',
                   alignItems: 'center',
@@ -117,37 +139,51 @@ export default class SignInScreen extends React.Component {
                 <View style={STYLES.line}></View>
               </View>
               
+              <TouchableOpacity style={STYLES.btnSecondarySignUp} onPress = {() => this.signUpAction()}>
+                  <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 18}}>
+                    Sign Up
+                  </Text>
+              </TouchableOpacity>
+
               <View
                 style={{
-                  flexDirection: 'row',
+                  flexDirection: 'column',
                   justifyContent: 'space-between',
                 }}>
-                <View style={STYLES.btnSecondary}>
-                  <Image
-                    style={STYLES.btnImage}
-                    source={require('../../assests/facebook1.png')}
-                  />
-                  <Text style={{fontWeight: 'bold', fontSize: 13}}>
-                    Continue with Facebook
-                  </Text>
-                  
+
+                <View>
+                  <Text style={{textAlign:'center', marginTop:5, marginBottom:5}}>  Login with: </Text>
                 </View>
-                <View style={{width: 10}}></View>
+               
+              <View style={{width: 10,}}></View>
+                 
                 <View style={STYLES.btnSecondary}>
                   <Image
                     style={STYLES.btnImage}
                     source={require('../../assests/google.png')}
                   />
-                  <Text style={{fontWeight: 'bold', fontSize: 14}}>
-                    Continue with Google
-                  </Text>
-                  
+                    <Text style={{marginLeft:5, fontWeight: 'bold', fontSize: 14}}>
+                      Continue with Google
+                    </Text>
                 </View>
+
+
+                <View style={STYLES.btnSecondary}>
+                  <Image
+                    style={STYLES.btnImage}
+                    source={require('../../assests/facebook1.png')}
+                  />
+                  <Text style={{marginLeft:5, fontWeight: 'bold', fontSize: 13}}>
+                    Continue with Facebook
+                  </Text>
+                </View>
+
               </View>
+
             </View>
             
     
-            <View
+            {/* <View
               style={{
                 flexDirection: 'row',
                 alignItems: 'flex-end',
@@ -163,11 +199,13 @@ export default class SignInScreen extends React.Component {
                   {'\t'}Sign up
                 </Text>
               </TouchableOpacity>
-            </View>
+            </View> */}
 
           </View>
         </ScrollView>
       </View>
+    </ImageBackground>
+
     );
   }
 }
@@ -186,5 +224,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     alignSelf: "center",
     textTransform: "uppercase"
-  }
+  },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+},
+
 });
