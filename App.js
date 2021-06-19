@@ -11,21 +11,31 @@ import CoachingScreen from './src/Irbaz_Ahsan/CoachingScreen.js'
 import PaymentScreen from './src/Saboor_Malik/PaymentScreen.js'
 import HealthHistoryScreen from './src/Hamza_Iftikhar/HealthHistoryScreen.js'
 import DietPlanScreen from './src/Muhammad_Sharjeel/DietPlanScreen.js'
+import { Alert } from 'react-native';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 export default class App extends React.Component {  
 
-  drawerScreens()
+  themeColor = '';
+
+  constructor(props)
+  {
+    super(props);
+
+    this.themeColor = '#1f8e46';
+  }
+
+  drawerScreens(props)
   {
     return(
       <Drawer.Navigator initialRouteName = "Home">
-        <Drawer.Screen name="Home" component={HomeScreen} options = {{drawerLabel : 'Home'}}/>
-        <Drawer.Screen name="Coaching" component={CoachingScreen} options = {{drawerLabel : 'Coaching'}}/>
-        <Drawer.Screen name="Payment" component={PaymentScreen} options = {{drawerLabel : 'Payment'}}/>
-        <Drawer.Screen name="Health" component={HealthHistoryScreen} options = {{drawerLabel : 'Health'}}/>
-        <Drawer.Screen name="Diet" component={DietPlanScreen} options = {{drawerLabel : 'Diet'}}/>
+        <Drawer.Screen name="Home" component={HomeScreen} options = {{drawerLabel : 'Home'}} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId}}/>
+        <Drawer.Screen name="Coaching" component={CoachingScreen} options = {{drawerLabel : 'Coaching'}} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId}}/>
+        <Drawer.Screen name="Payment" component={PaymentScreen} options = {{drawerLabel : 'Payment'}} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId}}/>
+        <Drawer.Screen name="Health" component={HealthHistoryScreen} options = {{drawerLabel : 'Health'}} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId}}/>
+        <Drawer.Screen name="Diet" component={DietPlanScreen} options = {{drawerLabel : 'Diet'}} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId}}/>
       </Drawer.Navigator>
     );
   }
@@ -34,7 +44,7 @@ export default class App extends React.Component {
   {
     return(
       <Stack.Navigator initialRouteName = "SignIn" headerMode = 'none'>
-        <Stack.Screen name="SignIn" component={SignInScreen} />
+        <Stack.Screen name="SignIn" component={SignInScreen} initialParams = {{themeColor : this.themeColor}}/>
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="AfterLogIn" component={this.drawerScreens}/>
       </Stack.Navigator>

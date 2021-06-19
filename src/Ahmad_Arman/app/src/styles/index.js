@@ -2,7 +2,12 @@ import {StyleSheet} from 'react-native';
 import COLORS from '../consts/color';
 
 const STYLES = StyleSheet.create({
-  inputContainer: {flexDirection: 'row', marginTop: 20},
+  
+  inputContainer: {
+    flexDirection: 'row', 
+    marginTop: 20
+  },
+  
   input: {
     color: COLORS.light,
     paddingLeft: 30,
@@ -12,12 +17,18 @@ const STYLES = StyleSheet.create({
     flex: 1,
     fontSize: 18,
   },
+
   inputIcon: {
     marginTop: 15, 
     position: 'absolute'
   },
 
-  btnPrimary: {
+  inputIcon: {
+    marginTop: 15, 
+    position: 'absolute'
+  },
+    
+    btnPrimary: {
     backgroundColor: COLORS.primary,
     height: 50,
     borderRadius: 5,
