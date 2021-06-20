@@ -12,6 +12,8 @@ import {
     ScrollView
 } from 'react-native';
 
+import AnimatedLoader from "react-native-animated-loader";
+
 export default class SignUpScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -21,6 +23,7 @@ export default class SignUpScreen extends React.Component {
             phone: '',
             password: '',
             city: '',
+            visible: false,
         };
     }
 
@@ -61,6 +64,7 @@ export default class SignUpScreen extends React.Component {
             city: city
         };
         if (this.validation()) {
+            this.setState({visible:true});
             axios.post('https://thefoodpharmacy.pk/api/auth/register', JSON.stringify(params), {
                 headers: {
                     'Content-Type': 'application/json',
@@ -68,8 +72,10 @@ export default class SignUpScreen extends React.Component {
                 },
             }).then((response) => {
                 Alert.alert("Sign Up Successful", "Go Back and log in now.", [{text : "Log In", onPress : () => this.backToLogIn(), style : 'default'}]);
+                this.setState({visible:false});
             }).catch((err) => {
                 Alert.alert("Error", err.response.data.response.message);
+                this.setState({visible:false});
             });
         }
     }
@@ -148,6 +154,21 @@ export default class SignUpScreen extends React.Component {
                             onChangeText={(text) => { this.setState({ city: text }) }}
                         />
                     </View>
+
+                    {this.state.visible?(
+            
+                    <AnimatedLoader
+                    visible={this.state.visible}
+                    overlayColor="rgba(255,255,255,0.75)"
+                    source={require("./loader.json")}
+                    animationStyle={styles.lottie}
+                    speed={1}
+                    >
+                    <Text> Processing...</Text>
+                    </AnimatedLoader>            
+                    ):
+                    (null)
+                    }
 
                     <TouchableOpacity style={styles.signupBtn} onPress={() => {
                         this.signUpFunction()
@@ -233,5 +254,9 @@ const styles = StyleSheet.create({
         fontStyle: "italic",
         textDecorationLine: "underline",
     },
-
+    
+    lottie: {
+    width: 100,
+    height: 100
+  }
 });

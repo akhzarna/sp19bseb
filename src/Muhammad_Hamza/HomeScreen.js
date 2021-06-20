@@ -33,7 +33,8 @@ export default class HomeScreen extends Component {
         onPress: () => null,
         style: "cancel"
       },
-      { text: "YES", onPress: () => BackHandler.exitApp() }
+      // { text: "YES", onPress: () => BackHandler.exitApp() }
+      { text: "YES", onPress: () => this.props.navigation.pop() }
     ]);
     return true;
   };
@@ -61,26 +62,40 @@ export default class HomeScreen extends Component {
 
   render() {
     return (
-      <SafeAreaView>
+      <View style={{flex:1}}>
           {/* App Bar  */}
         <MyHeader themeColor = {this.props.route.params.themeColor} navigation = {this.props.navigation} homeScreen = {true}/>
-        <ScrollView showsVerticalScrollIndicator = {false}>
+          
           <View
             style={{
+              flex:1,
               marginLeft: '10%',
+              marginRight: '10%',
               marginTop: '4%',
-              backgroundColor: '#daedf0',
+              marginBottom: '4%',
+              backgroundColor: 'lightgrey',
               width: '79%',
               height: '6%',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}>
+
             <Text style={styles.textTop}>Please wait for Payment approval:</Text>
           </View>
 
           <View
             style={{
-              padding: 25,
+              flex:10,
+              padding: 20,
             }}>
-            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+
+            <View 
+              style={{
+                flex:1,
+                flexDirection: 'row', 
+                justifyContent: 'space-between',
+                }}>
+
               <Text
                 style={{
                   color: '#1f8e46',
@@ -93,16 +108,19 @@ export default class HomeScreen extends Component {
               </Text>
 
               <TouchableOpacity style={styles.button}>
-                <Text style={{color: '#ff9cff'}}>Create +</Text>
+                <Text style={{color: 'lightgrey'}}>Create +</Text>
               </TouchableOpacity>
+
             </View>
             {/* Calendar Image and button */}
+            
             <View
               style={{
-                marginTop: '11%',
+                flex:2,
                 flexDirection: 'row',
                 justifyContent: 'space-between',
               }}>
+
               <Image
                 style={styles.tinyLogo}
                 source={require('./img/calendar.png')}
@@ -113,7 +131,8 @@ export default class HomeScreen extends Component {
                 onPress={() => {
                   this.setState({show: true});
                 }}>
-                <Text>SCHEDULE</Text>
+
+                <Text style={styles.buttontext}>SCHEDULE</Text>
               </TouchableOpacity>
 
               <Modal
@@ -143,13 +162,16 @@ export default class HomeScreen extends Component {
                 </View>
               </Modal>
             </View>
+
             {/* Health history Image and button */}
+            
             <View
               style={{
-                marginTop: '32%',
+                flex:2,
                 flexDirection: 'row',
                 justifyContent: 'space-between',
               }}>
+              
               <Image
                 style={styles.helpLogo}
                 source={require('./img/helpp.png')}
@@ -158,27 +180,30 @@ export default class HomeScreen extends Component {
               <TouchableOpacity
                 style={styles.scheduleBtn}
                 onPress={() => this.goToHealthHistory()}>
-                <Text>HEALTH HISTORY</Text>
+                <Text style={styles.buttontext}>HEALTH HISTORY</Text>
               </TouchableOpacity>
+
             </View>
             {/* Diet plan image and button */}
+           
             <View
               style={{
-                marginTop: '40%',
+                flex:2,
                 flexDirection: 'row',
                 justifyContent: 'space-between',
               }}>
+
               <Image style={styles.tinyLogo} source={require('./img/diet.png')} />
 
               <TouchableOpacity
                 style={styles.scheduleBtn}
                 onPress={() => this.goToDietPlan()}>
-                <Text>DIET PLAN</Text>
+                <Text style={styles.buttontext}>DIET PLAN</Text>
               </TouchableOpacity>
+
             </View>
           </View>
-        </ScrollView>
-      </SafeAreaView>
+      </View>
     );
   }
 }
@@ -192,40 +217,39 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   textTop: {
-    justifyContent: 'center',
-    marginLeft: '15%',
-    marginTop: '2%',
     fontSize: 14,
   },
   button: {
-    borderColor: '#ff9cff',
+    borderColor: 'grey',
     width: '21%',
-    height: '110%',
+    height: '50%',
     borderRadius: 6,
     alignItems: 'center',
     borderWidth: 1,
   },
   scheduleBtn: {
     position: 'relative',
-    top: '5%',
-    marginTop: '5%',
-    width: '41%',
-    height: '60%',
-    borderColor: 'black',
+    marginTop: '10%',
+    width: '40%',
+    height: '20%',
+    borderColor: 'green',
     borderRadius: 1,
     alignItems: 'center',
     borderWidth: 1,
   },
+  buttontext:{
+    fontSize:12,
+  },
   tinyLogo: {
     tintColor: '#1f8e46',
-    width: '30%',
-    height: '234%',
+    width: '25%',
+    height: '75%',
     resizeMode : 'contain'
   },
   helpLogo: {
     tintColor: '#1f8e46',
-    width: '37%',
-    height: '325%',
+    width: '25%',
+    height: '75%',
     resizeMode : 'contain'
   },
   container: {

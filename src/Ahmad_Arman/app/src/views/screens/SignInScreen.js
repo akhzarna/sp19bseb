@@ -8,11 +8,13 @@ import COLORS from '../../consts/color'
 import STYLES from '../../styles/index';
 import axios from "axios";
 
+import AnimatedLoader from "react-native-animated-loader";
+
 export default class SignInScreen extends React.Component {
   state = {
     username : '',
     password : '',
-    activityIndicator:0,
+    visible: false,
   }
 
   loginAction()
@@ -21,7 +23,7 @@ export default class SignInScreen extends React.Component {
     if(this.state.username.length == 0 || this.state.password.length == 0){
       Alert.alert('Username or password must not be empty');
     }else{
-    this.setState({activityIndicator:1});
+    this.setState({visible:true});
     const data = 
         { 
           'email':this.state.username,
@@ -34,7 +36,7 @@ export default class SignInScreen extends React.Component {
 
         axios.post('https://thefoodpharmacy.pk/api/auth/login', data, {headers}).
         then(response => {
-            this.setState({activityIndicator:0});
+            this.setState({visible:false});
             if(response.data["status"] === "error")
             {
                 Alert.alert("Error", response.data["response"]);
@@ -47,7 +49,7 @@ export default class SignInScreen extends React.Component {
         }).
         catch(error => {
             Alert.alert("Error", error.message);
-            this.setState({activityIndicator:0});
+            this.setState({visible:false});
         });
     }
   }
@@ -114,7 +116,18 @@ export default class SignInScreen extends React.Component {
 
             </View>
 
-            {this.state.activityIndicator?(<ActivityIndicator size="large" color="#00ff00" />):
+            {this.state.visible?(
+            
+                <AnimatedLoader
+                  visible={this.state.visible}
+                  overlayColor="rgba(255,255,255,0.75)"
+                  source={require("./loader.json")}
+                  animationStyle={styles.lottie}
+                  speed={1}
+                >
+                  <Text> Processing...</Text>
+                </AnimatedLoader>            
+            ):
               (null)
             }
 
@@ -226,5 +239,9 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
     justifyContent: "center",
 },
+  lottie: {
+    width: 100,
+    height: 100
+  }
 
 });
