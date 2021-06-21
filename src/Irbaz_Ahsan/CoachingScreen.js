@@ -1,16 +1,41 @@
 import * as React from 'react';
-import { View, TouchableOpacity, Image, Text, Alert, FlatList, ScrollView, StyleSheet, ImageBackground, Button } from 'react-native';
+import { View, TouchableOpacity, Image, Text, Alert, FlatList, ScrollView, StyleSheet, ImageBackground, Button,
+  ToastAndroid } from 'react-native';
 import MyHeader from '../Hamza_Iftikhar/MyHeader.js';
 
 export default class CoachingScreen extends React.Component {
     
+    submitLiveCoaching()
+    {
+      // Alert.alert('Submit Live Coaching');
+
+      this.props.navigation.navigate('Payment', 
+      {
+        // themeColor : this.props.route.params.themeColor, token : response.data["response"]["jwt"], userId : response.data["user"]["id"], email : this.state.username
+      }
+      )
+
+    }
+
+    submitPhysicalCoaching()
+    {
+      
+      
+      this.props.navigation.navigate('Payment', 
+      {
+        // themeColor : this.props.route.params.themeColor, token : response.data["response"]["jwt"], userId : response.data["user"]["id"], email : this.state.username
+      }
+      )
+      
+    }
+
     render()
     {
         return(
            
     <View style={{flex:1,flexDirection: "column", backgroundColor:'white'}}>
     
-        <MyHeader themeColor = {this.props.route.params.themeColor} navigation = {this.props.navigation} homeScreen = {true}/>
+    <MyHeader themeColor = {this.props.route.params.themeColor} navigation = {this.props.navigation} homeScreen = {false}/>
      
             <View style={{
                 flex:2,
@@ -33,10 +58,10 @@ export default class CoachingScreen extends React.Component {
       
       <Text style={{
         flex:1,
-        backgroundColor:'green',
-        marginTop:40,
-        marginBottom:10,
-        alignContent:'center'}}>
+        marginTop:0,
+        marginLeft:35,
+        alignContent:'center',
+        alignItems:'center'}}>
                 Live Coaching
       </Text>
 
@@ -47,13 +72,23 @@ export default class CoachingScreen extends React.Component {
                 source={require('./assets/livecoaching.png')} resizeMode="contain"
               
                 >
-                  <Text> Testing Jaari hai </Text>
-                  <Text> Testing Jaari hai </Text>
-                  <Text> Testing Jaari hai </Text>
-                  <Text> Testing Jaari hai </Text>
-                  <Text> Testing Jaari hai </Text>
-                  <Text> Testing Jaari hai </Text>
-                  <Text> Testing Jaari hai </Text>
+                  <Text style = {{fontSize:11, marginLeft:24, marginTop:110, color:'white'}}> Price/session </Text>
+                  <Text style = {{fontSize:8, marginLeft:96, marginTop:0, color:'white'}}> 5000 </Text>
+
+                  <Text style = {{fontSize:11, marginLeft:24, marginTop:0, color:'white'}}> Price/4 session </Text>
+                  <Text style = {{fontSize:8, marginLeft:96, marginTop:0, color:'white'}}> 20000 </Text>
+
+                  <Text style = {{fontSize:11, marginLeft:24, marginTop:0, color:'white'}}> Price/5 session </Text>
+                  <Text style = {{fontSize:8, marginLeft:96, marginTop:0, color:'white'}}> 25000 </Text>
+
+                  <Text style = {{fontSize:11, marginLeft:24, marginTop:0, color:'white'}}> Duration </Text>
+                  <Text style = {{fontSize:8, marginLeft:96, marginTop:0, color:'white'}}> 60 Minutes </Text>
+
+                  <TouchableOpacity style = {{marginTop : 12, alignItems:'center'}} onPress = {() => this.submitLiveCoaching()}>
+                  <Text style={{color:'green', fontWeight: 'bold'}}>
+                    SUBMIT
+                  </Text>
+                  </TouchableOpacity>
 
       </ImageBackground>
       </View>
@@ -62,10 +97,10 @@ export default class CoachingScreen extends React.Component {
       
       <Text style={{
         flex:1,
-        backgroundColor:'green',
-        marginTop:40,
-        marginBottom:10,
-        alignContent:'center'}}>
+        marginTop:0,
+        marginLeft:25,
+        alignContent:'center',
+        alignItems:'center'}}>
                 Physical Coaching
       </Text>
 
@@ -74,16 +109,27 @@ export default class CoachingScreen extends React.Component {
                   flex: 9,
                   }}
                 source={require('./assets/physicalcoaching.png')} resizeMode="contain"
-              
                 >
-                  <Text> Testing Jaari hai </Text>
-                  <Text> Testing Jaari hai </Text>
-                  <Text> Testing Jaari hai </Text>
-                  <Text> Testing Jaari hai </Text>
-                  <Text> Testing Jaari hai </Text>
-                  <Text> Testing Jaari hai </Text>
-                  <Text> Testing Jaari hai </Text>
+            
+                  <Text style = {{fontSize:11, marginLeft:24, marginTop:115, color:'white'}}> Price/session </Text>
+                  <Text style = {{fontSize:8, marginLeft:96, marginTop:0, color:'white'}}> 5000 </Text>
 
+                  <Text style = {{fontSize:11, marginLeft:24, marginTop:0, color:'white'}}> Price/4 session </Text>
+                  <Text style = {{fontSize:8, marginLeft:96, marginTop:0, color:'white'}}> 20000 </Text>
+
+                  <Text style = {{fontSize:11, marginLeft:24, marginTop:0, color:'white'}}> Price/5 session </Text>
+                  <Text style = {{fontSize:8, marginLeft:96, marginTop:0, color:'white'}}> 25000 </Text>
+
+                  <Text style = {{fontSize:11, marginLeft:24, marginTop:0, color:'white'}}> Duration </Text>
+                  <Text style = {{fontSize:8, marginLeft:96, marginTop:0, color:'white'}}> 60 Minutes </Text>
+
+                  <TouchableOpacity style = {{marginTop : 10, alignItems:'center'}} onPress = {() => this.submitPhysicalCoaching()}>
+                  <Text style={{color:'green', fontWeight: 'bold'}}>
+                    SUBMIT
+                  </Text>
+                  </TouchableOpacity>
+
+                
       </ImageBackground>
       </View>
 
