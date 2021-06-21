@@ -29,7 +29,7 @@ export default class DietPlanScreen extends React.Component {
     then(response => {
         if(response.data["status"] === "error")
         {
-          Alert.alert("Note", response.data["response"]["message"], [{text : "Ok", onPress : () => this.props.navigation.goBack(), style : 'default'}]);
+          // Alert.alert("Note", response.data["response"]["message"], [{text : "Ok", onPress : () => this.props.navigation.goBack(), style : 'default'}]);
           this.setState({visible:false});
         }
 
@@ -59,7 +59,7 @@ export default class DietPlanScreen extends React.Component {
     return (
       <View>
         {this.state.visible?(
-            
+
             <AnimatedLoader
               visible={this.state.visible}
               overlayColor="rgba(255,255,255,0.75)"
@@ -70,14 +70,15 @@ export default class DietPlanScreen extends React.Component {
               <Text> Processing...</Text>
             </AnimatedLoader>            
           ):
-          <View style={{ flex: 1, backgroundColor: '#fff', }}>
+          
+        <View style={{ flex: 1, backgroundColor: 'red'}}>
           <MyHeader themeColor = {this.props.route.params.themeColor} navigation = {this.props.navigation} homeScreen = {false}/>
           <View style={{
             backgroundColor: '#fff',
           }}>
             <View>
               <Text style={{
-                top: 25,
+                top: 125,
                 left: 20,
                 fontSize: 20,
               }}>Download From Here</Text>
