@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
         marginLeft : 0,
         marginBottom : 0,
         borderWidth : 0,
-        fontWeight : 'normal'
+        fontWeight : 'normal',
+        backgroundColor : '#fff'
     }
   });

@@ -23,8 +23,8 @@ export default class SignInScreen extends React.Component {
     if(this.state.username.length == 0 || this.state.password.length == 0){
       Alert.alert('Username or password must not be empty');
     }else{
-    this.setState({visible:true});
-    const data = 
+        this.setState({visible:true});
+        const data = 
         { 
           'email':this.state.username,
           'password':this.state.password  
@@ -44,7 +44,7 @@ export default class SignInScreen extends React.Component {
 
             if(response.data["status"] === "okay")
             {
-              this.props.navigation.navigate('AfterLogIn', {themeColor : this.props.route.params.themeColor, token : response.data["response"]["jwt"], userId : response.data["user"]["id"]})
+              this.props.navigation.navigate('AfterLogIn', {themeColor : this.props.route.params.themeColor, token : response.data["response"]["jwt"], userId : response.data["user"]["id"], email : this.state.username})
             }
         }).
         catch(error => {

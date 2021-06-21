@@ -4,6 +4,8 @@ import {Picker} from '@react-native-picker/picker';
 import DatePicker from 'react-native-datepicker';
 import { RadioButton } from "react-native-paper";
 
+import AnimatedLoader from "react-native-animated-loader";
+
 import MyHeader from './MyHeader';
 import MyCheckBox from './MyCheckBox';
 import axios from "axios";
@@ -22,7 +24,8 @@ export default class HealthHistoryScreen extends React.Component
         exerciseDetails_morning : '', exerciseDetails_afternoon : '', exerciseDetails_evening : '', exerciseDetails_night : '', exerciseDetails_duration : '',
         portionSize : '', waterQuantity : '', drinking : '', smoking : '', useSoftDrinks : '', drinkingRoutine : '',
         majorAddiction : '', foodOrSugarOrDrugs : '', eatOutOrHome : '', eatMoreWhenUpset : '', eatMoreWhenUpsetReason : '',
-        relevantInformationAvailable : '', relevantInformationDetails : ''
+        relevantInformationAvailable : '', relevantInformationDetails : '',
+        visible : false
     }
 
     submitResponse()
@@ -90,6 +93,8 @@ export default class HealthHistoryScreen extends React.Component
             'user_id': this.props.route.params.userId
         };
 
+        this.setState({visible : true});
+
         const headers = { 
             'Authorization': 'Bearer ' + this.props.route.params.token,
             'content-type':'application/json'
@@ -99,15 +104,18 @@ export default class HealthHistoryScreen extends React.Component
         then(response => {
             if(response.data["status"] === "error")
             {
+                this.setState({visible : false});
                 Alert.alert("Error", response.data["response"]);
             }
 
             if(response.data["status"] === "okay")
             {
+                this.setState({visible : false});
                 Alert.alert("Submission Status", "Data submitted successfully", [{text : "Ok", onPress : () => this.props.navigation.goBack(), style : 'default'}]);
             }
         }).
         catch(error => {
+            this.setState({visible : false});
             Alert.alert("Error", error.message);
         });
     }
@@ -473,13 +481,34 @@ export default class HealthHistoryScreen extends React.Component
         );
     }
 
+    renderLoader()
+    {
+        return(
+            <View>
+                {
+                    this.state.visible ? (
+                    <AnimatedLoader
+                    visible={this.state.visible}
+                    overlayColor="rgba(255,255,255,0.75)"
+                    source={require("./loader.json")}
+                    animationStyle={styles.lottie}
+                    speed={1}
+                    >
+                        <Text> Submitting...</Text>
+                    </AnimatedLoader>            
+                    ):(null)
+                }
+            </View>
+        );
+    }
+
     render()
     {
         return(
             <View>
                 <MyHeader themeColor = {this.props.route.params.themeColor} navigation = {this.props.navigation} homeScreen = {false}/>
                 
-                <ScrollView>
+                <ScrollView style = {{backgroundColor : '#fff'}}>
                     <View style = {styles.container}>
                         <Text style = {[styles.headerText, {color : this.props.route.params.themeColor}]}>
                                 HEALTH HISTORY FORM:
@@ -497,6 +526,7 @@ export default class HealthHistoryScreen extends React.Component
                         {this.renderFoodDetails()}
                         {this.renderDrugsDetails()}
                         {this.renderSubmitButton()}
+                        {this.renderLoader()}
                         
                     </View>
                 </ScrollView>
@@ -554,5 +584,10 @@ const styles = StyleSheet.create({
     button : 
     {
         marginVertical : 10
+    },
+    lottie : 
+    {
+        height : 100,
+        width : 100
     }
 });

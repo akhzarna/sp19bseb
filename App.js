@@ -31,11 +31,11 @@ export default class App extends React.Component {
   {
     return(
       <Drawer.Navigator initialRouteName = "Home">
-        <Drawer.Screen name="Home" component={HomeScreen} options = {{drawerLabel : 'Home'}} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId}}/>
-        <Drawer.Screen name="Coaching" component={CoachingScreen} options = {{drawerLabel : 'Coaching'}} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId}}/>
-        <Drawer.Screen name="Payment" component={PaymentScreen} options = {{drawerLabel : 'Payment'}} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId}}/>
-        <Drawer.Screen name="Health" component={HealthHistoryScreen} options = {{drawerLabel : 'Health'}} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId}}/>
-        <Drawer.Screen name="Diet" component={DietPlanScreen} options = {{drawerLabel : 'Diet'}} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId}}/>
+        <Drawer.Screen name="Home" component={HomeScreen} options = {{drawerLabel : 'Home'}} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
+        <Drawer.Screen name="Coaching" component={CoachingScreen} options = {{drawerLabel : 'Coaching'}} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
+        <Drawer.Screen name="Payment" component={PaymentScreen} options = {{drawerLabel : 'Payment'}} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
+        <Drawer.Screen name="Health" component={HealthHistoryScreen} options = {{drawerLabel : 'Health'}} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
+        <Drawer.Screen name="Diet" component={DietPlanScreen} options = {{drawerLabel : 'Diet'}} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
       </Drawer.Navigator>
     );
   }
