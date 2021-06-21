@@ -60,155 +60,107 @@ export default class HomeScreen extends Component {
     this.props.navigation.navigate('Diet', {themeColor : this.props.route.params.themeColor, token : this.props.route.params.token, userId : this.props.route.params.userId})
   }
 
-  goToCoachingScreen()
+  goToSelectScreen()
   {
-    this.props.navigation.navigate('Coaching', {themeColor : this.props.route.params.themeColor, token : this.props.route.params.token, userId : this.props.route.params.userId})
+    this.props.navigation.navigate('Select', {themeColor : this.props.route.params.themeColor, token : this.props.route.params.token, userId : this.props.route.params.userId})
   }
 
   render() {
     return (
       <View style={{flex:1}}>
-          {/* App Bar  */}
         <MyHeader themeColor = {this.props.route.params.themeColor} navigation = {this.props.navigation} homeScreen = {true}/>
-          
-          <View
-            style={{
-              flex:1,
-              marginLeft: '10%',
-              marginRight: '10%',
-              marginTop: '4%',
-              marginBottom: '4%',
-              backgroundColor: 'lightgrey',
-              width: '79%',
-              height: '6%',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
+        <ScrollView showsVerticalScrollIndicator = {false}>
+          <View style = {{flex : 1}}>
+              {/* App Bar  */}
+              <View style={{marginVertical : 20, backgroundColor: 'lightgrey', width: '80%', height: 40, justifyContent: 'center', alignItems: 'center', alignSelf : 'center'}}>
+                <Text style={styles.textTop}>Please wait for Payment approval:</Text>
+              </View>
 
-            <Text style={styles.textTop}>Please wait for Payment approval:</Text>
-          </View>
+              <View style = {{width : "85%", alignSelf : 'center', marginVertical : 20}}>
+                
+                <View style={{flexDirection: 'row', justifyContent: 'space-between', alignContent : 'center'}}>
+                  <Text style={{color: '#1f8e46', fontSize: 16, fontFamily: 'Entypo', paddingVertical : 5}}>
+                    Coaching:
+                  </Text>
 
-          <View
-            style={{
-              flex:10,
-              padding: 20,
-            }}>
-
-            <View 
-              style={{
-                flex:1,
-                flexDirection: 'row', 
-                justifyContent: 'space-between',
-                }}>
-
-              <Text
-                style={{
-                  color: '#1f8e46',
-                  fontSize: 16,
-                  marginLeft: '2%',
-                  fontWeight: 'bold',
-                  fontFamily: 'Entypo',
-                }}>
-                Coaching:
-              </Text>
-
-              <TouchableOpacity style={styles.button}
-              onPress={() => this.goToCoachingScreen()}>
-                <Text style={{color: 'lightgrey'}}>Create +</Text>
-              </TouchableOpacity>
-
-            </View>
-            {/* Calendar Image and button */}
-            
-            <View
-              style={{
-                flex:2,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}>
-
-              <Image
-                style={styles.tinyLogo}
-                source={require('./img/calendar.png')}
-              />
-
-              <TouchableOpacity
-                style={styles.scheduleBtn}
-                onPress={() => {
-                  this.setState({show: true});
-                }}>
-
-                <Text style={styles.buttontext}>SCHEDULE</Text>
-              </TouchableOpacity>
-
-              <Modal
-                animationType="slide"
-                transparent={true}
-                visible={this.state.show}>
-                <View
-                  style={{
-                    flex: 1,
-                    backgroundColor: '#000000aa',
-                  }}>
-                  <View style={styles.container}>
-                    <WebView
-                      source={{uri: 'https://calendly.com/info-27679/15min'}}
-                    />
-
-                    <IconButton
-                      style={styles.closeButton}
-                      icon="close"
-                      color={Colors.green500}
-                      size={35}
-                      onPress={() => {
-                        this.setState({show: false});
-                      }}
-                    />
-                  </View>
+                  <TouchableOpacity style={styles.button} onPress={() => this.goToSelectScreen()}>
+                    <Text style={{color: 'lightgrey'}}>Create +</Text>
+                  </TouchableOpacity>
                 </View>
-              </Modal>
-            </View>
+                {/* Calendar Image and button */}
+                
+                <View style={{flexDirection: 'row', justifyContent: 'space-between', alignContent : 'center', marginVertical : 30}}>
+                  <Image style={styles.tinyLogo} source={require('./img/calendar.png')}/>
 
-            {/* Health history Image and button */}
-            
-            <View
-              style={{
-                flex:2,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}>
+                  <TouchableOpacity
+                    style={styles.scheduleBtn}
+                    onPress={() => {
+                      this.setState({show: true});
+                    }}>
+
+                    <Text style={styles.buttontext}>SCHEDULE</Text>
+                  </TouchableOpacity>
+
+                  <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={this.state.show}>
+                    <View
+                      style={{
+                        flex: 1,
+                        backgroundColor: '#000000aa',
+                      }}>
+                      <View style={styles.container}>
+                        <WebView
+                          source={{uri: 'https://calendly.com/info-27679/15min'}}
+                        />
+
+                        <IconButton
+                          style={styles.closeButton}
+                          icon="close"
+                          color={Colors.green500}
+                          size={35}
+                          onPress={() => {
+                            this.setState({show: false});
+                          }}
+                        />
+                      </View>
+                    </View>
+                  </Modal>
+                </View>
+
+                {/* Health history Image and button */}
+                
+                <View style={{flexDirection: 'row', justifyContent: 'space-between', alignContent : 'center', marginVertical : 30}}>
+                  
+                  <Image
+                    style={styles.tinyLogo}
+                    source={require('./img/helpp.png')}
+                  />
+
+                  <TouchableOpacity
+                    style={styles.scheduleBtn}
+                    onPress={() => this.goToHealthHistory()}>
+                    <Text style={styles.buttontext}>HEALTH HISTORY</Text>
+                  </TouchableOpacity>
+
+                </View>
+                {/* Diet plan image and button */}
               
-              <Image
-                style={styles.helpLogo}
-                source={require('./img/helpp.png')}
-              />
+                <View style={{flexDirection: 'row', justifyContent: 'space-between', alignContent : 'center', marginVertical : 30}}>
 
-              <TouchableOpacity
-                style={styles.scheduleBtn}
-                onPress={() => this.goToHealthHistory()}>
-                <Text style={styles.buttontext}>HEALTH HISTORY</Text>
-              </TouchableOpacity>
+                  <Image style={styles.tinyLogo} source={require('./img/diet.png')} />
 
+                  <TouchableOpacity
+                    style={styles.scheduleBtn}
+                    onPress={() => this.goToDietPlan()}>
+                    <Text style={styles.buttontext}>DIET PLAN</Text>
+                  </TouchableOpacity>
+
+                </View>
+              </View>
             </View>
-            {/* Diet plan image and button */}
-           
-            <View
-              style={{
-                flex:2,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}>
-
-              <Image style={styles.tinyLogo} source={require('./img/diet.png')} />
-
-              <TouchableOpacity
-                style={styles.scheduleBtn}
-                onPress={() => this.goToDietPlan()}>
-                <Text style={styles.buttontext}>DIET PLAN</Text>
-              </TouchableOpacity>
-
-            </View>
-          </View>
+        </ScrollView>
       </View>
     );
   }
@@ -216,46 +168,36 @@ export default class HomeScreen extends Component {
 
 // Styles
 const styles = StyleSheet.create({
-  icon: {
-    width: 100,
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-  },
   textTop: {
-    fontSize: 14,
+    fontSize: 16,
   },
   button: {
     borderColor: 'grey',
-    width: '21%',
-    height: '50%',
+    width: '25%',
+    height: 30,
     borderRadius: 6,
     alignItems: 'center',
     borderWidth: 1,
+    borderColor : 'lightgray',
+    justifyContent : 'center'
   },
   scheduleBtn: {
-    position: 'relative',
-    marginTop: '10%',
+    marginTop : 40,
     width: '40%',
-    height: '20%',
+    height: 30,
     borderColor: 'green',
     borderRadius: 1,
     alignItems: 'center',
-    borderWidth: 1,
+    justifyContent : 'center',
+    borderWidth: 1
   },
   buttontext:{
     fontSize:12,
   },
   tinyLogo: {
     tintColor: '#1f8e46',
-    width: '25%',
-    height: '75%',
-    resizeMode : 'contain'
-  },
-  helpLogo: {
-    tintColor: '#1f8e46',
-    width: '25%',
-    height: '75%',
+    width: 100,
+    height: 100,
     resizeMode : 'contain'
   },
   container: {

@@ -4,33 +4,51 @@ import { View, TouchableOpacity, Image, Text, Alert, FlatList, ScrollView, Style
 import MyHeader from '../Hamza_Iftikhar/MyHeader.js';
 
 export default class CoachingScreen extends React.Component {
-    
+
     submitLiveCoaching()
     {
-      // Alert.alert('Submit Live Coaching');
-
       this.props.navigation.navigate('Payment', 
-      {
-        // themeColor : this.props.route.params.themeColor, token : response.data["response"]["jwt"], userId : response.data["user"]["id"], email : this.state.username
-      }
+        {
+          themeColor : this.props.route.params.themeColor, token : this.props.route.params.token, userId : this.props.route.params.userId, email : this.props.route.params.email
+        }
       )
 
     }
 
     submitPhysicalCoaching()
     {
-      
-      
       this.props.navigation.navigate('Payment', 
-      {
-        // themeColor : this.props.route.params.themeColor, token : response.data["response"]["jwt"], userId : response.data["user"]["id"], email : this.state.username
-      }
+        {
+          themeColor : this.props.route.params.themeColor, token : this.props.route.params.token, userId : this.props.route.params.userId, email : this.props.route.params.email
+        }
       )
-      
     }
 
     render()
     {
+      return(
+        <View style = {{flex : 1, flexDirection : 'column', backgroundColor : 'white'}}>
+          <MyHeader themeColor = {this.props.route.params.themeColor} navigation = {this.props.navigation} homeScreen = {false}/>
+          <ScrollView showsVerticalScrollIndicator = {false}>
+            <View style={{marginVertical : 20, backgroundColor: 'lightgrey', width: '90%', height: 50, justifyContent: 'center', alignItems: 'center', alignSelf : 'center'}}>
+              <Text style={styles.textTop}>Physical Coaching not available for now due to current pandemic. Thank you</Text>
+            </View>
+
+            <View style = {{flexDirection : 'row', width : "90%", marginVertical : 50, alignSelf : 'center'}}>
+              <View style = {{flexDirection : 'column', width : "40%", justifyContent : 'center', alignItems : 'center'}}>
+                <Text>Live Coaching</Text>
+
+                <ImageBackground style = {{flex : 1, width : '100%', height : '100%'}} source={require('./assets/livecoaching.png')} resizeMode="contain">
+
+                </ImageBackground>
+              </View>
+              <View style = {{marginLeft : '10%',flexDirection : 'column', width : "40%", justifyContent : 'center', alignItems : 'center'}}>
+                <Text>Physical Coaching</Text>
+              </View>
+            </View>
+          </ScrollView>
+        </View>
+      );
         return(
            
     <View style={{flex:1,flexDirection: "column", backgroundColor:'white'}}>
@@ -218,35 +236,39 @@ export default class CoachingScreen extends React.Component {
 
 
 const styles = StyleSheet.create({
-    title:{
-      color: '#009900',
-    },
-    menuItem:{
-      marginTop: '35%',
-      marginLeft: '20%',
-      
-    },
-    menuPrice:{
-      position: 'absolute',
-      marginTop: '86%',
-      marginLeft: '33.33%',
-  
-    },
-    menuItem2:{
-      marginTop: '88%',
-      marginLeft: '60%',
-      position: 'absolute',
-      
-    },
-    menuPrice2:{
-      position: 'absolute',
-      marginTop: '88%',
-      marginLeft: '74%',
-  
-    },
-    header: {
-      width: '100%',
-      height: '10%',
-      backgroundColor: 'blue'
-    },      
-  });
+  textTop: {
+    fontSize: 16,
+    textAlign : 'center'
+  },  
+  title:{
+    color: '#009900',
+  },
+  menuItem:{
+    marginTop: '35%',
+    marginLeft: '20%',
+    
+  },
+  menuPrice:{
+    position: 'absolute',
+    marginTop: '86%',
+    marginLeft: '33.33%',
+
+  },
+  menuItem2:{
+    marginTop: '88%',
+    marginLeft: '60%',
+    position: 'absolute',
+    
+  },
+  menuPrice2:{
+    position: 'absolute',
+    marginTop: '88%',
+    marginLeft: '74%',
+
+  },
+  header: {
+    width: '100%',
+    height: '10%',
+    backgroundColor: 'blue'
+  },      
+});
