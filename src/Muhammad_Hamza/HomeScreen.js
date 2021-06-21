@@ -60,6 +60,11 @@ export default class HomeScreen extends Component {
     this.props.navigation.navigate('Diet', {themeColor : this.props.route.params.themeColor, token : this.props.route.params.token, userId : this.props.route.params.userId})
   }
 
+  goToCoachingScreen()
+  {
+    this.props.navigation.navigate('Coaching', {themeColor : this.props.route.params.themeColor, token : this.props.route.params.token, userId : this.props.route.params.userId})
+  }
+
   render() {
     return (
       <View style={{flex:1}}>
@@ -107,7 +112,8 @@ export default class HomeScreen extends Component {
                 Coaching:
               </Text>
 
-              <TouchableOpacity style={styles.button}>
+              <TouchableOpacity style={styles.button}
+              onPress={() => this.goToCoachingScreen()}>
                 <Text style={{color: 'lightgrey'}}>Create +</Text>
               </TouchableOpacity>
 

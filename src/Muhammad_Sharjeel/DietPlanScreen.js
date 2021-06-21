@@ -1,24 +1,33 @@
 import * as React from 'react';
-import { View, TouchableOpacity, Image, Text, Alert, FlatList, ScrollView } from 'react-native';
+import { View, TouchableOpacity, Image, Text, Alert, FlatList, ScrollView, StyleSheet } from 'react-native';
 import MyHeader from '../Hamza_Iftikhar/MyHeader.js';
+
+import AnimatedLoader from "react-native-animated-loader";
 
 export default class DietPlanScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       dataArray: [],
+      visible: false,
     };
   }
 
   componentDidMount() {
+    console.log('Token = ',this.props.route.params.token);
+    this.setState({visible:true});
     fetch('https://thefoodpharmacy.pk/api/auth/diet/' + this.props.route.params.userId, {'Authorization': 'Bearer ' + this.props.route.params.token,
     'content-type':'application/json'})
       .then((response) => response.json())
       .then((json) => {
         this.setState({ dataArray: json.response });
-        console.log(json.response);
+        console.log('Api results are = ',json.response);
+        this.setState({visible:false});
       })
-      .catch((error) => console.error(error))
+      .catch(error => {
+        Alert.alert("Error", error.message);
+        this.setState({visible:false});
+    });
   }
 
   render() {
@@ -427,6 +436,21 @@ export default class DietPlanScreen extends React.Component {
               </View >
             </View >
 
+            {this.state.visible?(
+            
+            <AnimatedLoader
+              visible={this.state.visible}
+              overlayColor="rgba(255,255,255,0.75)"
+              source={require("./loader.json")}
+              animationStyle={styles.lottie}
+              speed={1}
+            >
+              <Text> Processing...</Text>
+            </AnimatedLoader>            
+        ):
+          (null)
+        }
+
             </ScrollView>
           {/* }
           keyExtractor={item => item.id}
@@ -435,3 +459,11 @@ export default class DietPlanScreen extends React.Component {
     );
   }
 }
+
+
+const styles = StyleSheet.create({
+  lottie: {
+    width: 100,
+    height: 100
+  }
+});
