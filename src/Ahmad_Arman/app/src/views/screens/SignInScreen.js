@@ -181,7 +181,7 @@ export default class SignInScreen extends React.Component {
                 <View style={STYLES.btnSecondary}>
                   <Image
                     style={STYLES.btnImage}
-                    source={require('../../assests/facebook1.png')}
+                    source={require('../../assests/facebook.png')}
                   />
                   <Text style={{marginLeft:5, fontWeight: 'bold', fontSize: 13}}>
                     Continue with Facebook

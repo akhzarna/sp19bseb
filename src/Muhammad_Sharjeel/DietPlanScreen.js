@@ -20,6 +20,9 @@ export default class DietPlanScreen extends React.Component {
   {
     this.setState({visible:true});
 
+    // console.log('User ID is = ', this.props.route.params.userId);
+    // console.log('token is = ', this.props.route.params.token);
+
     const headers = { 
         'Authorization': 'Bearer ' + this.props.route.params.token,
         'content-type':'application/json'
@@ -27,17 +30,23 @@ export default class DietPlanScreen extends React.Component {
 
     axios.get('https://thefoodpharmacy.pk/api/auth/diet/' + this.props.route.params.userId , {headers}).
     then(response => {
-        if(response.data["status"] === "error")
-        {
-          console.log('Okay');
-          // Alert.alert("Note", response.data["response"]["message"], [{text : "Ok", onPress : () => this.props.navigation.goBack(), style : 'default'}]);
-          this.setState({visible:false});
-        }
+      if(response.data["status"] === "okay"){
+          console.log('Okay is =',response.data["response"]["message"]);
+          var newArray = [];
+          newArray.push(response.data["response"]["Sunday"]);
+          newArray.push(response.data["response"]["Monday"]);
+          newArray.push(response.data["response"]["Tuesday"]);
+          newArray.push(response.data["response"]["Wednesday"]);
+          newArray.push(response.data["response"]["Thursday"]);
+          newArray.push(response.data["response"]["Friday"]);
+          newArray.push(response.data["response"]["Saturday"]);
+          console.log('Final array is =',newArray);
 
-        if(response.data["status"] === "okay")
-        {
-          console.log('Okay');
           // Alert.alert("Submission Status", "Data submitted successfully", [{text : "Ok", onPress : () => this.props.navigation.goBack(), style : 'default'}]);
+          this.setState({visible:false});
+        }else if(response.data["status"] === "error"){
+          console.log('Error is =',response.data["response"]["message"]);
+          // Alert.alert("Note", response.data["response"]["message"], [{text : "Ok", onPress : () => this.props.navigation.goBack(), style : 'default'}]);
           this.setState({visible:false});
         }
     }).
@@ -49,8 +58,10 @@ export default class DietPlanScreen extends React.Component {
 
   componentDidMount() {
     this.unsubscribe  = this.props.navigation.addListener('focus', () => {
-      this.fetchDataFromAPI();
     });
+
+    this.fetchDataFromAPI();
+
   }
 
   componentWillUnmount() {
