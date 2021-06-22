@@ -1,27 +1,25 @@
 import * as React from 'react';
 import { View, TouchableOpacity, Image, Text, Alert, FlatList, ScrollView, StyleSheet, SectionList } from 'react-native';
 import MyHeader from '../Hamza_Iftikhar/MyHeader.js';
-import { NavigationEvents } from "react-navigation";
 
 import axios from 'axios';
 
 import AnimatedLoader from "react-native-animated-loader";
+import { Divider } from 'react-native-paper';
 
 export default class DietPlanScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataArray: [],
       visible: false,
     };
   }
 
+  DATA = [];
+
   fetchDataFromAPI()
   {
     this.setState({visible:true});
-
-    // console.log('User ID is = ', this.props.route.params.userId);
-    // console.log('token is = ', this.props.route.params.token);
 
     const headers = { 
         'Authorization': 'Bearer ' + this.props.route.params.token,
@@ -30,30 +28,92 @@ export default class DietPlanScreen extends React.Component {
 
     axios.get('https://thefoodpharmacy.pk/api/auth/diet/' + this.props.route.params.userId , {headers}).
     then(response => {
-      if(response.data["status"] === "okay"){
-          console.log('Okay is =',response.data["response"]["message"]);
-          var newArray = [];
-          newArray.push(response.data["response"]["Sunday"]);
-          newArray.push(response.data["response"]["Monday"]);
-          newArray.push(response.data["response"]["Tuesday"]);
-          newArray.push(response.data["response"]["Wednesday"]);
-          newArray.push(response.data["response"]["Thursday"]);
-          newArray.push(response.data["response"]["Friday"]);
-          newArray.push(response.data["response"]["Saturday"]);
-          console.log('Final array is =',newArray);
+      if(response.data["status"] === "okay")
+      {
+        var weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        let keyValue = 0;
+        this.DATA = [];
+        var arrayResponse, diet, obj;
 
-          // Alert.alert("Submission Status", "Data submitted successfully", [{text : "Ok", onPress : () => this.props.navigation.goBack(), style : 'default'}]);
-          this.setState({visible:false});
-        }else if(response.data["status"] === "error"){
-          console.log('Error is =',response.data["response"]["message"]);
-          // Alert.alert("Note", response.data["response"]["message"], [{text : "Ok", onPress : () => this.props.navigation.goBack(), style : 'default'}]);
-          this.setState({visible:false});
+        for(let weekday of weekDays)
+        {
+          arrayResponse = response.data['response'][weekday];
+
+          diet = 
+          {
+            breakfast : {
+              array : arrayResponse['breakfast']
+            },
+            lunch : {
+              array : arrayResponse['lunch']
+            },
+            snack : {
+              array : arrayResponse['snacks']
+            },
+            dinner : {
+              array : arrayResponse['dinner']
+            }
+          };
+  
+          obj = {
+            key : keyValue,
+            title : weekday,
+            data : [
+              {
+                key : 0,
+                title : 'Breakfast',
+                dataArray : diet.breakfast.array,
+                // item : diet.breakfast.array[0].item,
+                // reciepe : diet.breakfast.array[0].reciepe,
+                // grocery : diet.breakfast.array[0].grocery
+              },
+              {
+                key : 1,
+                title : 'Lunch',
+                dataArray : diet.lunch.array,
+                // item : diet.lunch.array[0].item,
+                // reciepe : diet.lunch.array[0].reciepe,
+                // grocery : diet.lunch.array[0].grocery
+              },
+              {
+                key : 2,
+                title : 'Snacks',
+                dataArray : diet.snack.array,
+                // item : diet.snack.array[0].item,
+                // reciepe : diet.snack.array[0].reciepe,
+                // grocery : diet.snack.array[0].grocery
+              },
+              {
+                key : 3,
+                title : 'Dinner',
+                dataArray : diet.dinner.array,
+                // item : diet.dinner.array[0].item,
+                // reciepe : diet.dinner.array[0].reciepe,
+                // grocery : diet.dinner.array[0].grocery
+              }
+            ]
+          }
+          keyValue++;
+          this.DATA.push(obj);
         }
+
+        // Alert.alert("Submission Status", "Data submitted successfully", [{text : "Ok", onPress : () => this.props.navigation.goBack(), style : 'default'}]);
+        this.setState({visible:false});
+      }else if(response.data["status"] === "error"){
+        console.log('Error is =',response.data["response"]["message"]);
+        // Alert.alert("Note", response.data["response"]["message"], [{text : "Ok", onPress : () => this.props.navigation.goBack(), style : 'default'}]);
+        this.setState({visible:false});
+      }
     }).
     catch(error => {
       Alert.alert("Error", error.message);
       this.setState({visible:false});
     });
+  }
+
+  rowSelected(item, section)
+  {
+    
   }
 
   componentDidMount() {
@@ -69,32 +129,8 @@ export default class DietPlanScreen extends React.Component {
   }
 
   render() {
-
-    const DATA = [
-      {
-        key:0,
-        title: "Sunday",
-        data: [{key:0, title: "Breakfast"}, {key:1, title: "Lunch"}, {key:2, title: "Snack"}, {key:3, title: "Dinner"}]
-      },
-      {
-        key:1,
-        title: "Monday",
-        data: [{key:0, title: "Breakfast"}, {key:1, title: "Lunch"}, {key:2, title: "Snack"}, {key:3, title: "Dinner"}]
-      },
-      {
-        key:2,
-        title: "Tuesday",
-        data: [{key:0, title: "Breakfast"}, {key:1, title: "Lunch"}, {key:2, title: "Snack"}, {key:3, title: "Dinner"}]
-      },
-      {
-        key:3,
-        title: "Wednesday",
-        data: [{key:0, title: "Breakfast"}, {key:1, title: "Lunch"}, {key:2, title: "Snack"}, {key:3, title: "Dinner"}]
-      }
-    ];
-
     return (
-      <View style={{ flex: 1, backgroundColor:'white'}}>
+    <View style={{ flex: 1, backgroundColor:'white'}}>
       {this.state.visible?(
             <AnimatedLoader
               visible={this.state.visible}
@@ -109,7 +145,14 @@ export default class DietPlanScreen extends React.Component {
         }
           
       <MyHeader themeColor = {this.props.route.params.themeColor} navigation = {this.props.navigation} homeScreen = {false}/>
-        <View style={{flex:3}}>
+      
+      {this.DATA.length == 0 ? (
+        <View>
+          <Text style = {{fontWeight : 'bold', fontSize : 20, alignSelf : 'center', textAlign : 'center', marginTop : '50%'}}>No Diet Plan Assigned Yet. Please wait for approval.</Text>
+        </View>
+      ) : (
+        <View style={{ flex: 1, backgroundColor:'white'}}>
+          <View style={{flex:3, marginBottom : 50}}>
           <View style={{flexDirection:'row', flex:2}}>
             <View style={{flex:1, justifyContent: 'center'}}>
             <Text style={{
@@ -174,11 +217,11 @@ export default class DietPlanScreen extends React.Component {
                 <TouchableOpacity onPress={()=>this.rowSelected(item,section)}>
                     <View style={{
                       flex:1,
-                      alignItems:'center',
+                      alignItems:'flex-start',
                       justifyContent:'flex-end',
                     }}>
 
-                      <View style={{flex:2, alignItems:'center', justifyContent: 'center' }}>
+                      <View style={{flex:2, alignSelf:'center', justifyContent: 'center' }}>
                         <Text style={{
                               textAlign:'center',
                               color:'green',
@@ -187,49 +230,45 @@ export default class DietPlanScreen extends React.Component {
                         </Text>
                       </View>
                       
-                      <View style={{flex:4, justifyContent: 'center' }}>
-                        <Text style={{
-                              color:'black',
-                              marginLeft:15,
-                              fontSize:14,
-                              }}>Item 1:           A healthy eating plan: Emphasizes vegetables, fruits, whole grains, and fat-free or low-fat dairy oroducts. Includes lean meats, poultry, fish, beans, eggs, and nuts. Limits saturated and trans fats, sodium, and added sugars
-                        </Text>
-                      </View>
-
-                      <View style={{flex:4, justifyContent: 'center' }}>
-                        <Text style={{
-                              color:'black',
-                              marginLeft:15,
-                              fontSize:14,
-                              }}>Item 2:           A healthy eating plan: Emphasizes vegetables, fruits, whole grains, and fat-free or low-fat dairy oroducts. Includes lean meats, poultry, fish, beans, eggs, and nuts. Limits saturated and trans fats, sodium, and added sugars
-                        </Text>
-                      </View>
-
-
+                      {
+                        item.dataArray.map(foodItem => 
+                          <View style={{flex:4}}>
+                            <Text style={{ color:'black', marginLeft:15, fontSize:16, alignSelf : 'flex-start', fontWeight : 'bold'}}>
+                              Item : {foodItem.item}
+                            </Text>
+                            <Text style={{ color:'black', marginLeft:15, fontSize:14, alignSelf : 'flex-start', textAlign : 'justify'}}>
+                              Reciepe : {foodItem.reciepe}.
+                            </Text>
+                            <Text style={{ color:'black', marginLeft:15, fontSize:14, alignSelf : 'flex-start', textAlign : 'justify'}}>
+                              Grocery : {foodItem.grocery}
+                            </Text>
+                          </View>
+                        )
+                      }
                     </View>
-                      
                   </TouchableOpacity>
                 }
 
         renderSectionHeader={({section}) =>
-        <View style={{height:40,backgroundColor:'white',justifyContent:'center'}}>
-        <Text style={{color:'green',textAlign:'left',
-        marginLeft:15, fontSize:20,
-          }}>
-          {section.title}
-          </Text>
-        </View>
+          <View style={{height:40,backgroundColor:'white',justifyContent:'center'}}>
+            <Divider style = {{backgroundColor : 'black', height : 3, marginTop : 20, marginBottom : 10}}/>
+            <Text style={{color:'green',textAlign:'left', marginLeft:15, fontSize:20, }}>
+              {section.title}
+            </Text>
+          </View>
         }
-        sections={DATA}
+        sections={this.DATA}
         />
 
         </View>
+        </View>
+      )}
+        
       </View>
         
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   lottie: {
@@ -237,431 +276,3 @@ const styles = StyleSheet.create({
     height: 100
   },
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  //  <View style={{
-  //           backgroundColor: '#fff',
-  //         }}>
-  //           <View>
-  //             <Text style={{
-  //               top: 125,
-  //               left: 20,
-  //               fontSize: 20,
-  //             }}>Download From Here</Text>
-  //             <Image
-  //               style={{
-  //                 width: 130,
-  //                 height: 90,
-  //                 position: "absolute",
-  //                 right: 20,
-  //               }}
-  //               source={require('./img/1.png')}
-  //               resizeMode="contain"
-  //             />
-  //             <Text style={{
-  //               fontSize: 20,
-  //               color: "#08943c",
-  //               top: 50,
-  //               left: 20,
-  //             }}>View Diet Plane</Text>
-  //             <Text style={{
-  //               fontWeight: "200",
-  //               fontSize: 20,
-  //               top: 60,
-  //               left: 20,
-  //             }}>Meal Plan</Text>
-  //             <Text style={{
-  //               fontSize: 15,
-  //               top: 60,
-  //               left: 20,
-  //             }}>12/5/2021</Text>
-  //             <Text style={{
-  //               fontSize: 12,
-  //               top: 60,
-  //               marginLeft: 20,
-  //               marginRight: 20,
-  //             }}>A healthy eating plan: Emphasizes vegetables, fruits, whole grains, and fat-free or low-fat dairy products. Includes lean meats, poultry, fish, beans, eggs, nuts. Linit saturated and trans fats, sodium, and added sugars.</Text>
-  //             <View style={{
-  //               top: 50,
-  //               height: 50,
-  //               backgroundColor: '#fff',
-  //               zIndex: -100,
-  //             }}></View>
-  //           </View >
-  //         </View>
-  //         {/* <FlatList style={{
-  //           top: 20,
-  //         }}
-  //           data={this.state.dataArray}
-  //           renderItem={({ item, index }) => */}
-  //           <ScrollView>
-  //             <View style={{
-  //             }}>
-  //               <Text style={{
-  //                 color: "#08943c",
-  //                 top: 70,
-  //                 marginLeft: 20,
-  //                 fontWeight: "bold",
-  //                 fontSize: 20,
-  //               }}>Sunday</Text>
-  
-  //               {/* Lunch Code */}
-  
-  //               <View style={{ flexDirection: 'row', alignItems: 'center', top: 90, }}>
-  //                 <View style={{ width: 120, height: 1, backgroundColor: 'black', left: 20, }} />
-  //                 <View>
-  //                   <Text style={{ left: 30, color: "#08943c", fontSize: 20, }}>BreakFast</Text>
-  //                 </View>
-  //                 <View style={{ width: 120, height: 1, backgroundColor: 'black', left: 40, }} />
-  //               </View>
-  //               <View style={{
-  
-  //                 top: 100,
-  //                 // marginLeft: 20,
-  //               }}>
-  //                 <Text
-  //                   style={{
-  //                     fontSize: 15,
-  //                     left: 20,
-  //                   }}>Item 1</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 150,
-  //                   top: -20,
-  //                 }}>Eggs & Onion Scramble</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 20,
-  //                 }}>View Recipe{"\n"} Direction</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 150,
-  //                   top: -40,
-  //                 }}>Direction are for original recipe{"\n"}of 1 omelet.{"\n"}1. Dice onion. Whisk eggs and add{"\n"}the onion, pepper, and vinegar.{"\n"}2. Heat a pan over medium heat{"\n"}and coat with non-stick spray. </Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 20,
-  //                   top: -30,
-  //                 }}>View Grocery{"\n"}List</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 150,
-  //                   top: -70,
-  //                 }}>Cabbage, Onion, Red bell pepper,{"\n"} Parsley</Text>
-  //               </View>
-  //               <View style={{ flexDirection: 'row', alignItems: 'center', top: 70, }}>
-  //                 <View style={{ width: 120, height: 1, backgroundColor: '#08943c', left: 130, }} />
-  //               </View >
-  //               <View style={{
-  
-  //                 top: 100,
-  //               }}>
-  //                 <Text
-  //                   style={{
-  //                     fontSize: 15,
-  //                     left: 20,
-  //                   }}>Item 2</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 150,
-  //                   top: -20,
-  //                 }}>Eggs & Onion Scramble</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 20,
-  //                 }}>View Recipe{"\n"} Direction</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 150,
-  //                   top: -40,
-  //                 }}>Direction are for original recipe{"\n"}of 1 omelet.{"\n"}1. Dice onion. Whisk eggs and add{"\n"}the onion, pepper, and vinegar.{"\n"}2. Heat a pan over medium heat{"\n"}and coat with non-stick spray. </Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 20,
-  //                   top: -30,
-  //                 }}>View Grocery{"\n"}List</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 150,
-  //                   top: -70,
-  //                 }}>Cabbage, Onion, Red bell pepper,{"\n"} Parsley</Text>
-  //               </View>
-  //               <View style={{ flexDirection: 'row', alignItems: 'center', top: 70, }}>
-  //                 <View style={{ width: 120, height: 1, backgroundColor: '#08943c', left: 130, }} />
-  //               </View >
-  //               <View style={{ flexDirection: 'row', alignItems: 'center', top: 90, }}>
-  //                 <View style={{ width: 120, height: 1, backgroundColor: 'black', left: 20, }} />
-  //                 <View>
-  //                   <Text style={{ left: 30, color: "#08943c", fontSize: 20, }}>Lunch</Text>
-  //                 </View>
-  //                 <View style={{ width: 120, height: 1, backgroundColor: 'black', left: 40, }} />
-  //               </View>
-  //               <View style={{
-  
-  //                 top: 100,
-  //                 // marginLeft: 20,
-  //               }}>
-  //                 <Text
-  //                   style={{
-  //                     fontSize: 15,
-  //                     left: 20,
-  //                   }}>Item 1</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 150,
-  //                   top: -20,
-  //                 }}>Eggs & Onion Scramble</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 20,
-  //                 }}>View Recipe{"\n"} Direction</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 150,
-  //                   top: -40,
-  //                 }}>Direction are for original recipe{"\n"}of 1 omelet.{"\n"}1. Dice onion. Whisk eggs and add{"\n"}the onion, pepper, and vinegar.{"\n"}2. Heat a pan over medium heat{"\n"}and coat with non-stick spray. </Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 20,
-  //                   top: -30,
-  //                 }}>View Grocery{"\n"}List</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 150,
-  //                   top: -70,
-  //                 }}>Cabbage, Onion, Red bell pepper,{"\n"} Parsley</Text>
-  //               </View>
-  //               <View style={{ flexDirection: 'row', alignItems: 'center', top: 70, }}>
-  //                 <View style={{ width: 120, height: 1, backgroundColor: '#08943c', left: 130, }} />
-  //               </View >
-  //               <View style={{
-  
-  //                 top: 100,
-  //                 // marginLeft: 20,
-  //               }}>
-  //                 <Text
-  //                   style={{
-  //                     fontSize: 15,
-  //                     left: 20,
-  //                   }}>Item 2</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 150,
-  //                   top: -20,
-  //                 }}>Eggs & Onion Scramble</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 20,
-  //                 }}>View Recipe{"\n"} Direction</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 150,
-  //                   top: -40,
-  //                 }}>Direction are for original recipe{"\n"}of 1 omelet.{"\n"}1. Dice onion. Whisk eggs and add{"\n"}the onion, pepper, and vinegar.{"\n"}2. Heat a pan over medium heat{"\n"}and coat with non-stick spray. </Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 20,
-  //                   top: -30,
-  //                 }}>View Grocery{"\n"}List</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 150,
-  //                   top: -70,
-  //                 }}>Cabbage, Onion, Red bell pepper,{"\n"} Parsley</Text>
-  //               </View>
-  //               <View style={{ flexDirection: 'row', alignItems: 'center', top: 70, }}>
-  //                 <View style={{ width: 120, height: 1, backgroundColor: '#08943c', left: 130, }} />
-  //               </View >
-  //               <View style={{ flexDirection: 'row', alignItems: 'center', top: 90, }}>
-  //                 <View style={{ width: 120, height: 1, backgroundColor: 'black', left: 20, }} />
-  //                 <View>
-  //                   <Text style={{ left: 30, color: "#08943c", fontSize: 20, }}>Snacks</Text>
-  //                 </View>
-  //                 <View style={{ width: 120, height: 1, backgroundColor: 'black', left: 40, }} />
-  //               </View>
-  //               <View style={{
-  
-  //                 top: 100,
-  //                 // marginLeft: 20,
-  //               }}>
-  //                 <Text
-  //                   style={{
-  //                     fontSize: 15,
-  //                     left: 20,
-  //                   }}>Item 1</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 150,
-  //                   top: -20,
-  //                 }}>Eggs & Onion Scramble</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 20,
-  //                 }}>View Recipe{"\n"} Direction</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 150,
-  //                   top: -40,
-  //                 }}>Direction are for original recipe{"\n"}of 1 omelet.{"\n"}1. Dice onion. Whisk eggs and add{"\n"}the onion, pepper, and vinegar.{"\n"}2. Heat a pan over medium heat{"\n"}and coat with non-stick spray. </Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 20,
-  //                   top: -30,
-  //                 }}>View Grocery{"\n"}List</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 150,
-  //                   top: -70,
-  //                 }}>Cabbage, Onion, Red bell pepper,{"\n"} Parsley</Text>
-  //               </View>
-  //               <View style={{ flexDirection: 'row', alignItems: 'center', top: 70, }}>
-  //                 <View style={{ width: 120, height: 1, backgroundColor: '#08943c', left: 130, }} />
-  //               </View >
-  //               <View style={{
-  
-  //                 top: 100,
-  //                 // marginLeft: 20,
-  //               }}>
-  //                 <Text
-  //                   style={{
-  //                     fontSize: 15,
-  //                     left: 20,
-  //                   }}>Item 2</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 150,
-  //                   top: -20,
-  //                 }}>Eggs & Onion Scramble</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 20,
-  //                 }}>View Recipe{"\n"} Direction</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 150,
-  //                   top: -40,
-  //                 }}>Direction are for original recipe{"\n"}of 1 omelet.{"\n"}1. Dice onion. Whisk eggs and add{"\n"}the onion, pepper, and vinegar.{"\n"}2. Heat a pan over medium heat{"\n"}and coat with non-stick spray. </Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 20,
-  //                   top: -30,
-  //                 }}>View Grocery{"\n"}List</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 150,
-  //                   top: -70,
-  //                 }}>Cabbage, Onion, Red bell pepper,{"\n"} Parsley</Text>
-  //               </View>
-  //               <View style={{ flexDirection: 'row', alignItems: 'center', top: 70, }}>
-  //                 <View style={{ width: 120, height: 1, backgroundColor: '#08943c', left: 130, }} />
-  //               </View >
-  //               <View style={{ flexDirection: 'row', alignItems: 'center', top: 90, }}>
-  //                 <View style={{ width: 120, height: 1, backgroundColor: 'black', left: 20, }} />
-  //                 <View>
-  //                   <Text style={{ left: 30, color: "#08943c", fontSize: 20, }}>Dinner</Text>
-  //                 </View>
-  //                 <View style={{ width: 120, height: 1, backgroundColor: 'black', left: 40, }} />
-  //               </View>
-  //               <View style={{
-  
-  //                 top: 100,
-  //                 // marginLeft: 20,
-  //               }}>
-  //                 <Text
-  //                   style={{
-  //                     fontSize: 15,
-  //                     left: 20,
-  //                   }}>Item 1</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 150,
-  //                   top: -20,
-  //                 }}>Eggs & Onion Scramble</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 20,
-  //                 }}>View Recipe{"\n"} Direction</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 150,
-  //                   top: -40,
-  //                 }}>Direction are for original recipe{"\n"}of 1 omelet.{"\n"}1. Dice onion. Whisk eggs and add{"\n"}the onion, pepper, and vinegar.{"\n"}2. Heat a pan over medium heat{"\n"}and coat with non-stick spray. </Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 20,
-  //                   top: -30,
-  //                 }}>View Grocery{"\n"}List</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 150,
-  //                   top: -70,
-  //                 }}>Cabbage, Onion, Red bell pepper,{"\n"} Parsley</Text>
-  //               </View>
-  //               <View style={{ flexDirection: 'row', alignItems: 'center', top: 70, }}>
-  //                 <View style={{ width: 120, height: 1, backgroundColor: '#08943c', left: 130, }} />
-  //               </View >
-  //               <View style={{
-  
-  //                 top: 100,
-  //                 // marginLeft: 20,
-  //               }}>
-  //                 <Text
-  //                   style={{
-  //                     fontSize: 15,
-  //                     left: 20,
-  //                   }}>Item 2</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 150,
-  //                   top: -20,
-  //                 }}>Eggs & Onion Scramble</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 20,
-  //                 }}>View Recipe{"\n"} Direction</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 150,
-  //                   top: -40,
-  //                 }}>Direction are for original recipe{"\n"}of 1 omelet.{"\n"}1. Dice onion. Whisk eggs and add{"\n"}the onion, pepper, and vinegar.{"\n"}2. Heat a pan over medium heat{"\n"}and coat with non-stick spray. </Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 20,
-  //                   top: -30,
-  //                 }}>View Grocery{"\n"}List</Text>
-  //                 <Text style={{
-  //                   fontSize: 15,
-  //                   left: 150,
-  //                   top: -70,
-  //                 }}>Cabbage, Onion, Red bell pepper,{"\n"} Parsley</Text>
-  //               </View>
-  //               <View style={{ flexDirection: 'row', alignItems: 'center', top: 70, }}>
-  //                 <View style={{ width: 120, height: 1, backgroundColor: '#08943c', left: 130, }} />
-  //               </View >
-  //             </View >
-  //           </ScrollView>
-  //           {/* }
-  //           keyExtractor={item => item.id}
-  //         /> */}
-  //       </View>
-  //         }
-  //     </View>

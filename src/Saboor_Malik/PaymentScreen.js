@@ -6,7 +6,8 @@ import {
     ScrollView, 
     StyleSheet,
     View,
-    Alert
+    Alert,
+    Image
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import * as ImagePicker from 'react-native-image-picker';
@@ -25,8 +26,7 @@ export default class PaymentScreen extends React.Component {
         this.state = {
             name : '',
             selectedValue : '',
-            imagePath : '',
-            imageData : '',
+            imageName : '',
             imageUri : '',
             visible : false
         }
@@ -52,6 +52,8 @@ export default class PaymentScreen extends React.Component {
             formData.append('file', 
             {
                 uri : this.state.imageUri,
+                name : this.state.imageName,
+                type: 'image/*'
             })
 
             this.setState({visible : true});
@@ -93,9 +95,7 @@ export default class PaymentScreen extends React.Component {
             },
         };
 
-          ImagePicker.launchImageLibrary(options, (response) => {
-            console.log('Response = ', response);
-      
+          ImagePicker.launchImageLibrary(options, (response) => {      
             if (response.didCancel) {
               console.log('User cancelled image picker');
             } else if (response.error) {
@@ -104,13 +104,11 @@ export default class PaymentScreen extends React.Component {
               console.log('User tapped custom button: ', response.customButton);
               alert(response.customButton);
             } else {
-              const source = { uri: response.uri };
-              console.log('response', JSON.stringify(response));
-              
+              console.log('response', JSON.stringify(response))
+
               this.setState({
-                imagePath : response,
-                imageData : response.data,
-                imageUri : response.uri
+                imageUri:  Platform.OS === "android" ? response.assets[0].uri : response.assets[0].uri.replace("file://", ""), 
+                imageName: `dummy${Date.now()}.jpg`,
               });
             }
           });
@@ -146,6 +144,9 @@ export default class PaymentScreen extends React.Component {
                             </View>
 
                             <Text style={styles.label}>Upload Image</Text>
+                            {this.state.imageUri.length != 0 ? (
+                                <Image style = {{height : 200, width : 200}} source = {{uri : this.state.imageUri}}/>
+                            ) : null}
                             <TouchableOpacity style={{backgroundColor : 'gray', width : '40%', marginVertical : 10, alignItems : 'center'}} onPress={() => this.launchImagePicker()}>
                                 <Text style={{color: 'white', padding : 3}}>CHOOSE A FILE</Text>
                             </TouchableOpacity>
