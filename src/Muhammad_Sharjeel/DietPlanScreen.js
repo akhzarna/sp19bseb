@@ -29,12 +29,14 @@ export default class DietPlanScreen extends React.Component {
     then(response => {
         if(response.data["status"] === "error")
         {
+          console.log('Okay');
           // Alert.alert("Note", response.data["response"]["message"], [{text : "Ok", onPress : () => this.props.navigation.goBack(), style : 'default'}]);
           this.setState({visible:false});
         }
 
         if(response.data["status"] === "okay")
         {
+          console.log('Okay');
           // Alert.alert("Submission Status", "Data submitted successfully", [{text : "Ok", onPress : () => this.props.navigation.goBack(), style : 'default'}]);
           this.setState({visible:false});
         }
