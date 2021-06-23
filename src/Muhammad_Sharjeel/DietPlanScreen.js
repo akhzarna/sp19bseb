@@ -111,17 +111,14 @@ export default class DietPlanScreen extends React.Component {
     });
   }
 
-  rowSelected(item, section)
-  {
+  rowSelected(item, section){
     
   }
 
   componentDidMount() {
     this.unsubscribe  = this.props.navigation.addListener('focus', () => {
+      this.fetchDataFromAPI();
     });
-
-    this.fetchDataFromAPI();
-
   }
 
   componentWillUnmount() {

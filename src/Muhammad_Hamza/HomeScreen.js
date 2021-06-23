@@ -17,6 +17,8 @@ import {
   BackHandler,
 } from 'react-native';
 
+import axios from "axios";
+
 export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
@@ -39,7 +41,37 @@ export default class HomeScreen extends Component {
     return true;
   };
 
+
+  fetchDataFromAPI()
+  {
+    this.setState({visible:true});
+
+    const headers = { 
+        'Authorization': 'Bearer ' + this.props.route.params.token,
+        'content-type':'application/json'
+    };
+
+    axios.get('https://thefoodpharmacy.pk/api/auth/status/10', {headers}).
+    then(response => {
+      if(response.data["status"] === "okay"){
+        console.log('Data is =',response.data["response"]["message"]);
+      }else if(response.data["status"] === "error"){
+        console.log('Error is =',response.data["response"]["message"]);
+        this.setState({visible:false});
+      }
+    }).
+    catch(error => {
+      Alert.alert("Error", error.message);
+      this.setState({visible:false});
+    });
+  }
+
   componentDidMount() {
+
+    // this.unsubscribe  = this.props.navigation.addListener('focus', () => {
+      this.fetchDataFromAPI();
+    // });
+
     this.backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
       this.backAction
