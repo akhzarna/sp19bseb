@@ -77,7 +77,7 @@ export default class CoachingScreen extends React.Component {
                     <Text style = {[styles.labelText, {marginLeft : '15%'}]}> Duration </Text>
                     <Text style = {[styles.labelText, {marginLeft : '55%'}]}> 60 Minutes </Text>
 
-                    <TouchableOpacity style = {styles.submitButton} onPress = {() => this.submitPhysicalCoaching()}>
+                    <TouchableOpacity style = {styles.submitButton} onPress = {() => this.submitPhysicalCoaching()} disabled = {true}>
                       <Text style={{color:this.props.route.params.themeColor, fontWeight: 'bold'}}>
                         SUBMIT
                       </Text>

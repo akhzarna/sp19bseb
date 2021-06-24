@@ -31,7 +31,6 @@ export default class DietPlanScreen extends React.Component {
       if(response.data["status"] === "okay")
       {
         var weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        let keyValue = 0;
         this.DATA = [];
         var arrayResponse, diet, obj;
 
@@ -56,7 +55,7 @@ export default class DietPlanScreen extends React.Component {
           };
   
           obj = {
-            key : keyValue,
+            key : 0,
             title : weekday,
             data : [
               {
@@ -93,7 +92,6 @@ export default class DietPlanScreen extends React.Component {
               }
             ]
           }
-          keyValue++;
           this.DATA.push(obj);
         }
 
@@ -234,7 +232,7 @@ export default class DietPlanScreen extends React.Component {
                               Item : {foodItem.item}
                             </Text>
                             <Text style={{ color:'black', marginLeft:15, fontSize:14, alignSelf : 'flex-start', textAlign : 'justify'}}>
-                              Reciepe : {foodItem.reciepe}.
+                              Reciepe : {foodItem.reciepe}
                             </Text>
                             <Text style={{ color:'black', marginLeft:15, fontSize:14, alignSelf : 'flex-start', textAlign : 'justify'}}>
                               Grocery : {foodItem.grocery}
