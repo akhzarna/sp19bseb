@@ -46,7 +46,7 @@ export default function CustomDrawerContent(props) {
                         style={{marginTop : -3}}
                     />
                 </View>
-            )} onPress = {() => props.navigation.navigate('Product')} 
+            )} onPress = {() => props.navigation.navigate('Products-Menu')} 
                 icon = {({ focused, size }) => (
                     <Icon
                         name="circle"

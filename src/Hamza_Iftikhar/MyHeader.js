@@ -23,12 +23,17 @@ export default class MyHeader extends React.Component
 
     closeMenu = () => this.setState({menuVisible : false, profileMenuVisible : false, orderMenuVisible : false});
 
+    onClickScreenButton = (goToScreen) => {
+        this.closeMenu();
+        this.props.navigation.navigate(goToScreen)
+    }
+
     renderVerticalDotsMenu()
     {
         return (
             <View>
                 <Menu visible={this.state.menuVisible} onDismiss={this.closeMenu} anchor={{x : Dimensions.get('window').width - 30, y : 30}}>
-                    <TouchableOpacity style = {{padding : 10, flexDirection : 'row', justifyContent : 'space-between'}}>
+                    <TouchableOpacity style = {{padding : 10, flexDirection : 'row', justifyContent : 'space-between'}} onPress = {() => this.onClickScreenButton('Wishlist')}>
                         <View style = {{flexDirection :'row'}}>
                             <FontAwesomeIcon style = {{marginTop : 1}} name="heart" size={20} color = {this.props.themeColor}/>
                             <Text style = {{marginHorizontal : 10, fontSize : 16}}>View Wishlist</Text>
