@@ -1,15 +1,8 @@
 import React from 'react';
 
-import {
-  Text,
-  View
-} from 'react-native'
-
 import {NavigationContainer} from '@react-navigation/native'
-import {createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem} from '@react-navigation/drawer'
+import {createDrawerNavigator} from '@react-navigation/drawer'
 import {createStackNavigator} from '@react-navigation/stack'
-
-import MyHeader from './src/Hamza_Iftikhar/MyHeader';
 
 import HomeScreen from './src/Hamza_Iftikhar/HomeScreen'
 import SignInScreen from './src/Ahmad_Arman/app/src/views/screens/SignInScreen.js'
@@ -21,8 +14,7 @@ import HealthHistoryScreen from './src/Hamza_Iftikhar/HealthHistoryScreen.js'
 import ComingSoonScreen from './src/Hamza_Iftikhar/ComingSoonScreen';
 import SideMenuContentComponent from './src/Hamza_Iftikhar/SideMenuContentComponent'
 import DietPlanScreen from './src/Muhammad_Sharjeel/DietPlanScreen.js'
-
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Provider } from 'react-native-paper';
 
 const BasicScreensStack = createStackNavigator();
 const SideMenuDrawer = createDrawerNavigator();
@@ -84,9 +76,11 @@ export default class App extends React.Component {
     }
 
       return(
-        <NavigationContainer>
-          {basicStackScreens()}
-        </NavigationContainer>
+        <Provider>
+          <NavigationContainer>
+            {basicStackScreens()}
+          </NavigationContainer>
+        </Provider>
       );
   }  
 }
