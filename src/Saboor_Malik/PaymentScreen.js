@@ -118,9 +118,8 @@ export default class PaymentScreen extends React.Component {
     {
         return(
             <View style = {{flex : 1}}>
+                <MyHeader themeColor = {this.props.route.params.themeColor} navigation = {this.props.navigation} homeScreen = {false}/>
                 <ScrollView showsVerticalScrollIndicator = {false}>
-                    <MyHeader themeColor = {this.props.route.params.themeColor} navigation = {this.props.navigation} homeScreen = {false}/>
-
                     <View style={{padding: 10, flexDirection : 'column'}}>
                         <Text style={[styles.heading, {color : this.props.route.params.themeColor}]}>
                             UPLOAD SLIP

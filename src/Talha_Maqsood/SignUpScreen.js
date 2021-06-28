@@ -12,6 +12,7 @@ import {
     ScrollView
 } from 'react-native';
 
+import {Picker} from '@react-native-picker/picker';
 import AnimatedLoader from "react-native-animated-loader";
 
 export default class SignUpScreen extends React.Component {
@@ -26,6 +27,8 @@ export default class SignUpScreen extends React.Component {
             visible: false,
         };
     }
+
+    cities = ['Lahore', 'Karachi', 'Islamabad', 'Sialkot', 'Rawalpindi', 'Faisalabad'];
 
     validation() {
         const { email, password, name, phone, city } = this.state;
@@ -145,14 +148,17 @@ export default class SignUpScreen extends React.Component {
 
                     <View style={styles.inputView}>
                         <Image style={styles.inputImage} source={require('./assets/images/address.png')} />
-                        <TextInput
-                            style={styles.textInput}
-                            placeholder="City *"
-                            placeholderTextColor="#000"
-                            color="#000"
-                            value={this.state.city}
-                            onChangeText={(text) => { this.setState({ city: text }) }}
-                        />
+                        <View style={{ height : 40, justifyContent : 'center', flex : 1}}>
+                            <Picker
+                                selectedValue = {this.state.city}
+                                mode = 'dropdown'
+                                onValueChange = {(value) => this.setState({city : value})}
+                                style = {{height : 40}}>
+                                    {this.cities.map(city => 
+                                      <Picker.Item label={city} value={city} />  
+                                    )}
+                            </Picker>
+                        </View>
                     </View>
 
                     {this.state.visible?(
