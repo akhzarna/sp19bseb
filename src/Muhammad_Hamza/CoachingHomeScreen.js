@@ -56,7 +56,7 @@ export default class CoachingHomeScreen extends Component {
         'content-type':'application/json'
     };
 
-    axios.get('https://thefoodpharmacy.pk/api/auth/status/' + this.props.route.params.userId, {headers}).
+    axios.get('https://thefoodpharmacy.general.greengrapez.com/api/auth/status/' + this.props.route.params.userId, {headers}).
     then(response => {
       if(response.data["status"] === "okay"){
         console.log('Data is =',response.data["response"]["Status"]);

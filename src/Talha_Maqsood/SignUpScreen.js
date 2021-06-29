@@ -23,7 +23,7 @@ export default class SignUpScreen extends React.Component {
             email: '',
             phone: '',
             password: '',
-            city: '',
+            city: this.cities[0],
             visible: false,
         };
     }
@@ -66,9 +66,10 @@ export default class SignUpScreen extends React.Component {
             password: password,
             city: city
         };
+        console.log(params);
         if (this.validation()) {
             this.setState({visible:true});
-            axios.post('https://thefoodpharmacy.pk/api/auth/register', JSON.stringify(params), {
+            axios.post('https://thefoodpharmacy.general.greengrapez.com/api/auth/register', JSON.stringify(params), {
                 headers: {
                     'Content-Type': 'application/json',
                     "Access-Control-Allow-Origin": "*",

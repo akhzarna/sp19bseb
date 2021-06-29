@@ -100,7 +100,7 @@ export default class HealthHistoryScreen extends React.Component
             'content-type':'application/json'
         };
 
-        axios.post('https://thefoodpharmacy.pk/api/auth/history', data, {headers}).
+        axios.post('https://thefoodpharmacy.general.greengrapez.com/api/auth/history', data, {headers}).
         then(response => {
             if(response.data["status"] === "error")
             {

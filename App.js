@@ -4,7 +4,6 @@ import {NavigationContainer} from '@react-navigation/native'
 import {createDrawerNavigator} from '@react-navigation/drawer'
 import {createStackNavigator} from '@react-navigation/stack'
 
-import HomeScreen from './src/Hamza_Iftikhar/HomeScreen'
 import SignInScreen from './src/Ahmad_Arman/app/src/views/screens/SignInScreen.js'
 import SignUpScreen from './src/Talha_Maqsood/SignUpScreen.js'
 import CoachingHomeScreen from './src/Muhammad_Hamza/CoachingHomeScreen.js'

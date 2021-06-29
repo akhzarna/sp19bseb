@@ -63,7 +63,7 @@ export default class PaymentScreen extends React.Component {
                 'content-type':'multipart/form-data'
             };
 
-            axios.post('https://thefoodpharmacy.pk/api/auth/bank_slip', formData, {headers}).
+            axios.post('https://thefoodpharmacy.general.greengrapez.com/api/auth/bank_slip', formData, {headers}).
             then(response => {
                 if(response.data["status"] === "error")
                 {

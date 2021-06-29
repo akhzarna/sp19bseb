@@ -34,7 +34,7 @@ export default class SignInScreen extends React.Component {
             'content-type':'application/json'
         };
 
-        axios.post('https://thefoodpharmacy.pk/api/auth/login', data, {headers}).
+        axios.post('https://thefoodpharmacy.general.greengrapez.com/api/auth/login', data, {headers}).
         then(response => {
             this.setState({visible:false});
             if(response.data["status"] === "error")
