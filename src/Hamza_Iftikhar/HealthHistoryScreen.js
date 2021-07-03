@@ -16,9 +16,9 @@ export default class HealthHistoryScreen extends React.Component
         problemsList_poorImmunity : false, problemsList_acidity : false, problemsList_constipation : false, problemsList_diarrhoea : false, problemsList_leakyGut : false, problemsList_IBS : false, problemsList_autoImmuneDisease : false, problemsList_foodAllergies : false, problemsList_insulinResistance : false,
         personalInfo_address : "", personalInfo_phoneNo : "", personalInfo_age : "", personalInfo_gender : "", personalInfo_height : "",
         dob : new Date(),
-        weight_current : '', weight_sixMonthsAgo : '', weight_oneYearAgo : '', weight_differentWeightRequired : '', weight_familyMemberProblem : '',
+        weight_current : '', weight_sixMonthsAgo : '', weight_oneYearAgo : '', weight_differentWeightRequired : '', weight_intentLost : '', weight_relationshipStatus : '', weight_childern : '', weight_occupation : '', weight_lineOfWork : '', weight_stressAtWork : '', weight_workHours : '', weight_domesticLife : '', weight_healthConcerns : '', weight_diagnosed : '', weight_medication : '', weight_supplements : '', weight_familyMemberProblem : '',
         bloodInfo_bloodType : '', bloodInfo_takingBirthControlPills : '', bloodInfo_menstrualCycle : '',
-        gutDiseaseInfo_foodAllergies : '', gutDiseaseInfo_constipationOrDiarrhoeaOrGasDetails : '', gutDiseaseInfo_constipationOrDiarrhoeaOrGasDuration : '',
+        gutDiseaseInfo_constipationOrDiarrhoeaOrGasDetails : '', gutDiseaseInfo_constipationOrDiarrhoeaOrGasDuration : '',
         physicalInfo_foodAllergies : '', physicalInfo_physicallyActive : '', physicalInfo_dailyExercise : '', physicalInfo_exerciseDetails : '',
         foodDetails_breakToDinnerEatingRoutine : '',
         exerciseDetails_morning : '', exerciseDetails_afternoon : '', exerciseDetails_evening : '', exerciseDetails_night : '', exerciseDetails_duration : '',
@@ -51,18 +51,18 @@ export default class HealthHistoryScreen extends React.Component
             'weightSixMonthBefore': this.state.weight_sixMonthsAgo,
             'weighOneYearBefore': this.state.weight_oneYearAgo,
             'weightDifferent': this.state.weight_differentWeightRequired,
-            'intentLose': '',
-            'relationship': '',
-            'children': '',
-            'occupation': '',
-            'lineOfWork': '',
-            'stressOnWork': '',
-            'workHour': '',
-            'demesticLife': '',
-            'healthConcerns': '',
-            'diagnosed': '', 
-            'medication':'', 
-            'suppliments': '', 
+            'intentLose': this.state.weight_intentLost,
+            'relationship': this.state.weight_relationshipStatus,
+            'children': this.state.weight_childern,
+            'occupation': this.state.weight_occupation,
+            'lineOfWork': this.state.weight_lineOfWork,
+            'stressOnWork': this.state.weight_stressAtWork,
+            'workHour': this.state.weight_workHours,
+            'demesticLife': this.state.weight_domesticLife,
+            'healthConcerns': this.state.weight_healthConcerns,
+            'diagnosed': this.state.weight_diagnosed, 
+            'medication': this.state.weight_medication, 
+            'suppliments': this.state.weight_supplements,
             'helathProblem': this.state.weight_familyMemberProblem,
             'bloodGroop': this.state.bloodInfo_bloodType,
             'controlpills': this.state.bloodInfo_takingBirthControlPills,
@@ -220,6 +220,56 @@ export default class HealthHistoryScreen extends React.Component
                     onPress = {() => this.setState({weight_differentWeightRequired : 'No'})}/>
                 </View>
 
+                {this.state.weight_differentWeightRequired === 'Yes' ? (
+                    <View>
+                        <Text style = {styles.labelInputText}>How to do you intend to lose?</Text>
+                        <TextInput style = {styles.textInputSimple} placeholder = '' onChangeText = {(value) => this.setState({weight_intentLost : value})} value = {this.state.weight_intentLost}/>
+
+                        <Text style = {styles.labelInputText}>Relationship Status</Text>
+                        <View style={{ height : 40, borderWidth: 1, borderColor : 'black', justifyContent : 'center'}}>
+                            <Picker
+                                selectedValue = {this.state.weight_relationshipStatus}
+                                mode = 'dropdown'
+                                onValueChange = {(value) => this.setState({weight_relationshipStatus : value})}
+                                style = {{height : 40}}>
+                                    <Picker.Item label="Single" value="Single" />
+                                    <Picker.Item label="Married" value="Married" />
+                            </Picker>
+                        </View>
+
+                        <Text style = {styles.labelInputText}>Children</Text>
+                        <TextInput style = {styles.textInputSimple} placeholder = '' onChangeText = {(value) => this.setState({weight_childern : value})} value = {this.state.weight_childern}/>
+
+                        <Text style = {styles.labelInputText}>Occupation</Text>
+                        <TextInput style = {styles.textInputSimple} placeholder = '' onChangeText = {(value) => this.setState({weight_occupation : value})} value = {this.state.weight_occupation}/>
+
+                        <Text style = {styles.labelInputText}>Do you like your line of work?</Text>
+                        <TextInput style = {styles.textInputSimple} placeholder = '' onChangeText = {(value) => this.setState({weight_lineOfWork : value})} value = {this.state.weight_lineOfWork}/>
+
+                        <Text style = {styles.labelInputText}>How much stress do you face at work? Please describe.</Text>
+                        <TextInput style = {styles.textInputMultiLine} multiline = {true} placeholder = '' onChangeText = {(value) => this.setState({weight_stressAtWork : value})} value = {this.state.weight_stressAtWork}/>
+
+                        <Text style = {styles.labelInputText}>Do you work long hours?</Text>
+                        <TextInput style = {styles.textInputSimple} placeholder = '' onChangeText = {(value) => this.setState({weight_workHours : value})} value = {this.state.weight_workHours}/>
+
+                        <Text style = {styles.labelInputText}>Describe your domestic life?</Text>
+                        <TextInput style = {styles.textInputMultiLine} multiline = {true} placeholder = '' onChangeText = {(value) => this.setState({weight_domesticLife : value})} value = {this.state.weight_domesticLife}/>
+
+                        <Text style = {styles.labelInputText}>Please list your main gut health concerns?</Text>
+                        <TextInput style = {styles.textInputMultiLine} multiline = {true} placeholder = '' onChangeText = {(value) => this.setState({weight_healthConcerns : value})} value = {this.state.weight_healthConcerns}/>
+
+                        <Text style = {styles.labelInputText}>When were you diagnosed?</Text>
+                        <TextInput style = {styles.textInputSimple} placeholder = '' onChangeText = {(value) => this.setState({weight_diagnosed : value})} value = {this.state.weight_diagnosed}/>
+
+                        <Text style = {styles.labelInputText}>What medication are you taking if any?</Text>
+                        <TextInput style = {styles.textInputSimple} placeholder = '' onChangeText = {(value) => this.setState({weight_medication : value})} value = {this.state.weight_medication}/>
+
+                        <Text style = {styles.labelInputText}>What supplements are you taking if any?</Text>
+                        <TextInput style = {styles.textInputMultiLine} multiline = {true} placeholder = '' onChangeText = {(value) => this.setState({weight_supplements : value})} value = {this.state.weight_supplements}/>
+                    </View>
+                    ) : null
+                }
+
                 <Text style = {styles.labelInputText}>Are there members of your family with the same gut health problem?</Text>
 
                 <View style = {{flexDirection : 'row'}}>
@@ -291,21 +341,6 @@ export default class HealthHistoryScreen extends React.Component
         return(
             <View>
                 <Text style = {[styles.labelInputText, {color : this.props.route.params.themeColor}]}>Describe your digestion; constipation/ diarrhoea/gas? And for how long has it been this way? Do you have any food allergies or sensitivies?</Text>
-                <View style = {{flexDirection : 'row'}}>
-                    <Text style = {styles.labelInputText}>Yes</Text>
-                    <RadioButton 
-                    value = "Yes"
-                    color = {this.props.route.params.themeColor}
-                    status = {this.state.gutDiseaseInfo_foodAllergies === 'Yes' ? 'checked' : 'unchecked'}
-                    onPress = {() => this.setState({gutDiseaseInfo_foodAllergies : 'Yes'})}/>
-
-                    <Text style = {styles.labelInputText}>No</Text>
-                    <RadioButton 
-                    value = "No"
-                    color = {this.props.route.params.themeColor}
-                    status = {this.state.gutDiseaseInfo_foodAllergies === 'No' ? 'checked' : 'unchecked'}
-                    onPress = {() => this.setState({gutDiseaseInfo_foodAllergies : 'No'})}/>
-                </View>
 
                 <Text style = {styles.labelInputText}>Details about your constipation/ Diarrhoea/ Gas:</Text>
                 <TextInput style = {styles.textInputSimple} placeholder = '' onChangeText = {(value) => this.setState({gutDiseaseInfo_constipationOrDiarrhoeaOrGasDetails : value})} value = {this.state.gutDiseaseInfo_constipationOrDiarrhoeaOrGasDetails}/>
@@ -461,9 +496,11 @@ export default class HealthHistoryScreen extends React.Component
                     status = {this.state.relevantInformationAvailable === 'No' ? 'checked' : 'unchecked'}
                     onPress = {() => this.setState({relevantInformationAvailable : 'No'})}/>
                 </View>
-
-                <Text style = {styles.labelInputText}>If Yes</Text>
-                <TextInput style = {styles.textInputMultiLine} multiline = {true} placeholder = '' onChangeText = {(value) => this.setState({relevantInformationDetails : value})} value = {this.state.relevantInformationDetails}/>
+                
+                {this.state.relevantInformationAvailable === 'Yes' ? (
+                    <TextInput style = {styles.textInputMultiLine} multiline = {true} placeholder = '' onChangeText = {(value) => this.setState({relevantInformationDetails : value})} value = {this.state.relevantInformationDetails}/>
+                    ) : null
+                }
             </View>
         );
     }

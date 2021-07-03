@@ -60,7 +60,7 @@ export default class CoachingScreen extends React.Component {
                   </View>
                 </ImageBackground>
               </View>
-              <View style = {[styles.columnContainer, {marginLeft : '10%'}]}>
+              <View style = {styles.columnContainer}>
                 <Text>Physical Coaching</Text>
 
                 <ImageBackground style = {styles.backgroundImage} source={require('./assets/physicalcoaching.png')} resizeMode="contain">
@@ -114,9 +114,9 @@ const styles = StyleSheet.create({
   bodyContainer : {
     flexDirection : 'row',
     width : "90%",
-    marginVertical : 50,
+    marginVertical : '5%',
     alignSelf : 'center',
-    justifyContent : 'center',
+    justifyContent : 'space-evenly',
     alignItems : 'center'
   },
   columnContainer : {
@@ -126,9 +126,10 @@ const styles = StyleSheet.create({
     alignItems : 'center'
   },
   backgroundImage : {
-    width : 200,
-    height : 400,
-    marginVertical : 20
+    width : '100%',
+    height : '100%',
+    marginVertical : 20,
+    backgroundColor : 'red'
   },
   labelText : {
     fontSize:12,

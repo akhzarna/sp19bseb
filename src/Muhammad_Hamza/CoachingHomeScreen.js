@@ -72,7 +72,7 @@ export default class CoachingHomeScreen extends Component {
         {
           this.setState({pending : false, approved : false, applied : false});
         }
-        //this.setState({approved : true});
+        // this.setState({approved : true});
         this.setState({visible:false});
       }else if(response.data["status"] === "error"){
         console.log('Error is =',response.data["response"]["message"]);
