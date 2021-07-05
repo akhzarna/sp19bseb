@@ -14,9 +14,9 @@ export default class HealthHistoryScreen extends React.Component
 {
     state = {
         problemsList_poorImmunity : false, problemsList_acidity : false, problemsList_constipation : false, problemsList_diarrhoea : false, problemsList_leakyGut : false, problemsList_IBS : false, problemsList_autoImmuneDisease : false, problemsList_foodAllergies : false, problemsList_insulinResistance : false,
-        personalInfo_address : "", personalInfo_phoneNo : "", personalInfo_age : "", personalInfo_gender : "", personalInfo_height : "",
+        personalInfo_address : "", personalInfo_phoneNo : "", personalInfo_age : "", personalInfo_gender : "Male", personalInfo_height : "",
         dob : new Date(),
-        weight_current : '', weight_sixMonthsAgo : '', weight_oneYearAgo : '', weight_differentWeightRequired : '', weight_intentLost : '', weight_relationshipStatus : '', weight_childern : '', weight_occupation : '', weight_lineOfWork : '', weight_stressAtWork : '', weight_workHours : '', weight_domesticLife : '', weight_healthConcerns : '', weight_diagnosed : '', weight_medication : '', weight_supplements : '', weight_familyMemberProblem : '',
+        weight_current : '', weight_sixMonthsAgo : '', weight_oneYearAgo : '', weight_differentWeightRequired : '', weight_intentLost : '', weight_relationshipStatus : 'Single', weight_childern : '', weight_occupation : '', weight_lineOfWork : '', weight_stressAtWork : '', weight_workHours : '', weight_domesticLife : '', weight_healthConcerns : '', weight_diagnosed : '', weight_medication : '', weight_supplements : '', weight_familyMemberProblem : '',
         bloodInfo_bloodType : '', bloodInfo_takingBirthControlPills : '', bloodInfo_menstrualCycle : '',
         gutDiseaseInfo_constipationOrDiarrhoeaOrGasDetails : '', gutDiseaseInfo_constipationOrDiarrhoeaOrGasDuration : '',
         physicalInfo_foodAllergies : '', physicalInfo_physicallyActive : '', physicalInfo_dailyExercise : '', physicalInfo_exerciseDetails : '',
@@ -159,7 +159,7 @@ export default class HealthHistoryScreen extends React.Component
                 <Text style = {styles.labelInputText}>Gender:</Text>
                 <View style={{ height : 40, borderWidth: 1, borderColor : 'black', justifyContent : 'center'}}>
                     <Picker
-                        value= {this.state.personalInfo_gender}
+                        selectedValue = {this.state.personalInfo_gender}
                         mode = 'dropdown'
                         onValueChange = {(value) => this.setState({personalInfo_gender : value})}
                         style = {{height : 40}}>
