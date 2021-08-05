@@ -131,7 +131,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.dieting_app"
+        applicationId "com.lettech.matabsulemani"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

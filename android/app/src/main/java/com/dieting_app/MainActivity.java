@@ -1,4 +1,4 @@
-package com.dieting_app;
+package com.lettech.matabsulemani;
 
 import com.facebook.react.ReactActivity;
 
