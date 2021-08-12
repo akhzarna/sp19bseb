@@ -14,7 +14,7 @@ function DrawerHeader(props){
                 icon="menu"
                 onPress={() => props.navigation.toggleDrawer()}/>
             <Avatar.Image source = {require('../Muhammad_Hamza/Icons/logo.png')} size = {30}/>
-            <Title style = {{fontSize : 20, fontWeight : 'bold', marginLeft : '5%', color : 'white'}}>مطب سلیمانی</Title>
+            <Title style = {{fontSize : 20, marginLeft : '5%', color : 'white',  fontFamily:'Jameel-Noori-Nastaleeq-Kasheeda'}}>مطب سلیمانی</Title>
         </Appbar.Header>
     );
 }
@@ -29,7 +29,7 @@ export default function CustomDrawerContent(props) {
             <DrawerItem label =  {() => (
                 <View style = {{flex : 1, flexDirection : 'row', justifyContent : 'space-between'}}>
                     
-                    <Text style = {{fontSize : 14}}>ڈیش بورڈ</Text>
+                    <Text style = {{fontSize : 14, fontFamily:'Jameel-Noori-Nastaleeq-Kasheeda'}}>ڈیش بورڈ</Text>
                     <Icon
                         name="caret-right"
                         size={20}
@@ -59,7 +59,7 @@ export default function CustomDrawerContent(props) {
 
             <DrawerItem label = {() => (
                 <View style = {{flex : 1, flexDirection : 'row', justifyContent : 'space-between'}}>
-                    <Text style = {{fontSize : 14}}>طبی کتب</Text>
+                    <Text style = {{fontSize : 14, fontFamily:'Jameel-Noori-Nastaleeq-Kasheeda'}}>طبی کتب</Text>
                     <Icon
                         name="caret-right"
                         size={20}
@@ -83,7 +83,7 @@ export default function CustomDrawerContent(props) {
 
             <DrawerItem label = {() => (
                 <View style = {{flex : 1, flexDirection : 'row', justifyContent : 'space-between'}}>
-                    <Text style = {{fontSize : 14}}>نسخہ جات</Text>
+                    <Text style = {{fontSize : 14, fontFamily:'Jameel-Noori-Nastaleeq-Kasheeda'}}>نسخہ جات</Text>
                     <Icon
                         name="caret-right"
                         size={20}
@@ -107,7 +107,7 @@ export default function CustomDrawerContent(props) {
 
             <DrawerItem label = {() => (
                 <View style = {{flex : 1, flexDirection : 'row', justifyContent : 'space-between'}}>
-                    <Text style = {{fontSize : 14}}>بک مارکس</Text>
+                    <Text style = {{fontSize : 14, fontFamily:'Jameel-Noori-Nastaleeq-Kasheeda'}}>بک مارکس</Text>
                     <Icon
                         name="caret-right"
                         size={20}
@@ -131,7 +131,7 @@ export default function CustomDrawerContent(props) {
 
             <DrawerItem label = {() => (
                 <View style = {{flex : 1, flexDirection : 'row', justifyContent:'space-between'}}>
-                    <Text style = {{fontSize : 14}}>یونانی ادویہ</Text>
+                    <Text style = {{fontSize : 14, fontFamily:'Jameel-Noori-Nastaleeq-Kasheeda'}}>یونانی ادویہ</Text>
                     <Icon
                         name="caret-right"
                         size={20}
@@ -155,7 +155,7 @@ export default function CustomDrawerContent(props) {
 
             <DrawerItem label = {() => (
                 <View style = {{flex : 1, flexDirection : 'row', justifyContent:'space-between'}}>
-                    <Text style = {{fontSize : 14}}>ادارہ سلیمانی منزل بہ منزل</Text>
+                    <Text style = {{fontSize : 14, fontFamily:'Jameel-Noori-Nastaleeq-Kasheeda'}}>ادارہ سلیمانی منزل بہ منزل</Text>
                     <Icon
                         name="caret-right"
                         size={20}
@@ -181,7 +181,7 @@ export default function CustomDrawerContent(props) {
 
             <DrawerItem label = {() => (
                 <View style = {{flex : 1, flexDirection : 'row', justifyContent:'space-between'}}>
-                    <Text style = {{fontSize : 14}}>مضامین</Text>
+                    <Text style = {{fontSize : 14, fontFamily:'Jameel-Noori-Nastaleeq-Kasheeda'}}>مضامین</Text>
                     <Icon
                         name="caret-right"
                         size={20}
@@ -204,7 +204,7 @@ export default function CustomDrawerContent(props) {
             />
             <DrawerItem label = {() => (
                 <View style = {{flex : 1, flexDirection : 'row', justifyContent:'space-between'}}>
-                    <Text style = {{fontSize : 14}}>برائے رابطہ</Text>
+                    <Text style = {{fontSize : 14, fontFamily:'Jameel-Noori-Nastaleeq-Kasheeda'}}>برائے رابطہ</Text>
                     <Icon
                         name="caret-right"
                         size={20}
@@ -227,7 +227,7 @@ export default function CustomDrawerContent(props) {
             />
             <DrawerItem label = {() => (
                 <View style = {{flex : 1, flexDirection : 'row', justifyContent:'space-between'}}>
-                    <Text style = {{fontSize : 14}}>برائے فورم</Text>
+                    <Text style = {{fontSize : 14, fontFamily:'Jameel-Noori-Nastaleeq-Kasheeda'}}>برائے فورم</Text>
                      <Icon
                         name="caret-right"
                         size={20}

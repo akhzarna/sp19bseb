@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "153880057107",
+    "firebase_url": "https://matabsulemani-23765-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "matabsulemani-23765",
+    "storage_bucket": "matabsulemani-23765.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:153880057107:android:a7fdd46fffe1523d8cb6e6",
+        "android_client_info": {
+          "package_name": "com.lettech.matabsulemani"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "153880057107-8fmpvvgq647977cab5aur29u395chc2a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB97N_pTuR50negGWPz_cj8p1QFgYm9xkM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "153880057107-8fmpvvgq647977cab5aur29u395chc2a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

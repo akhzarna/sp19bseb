@@ -15,6 +15,8 @@ import {
 import {Picker} from '@react-native-picker/picker';
 import AnimatedLoader from "react-native-animated-loader";
 
+import auth from '@react-native-firebase/auth';
+
 export default class SignUpScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -69,18 +71,46 @@ export default class SignUpScreen extends React.Component {
         console.log(params);
         if (this.validation()) {
             this.setState({visible:true});
-            axios.post('https://thefoodpharmacy.general.greengrapez.com/api/auth/register', JSON.stringify(params), {
-                headers: {
-                    'Content-Type': 'application/json',
-                    "Access-Control-Allow-Origin": "*",
-                },
-            }).then((response) => {
-                Alert.alert("Sign Up Successful", "Go Back and log in now.", [{text : "Log In", onPress : () => this.backToLogIn(), style : 'default'}]);
-                this.setState({visible:false});
-            }).catch((err) => {
-                Alert.alert("Error", err.response.data.response.message);
-                this.setState({visible:false});
-            });
+           
+
+
+        auth()
+        .createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .then(() => {
+
+        
+          this.setState({visible:false});
+          console.log('User account created & signed in!');
+          // this.props.navigation.navigate('AfterLogIn', {themeColor : this.props.route.params.themeColor, token : response.data["response"]["jwt"], userId : response.data["user"]["id"], email : this.state.username})
+        })
+        .catch(error => {
+          this.setState({visible:false});
+          if (error.code === 'auth/email-already-in-use') {
+            console.log('That email address is already in use!');
+          }
+
+          if (error.code === 'auth/invalid-email') {
+            console.log('That email address is invalid!');
+          }
+          console.error(error);
+        });
+
+
+            // axios.post('https://thefoodpharmacy.general.greengrapez.com/api/auth/register', JSON.stringify(params), {
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //         "Access-Control-Allow-Origin": "*",
+            //     },
+            // }).then((response) => {
+            //     Alert.alert("Sign Up Successful", "Go Back and log in now.", [{text : "Log In", onPress : () => this.backToLogIn(), style : 'default'}]);
+            //     this.setState({visible:false});
+            // }).catch((err) => {
+            //     Alert.alert("Error", err.response.data.response.message);
+            //     this.setState({visible:false});
+            // });
+
+
+
         }
     }
 

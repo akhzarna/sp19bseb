@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {SafeAreaView, View, Text, TextInput, Image, Alert, ToastAndroid, StyleSheet, 
   TouchableOpacity, ScrollView, ImageBackground,
   ActivityIndicator,
@@ -10,15 +10,148 @@ import axios from "axios";
 
 import AnimatedLoader from "react-native-animated-loader";
 
+import database from '@react-native-firebase/database';
+
+import auth from '@react-native-firebase/auth';
+
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+
+GoogleSignin.configure({
+  webClientId: '153880057107-8fmpvvgq647977cab5aur29u395chc2a.apps.googleusercontent.com',
+});
+
+function SingIn() {
+  // Set an initializing state whilst Firebase connects
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
+
+  // Handle user state changes
+  function onAuthStateChanged(user) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
+  if (initializing) return null;
+
+  if (!user) {
+    return (
+      <View>
+        <Text>Login</Text>
+      </View>
+    );
+  }
+
+  return (
+    <View>
+      <Text style={{color:'black'}}> Welcome {user.email}</Text>
+    </View>
+  );
+}
+
 export default class SignInScreen extends React.Component {
   state = {
-    username : 'hamza3@gmail.com',
+    username : 'ammar@gmail.com',
     password : '123456',
     visible: false,
   }
 
-  loginAction()
-  {
+   onGoogleButtonPress = async () => {
+    this.setState({visible:true});
+    // Get the users ID token
+    const { idToken } = await GoogleSignin.signIn();
+  
+    // Create a Google credential with the token
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    
+    // Sign-in the user with the credential
+    auth().signInWithCredential(googleCredential).then(() => {
+      this.setState({visible:false});
+      console.log('User signed in with google credentials = ',googleCredential);
+      this.props.navigation.navigate('AfterLogIn', {themeColor : this.props.route.params.themeColor, token : googleCredential.token, userId : googleCredential.uid, email : googleCredential.email})
+    })
+    .catch(error => {
+      this.setState({visible:false});
+      console.log(error.code);
+      console.error(error);
+    });
+
+  }
+
+  componentDidMount(){
+    // Testing
+    // console.log('Testing my Database');
+    // database()
+    // .ref('/Student')
+    // .on('value', snapshot => {
+    // console.log('User data: ', snapshot.val());
+    // });
+
+  }
+
+  loginAction(){
+
+
+
+  // auth()
+  // .signOut()
+  // .then(() => console.log('User signed out!'));
+
+  // auth()
+  // .onAuthStateChanged((user)=>{
+  //   if(user){
+  //     console.log('Yes user is signed IN')
+  //     console.log(user);
+  //   }else{
+  //     console.log('Yes user is not signed')
+  //     console.log(user);
+  //   }
+  // })
+  
+
+
+    // auth()
+    // .signInWithEmailAndPassword('saboor12@example.com', '123456')
+    // .then((userCredentials) => {
+    //   // var user = userCredentials.user;
+    //   console.log('User signed in!');
+    //   // this.props.navigation.navigate('AfterLogIn', {themeColor : this.props.route.params.themeColor, token : user.uid, userId : user.uid, email : user.email})
+    // })
+    // .catch(error => {
+    //   this.setState({visible:false});
+    //   // if (error.code === 'auth/email-already-in-use') {
+    //   //   console.log('That email address is already in use!');
+    //   // }
+
+    //   // if (error.code === 'auth/invalid-email') {
+    //   //   console.log('That email address is invalid!');
+    //   // }
+    //   console.log(error.code);
+    //   console.error(error);
+    // });
+
+
+  // auth()
+  // .createUserWithEmailAndPassword('saboor1@example.com', '123456')
+  // .then(() => {
+  //   console.log('User account created & signed in!');
+  // })
+  // .catch(error => {
+  //   if (error.code === 'auth/email-already-in-use') {
+  //     console.log('That email address is already in use!');
+  //   }
+
+  //   if (error.code === 'auth/invalid-email') {
+  //     console.log('That email address is invalid!');
+  //   }
+
+  //   console.error(error);
+  // });
+
 
     if(this.state.username.length == 0 || this.state.password.length == 0){
       Alert.alert('Username or password must not be empty');
@@ -30,28 +163,88 @@ export default class SignInScreen extends React.Component {
           'password':this.state.password  
         };
 
-        const headers = { 
-            'content-type':'application/json'
-        };
+        auth()
+        .signInWithEmailAndPassword(this.state.username, this.state.password)
+        .then((userCredentials) => {
+          this.setState({visible:false});
+          var user = userCredentials.user;
+          console.log('User signed in!',user);
+          this.props.navigation.navigate('AfterLogIn', {themeColor : this.props.route.params.themeColor, token : user.uid, userId : user.uid, email : user.email})
+        })
+        .catch(error => {
+          this.setState({visible:false});
+          // if (error.code === 'auth/email-already-in-use') {
+          //   console.log('That email address is already in use!');
+          // }
 
-        axios.post('https://thefoodpharmacy.general.greengrapez.com/api/auth/login', data, {headers}).
-        then(response => {
-            this.setState({visible:false});
-            if(response.data["status"] === "error")
-            {
-                Alert.alert("Error", response.data["response"]);
-            }
-
-            if(response.data["status"] === "okay")
-            {
-              this.props.navigation.navigate('AfterLogIn', {themeColor : this.props.route.params.themeColor, token : response.data["response"]["jwt"], userId : response.data["user"]["id"], email : this.state.username})
-            }
-        }).
-        catch(error => {
-            Alert.alert("Error", error.message);
-            this.setState({visible:false});
+          // if (error.code === 'auth/invalid-email') {
+          //   console.log('That email address is invalid!');
+          // }
+          console.log(error.code);
+          // console.error(error);
+          Alert.alert(error.code);
         });
-    }
+
+      }
+
+
+
+    // if(this.state.username.length == 0 || this.state.password.length == 0){
+    //   Alert.alert('Username or password must not be empty');
+    // }else{
+    //     this.setState({visible:true});
+    //     const data = 
+    //     { 
+    //       'email':this.state.username,
+    //       'password':this.state.password  
+    //     };
+
+    //     auth()
+    //     .createUserWithEmailAndPassword(this.state.username, this.state.password)
+    //     .then(() => {
+    //       this.setState({visible:false});
+    //       console.log('User account created & signed in!');
+    //       // this.props.navigation.navigate('AfterLogIn', {themeColor : this.props.route.params.themeColor, token : response.data["response"]["jwt"], userId : response.data["user"]["id"], email : this.state.username})
+    //     })
+    //     .catch(error => {
+    //       this.setState({visible:false});
+    //       if (error.code === 'auth/email-already-in-use') {
+    //         console.log('That email address is already in use!');
+    //       }
+
+    //       if (error.code === 'auth/invalid-email') {
+    //         console.log('That email address is invalid!');
+    //       }
+    //       console.error(error);
+    //     });
+
+
+
+
+
+        // const headers = { 
+        //     'content-type':'application/json'
+        // };
+
+        // axios.post('https://thefoodpharmacy.general.greengrapez.com/api/auth/login', data, {headers}).
+        // then(response => {
+        //     this.setState({visible:false});
+        //     if(response.data["status"] === "error")
+        //     {
+        //         Alert.alert("Error", response.data["response"]);
+        //     }
+
+        //     if(response.data["status"] === "okay")
+        //     {
+        //       this.props.navigation.navigate('AfterLogIn', {themeColor : this.props.route.params.themeColor, token : response.data["response"]["jwt"], userId : response.data["user"]["id"], email : this.state.username})
+        //     }
+        // }).
+        // catch(error => {
+        //     Alert.alert("Error", error.message);
+        //     this.setState({visible:false});
+        // });
+    
+    
   }
 
   forgotPasswordAction()
@@ -64,12 +257,53 @@ export default class SignInScreen extends React.Component {
     this.props.navigation.navigate('SignUp', {themeColor : this.props.route.params.themeColor})
   }
 
+  guestUserAction(){
+
+
+
+
+  auth()
+  .signInAnonymously()
+  .then((userCredentials) => {
+    var user = userCredentials.user;
+    console.log('User signed in anonymously',user.uid);
+  })
+  .catch(error => {
+    if (error.code === 'auth/operation-not-allowed') {
+      console.log('Enable anonymous in your firebase console.');
+    }
+
+    console.error(error);
+  });
+
+
+      // Signin Anonymously
+  // auth()
+  // .signInAnonymously()
+  // .then((userCredentials) => {
+  //   var user = userCredentials.user;
+  //   console.log('User signed in anonymously',user);
+  //   this.props.navigation.navigate('AfterLogIn', {themeColor : this.props.route.params.themeColor, token : user.uid, userId : user.uid, email : user.email})
+  // })
+  // .catch(error => {
+  //   if (error.code === 'auth/operation-not-allowed') {
+  //     console.log('Enable anonymous in your firebase console.');
+  //   }
+  //   console.error('Error is = ',error);
+  // });
+
+  }
+  
   render()
   {
     return (
     <ImageBackground source={require('./bcbcbc.png')} style={styles.backgroundImage} >
+     
       <View style = {{flex : 1}}>
+     
         <ScrollView showsVerticalScrollIndicator={false}>
+
+        <SingIn />
 
           <View style={{paddingHorizontal: 20, flex: 1}}>
             
@@ -166,8 +400,22 @@ export default class SignInScreen extends React.Component {
                 </View>
                
               <View style={{width: 10,}}></View>
-                 
-                <View style={STYLES.btnSecondary}>
+                                 
+             
+              <TouchableOpacity style={STYLES.btnGuestUser} onPress = {() => this.guestUserAction()}>
+             
+              <Image
+                    style={STYLES.btnImage}
+                    source={require('../../assests/guestuser.jpeg')}
+                   />
+                   <Text style={{marginLeft:5, fontWeight: 'bold', fontSize: 14}}>
+                      Guest User
+                   </Text>
+              </TouchableOpacity>
+
+                  
+              <TouchableOpacity style={STYLES.btnGuestUser} onPress = {() => this.onGoogleButtonPress()}>
+                  
                   <Image
                     style={STYLES.btnImage}
                     source={require('../../assests/google.png')}
@@ -175,7 +423,8 @@ export default class SignInScreen extends React.Component {
                     <Text style={{marginLeft:5, fontWeight: 'bold', fontSize: 14}}>
                       Continue with Google
                     </Text>
-                </View>
+
+                </TouchableOpacity>
 
 
                 <View style={STYLES.btnSecondary}>

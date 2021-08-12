@@ -10,7 +10,7 @@ import CoachingHomeScreen from './src/Muhammad_Hamza/CoachingHomeScreen.js'
 import CoachingScreen from './src/Irbaz_Ahsan/CoachingScreen.js'
 import PaymentScreen from './src/Saboor_Malik/PaymentScreen.js'
 import HealthHistoryScreen from './src/Hamza_Iftikhar/HealthHistoryScreen.js'
-import ComingSoonScreen from './src/Hamza_Iftikhar/ComingSoonScreen';
+import BookShelf from './src/Hamza_Iftikhar/BookShelf';
 import SideMenuContentComponent from './src/Hamza_Iftikhar/SideMenuContentComponent'
 import DietPlanScreen from './src/Muhammad_Sharjeel/DietPlanScreen.js'
 import WishlistScreen from './src/Hamza_Iftikhar/Wishlist_Screen_Items/WishlistScreen';
@@ -53,17 +53,17 @@ export default class App extends React.Component {
     {
       return(
         <SideMenuDrawer.Navigator initialRouteName = "Home" drawerContent = {(props) => <SideMenuContentComponent {...props} />}>
-          <SideMenuDrawer.Screen name="Home" component={ComingSoonScreen} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
+          <SideMenuDrawer.Screen name="Home" component={BookShelf} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
           <SideMenuDrawer.Screen name="Products-Menu" component={ProductsMenu} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
           <SideMenuDrawer.Screen name="Products-Screen" component={ProductScreen} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
           <SideMenuDrawer.Screen name="Coaching" component={coachingStackScreens} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
-          <SideMenuDrawer.Screen name="Recommendation" component={ComingSoonScreen} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
-          <SideMenuDrawer.Screen name="Sale" component={ComingSoonScreen} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
-          <SideMenuDrawer.Screen name="Orders" component={ComingSoonScreen} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
-          <SideMenuDrawer.Screen name="FAQ" component={ComingSoonScreen} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
-          <SideMenuDrawer.Screen name="Blog" component={ComingSoonScreen} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
-          <SideMenuDrawer.Screen name="Contact" component={ComingSoonScreen} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
-          <SideMenuDrawer.Screen name="Address" component={ComingSoonScreen} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
+          <SideMenuDrawer.Screen name="Recommendation" component={BookShelf} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
+          <SideMenuDrawer.Screen name="Sale" component={BookShelf} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
+          <SideMenuDrawer.Screen name="Orders" component={BookShelf} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
+          <SideMenuDrawer.Screen name="FAQ" component={BookShelf} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
+          <SideMenuDrawer.Screen name="Blog" component={BookShelf} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
+          <SideMenuDrawer.Screen name="Contact" component={BookShelf} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
+          <SideMenuDrawer.Screen name="Address" component={BookShelf} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
           <SideMenuDrawer.Screen name="Wishlist" component={WishlistScreen} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
         </SideMenuDrawer.Navigator>
       );

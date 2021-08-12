@@ -37,6 +37,16 @@ const STYLES = StyleSheet.create({
     marginTop: 30,
   },
 
+  btnGuestUser: {
+    height: 20,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 0,
+    flex:1,
+    flexDirection:'row'
+  },
+
   btnSecondarySignUp: {
     backgroundColor: COLORS.primary,
     height: 50,
