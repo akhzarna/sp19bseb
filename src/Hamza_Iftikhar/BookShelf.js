@@ -482,7 +482,7 @@ booksLoadAction(){
     console.log('this.state.bookArrayNew = ',this.state.bookArrayNew);
 
     return(
-      <View>
+      <View style={{flex:1}}>
 
       <MyHeader themeColor = {this.props.route.params.themeColor} navigation = {this.props.navigation} homeScreen = {true}/>
       
@@ -502,39 +502,34 @@ booksLoadAction(){
             /> */}
             
             <FlatList
-                 style={{marginBottom:0}}
+                 style={{marginBottom:0,flex:1}}
                  data={this.state.bookArrayNew}
                  numColumns={1}
                 //  horizontal={true}
                  renderItem={ ({item}) =>
                
-               <View style = {styles.viewStyle}>
-                  <View style = {styles.viewStyleThumbnail}>
-                  <Image source={{uri: item.url}} style={styles.imageStyle}/>
+               
+               <View style = {styles.viewStyleMain}>
+                 
+                  <View style = {styles.leftView}>
+                    <Image source={{uri: item.url}} style={styles.imageStyle}/>
                   </View>
-                  <View style = {styles.viewStyleText}>
+                 
+                  <View style = {styles.rightView}>
+                    
                     <View style = {styles.viewStyleTop}>
                       <Text style={styles.titleStyle}>{item.title}</Text>
                       <Text style={styles.subtitleStyle}>Author: {item.author}</Text>
-                  </View>
-                  <View style = {styles.viewStyleBottom}>
+                    </View>
 
-                      {/* { item.audio?(
-                      <TouchableOpacity style={styles.buttonStyleAudio} onPress={()=>this.rowSelectedAudio(item)}>
-                        <Text style={styles.buttontitleStyle}> Audio </Text>
-                      </TouchableOpacity>
-                      ):(
-                        null
-                      )
-                      } */}
-                      
-                      
+                    <View style = {styles.bottomView}>
+
                       {/* {item.data?( */}
 
                       <TouchableOpacity style={styles.buttonStyleUnicode} onPress={()=>this.rowSelectedUnicode(item)}>
                         <Text style={styles.buttontitleStyle}> Unicode </Text>
                       </TouchableOpacity>
-                      
+
                       {/* ):(null)
                       } */}
 
@@ -546,9 +541,12 @@ booksLoadAction(){
 
                       {/* ):(null)
                       } */}
-                     
+
+                    </View>
+
+                 
                   </View>
-                  </View>
+
                 </View>
                }
            />
@@ -596,26 +594,26 @@ textStyle:{
   fontFamily:'MehrNastaliqWeb'
 },
 
-viewStyle:{
+viewStyleMain:{
   flex:1,
   flexDirection:'row',
-  marginLeft:5,
-  marginRight:5,
-  marginTop:5,
-  marginBottom:5,
-  backgroundColor : 'white', 
-  elevation: 3,
-  borderRadius:4,
+  // marginLeft:5,
+  // marginRight:5,
+  // marginTop:5,
+  // marginBottom:5,
+  // elevation: 3,
+  // borderRadius:4,
   padding:4,
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  // width:Cell_Width,
-  shadowOpacity: 10,
-  shadowColor: 'black',
-  justifyContent: 'center',
+  height:140,
+  // justifyContent: 'flex-start',
+  // shadowOpacity: 10,
+  // shadowColor: 'grey',
+  // alignItems: 'center',
+  // justifyContent: 'center',
+  backgroundColor : 'black', 
 },
 
-viewStyleThumbnail:{
+leftView:{
   flex:0.33,
   // marginLeft:5,
   // marginRight:5,
@@ -628,12 +626,12 @@ viewStyleThumbnail:{
   // borderRadius:4,
   // padding:4,
   // shadowOpacity: 10,
-  backgroundColor : 'white',
+  backgroundColor : 'red',
   // shadowColor: 'black',
   // justifyContent: 'center',
 },
 
-viewStyleText:{
+rightView:{
   flex:0.67,
   // marginLeft:15,
   // marginRight:5,
@@ -646,13 +644,13 @@ viewStyleText:{
   // borderRadius:4,
   // padding:4,
   // shadowOpacity: 10,
-  backgroundColor : 'white',
+  backgroundColor : 'grey',
   // shadowColor: 'black',
   // justifyContent: 'center',
 },
 
 viewStyleTop:{
-  flex:0.67,
+  flex:0.50,
   // marginLeft:15,
   // marginRight:5,
   // marginTop:5,
@@ -664,13 +662,13 @@ viewStyleTop:{
   // borderRadius:4,
   // padding:4,
   // shadowOpacity: 10,
-  backgroundColor : 'white',
+  backgroundColor : 'blue',
   // shadowColor: 'black',
   // justifyContent: 'center',
 },
 
-viewStyleBottom:{
-  flex:0.67,
+bottomView:{
+  flex:0.50,
   flexDirection:'row',
   // marginLeft:15,
   // marginRight:5,
@@ -683,7 +681,7 @@ viewStyleBottom:{
   // borderRadius:4,
   // padding:4,
   // shadowOpacity: 10,
-  backgroundColor : 'white',
+  backgroundColor : 'green',
   // shadowColor: 'black',
   // justifyContent: 'center',
 },
@@ -709,7 +707,7 @@ buttontitleStyle:{
 
 subtitleStyle:{
   color:'grey',
-  marginTop:0,
+  marginTop:5,
   // marginBottom:0,
   // textAlign:'center',
   fontSize:13,
@@ -736,11 +734,11 @@ buttonStyleAudio:{
 },
 
 buttonStyleUnicode:{
-  marginLeft:0,
+  // marginLeft:0,
   marginRight:5,
   marginTop:50,
-  marginBottom:5,
-  elevation: 3,
+  // marginBottom:5,
+  // elevation: 3,
   // justifyContent: 'flex-start',
   alignItems: 'center',
   width:60,
@@ -754,10 +752,10 @@ buttonStyleUnicode:{
 },
 
 buttonStylePDF:{
-  marginLeft:0,
-  marginRight:5,
+  // marginLeft:0,
+  // marginRight:5,
   marginTop:50,
-  marginBottom:5,
+  // marginBottom:5,
   elevation: 3,
   // justifyContent: 'flex-start',
   alignItems: 'center',
