@@ -9,12 +9,13 @@ import STYLES from '../../styles/index';
 import axios from "axios";
 
 import AnimatedLoader from "react-native-animated-loader";
-
 import database from '@react-native-firebase/database';
 
 import auth from '@react-native-firebase/auth';
 
+import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import admob, { MaxAdContentRating, InterstitialAd, AdEventType, RewardedAd, RewardedAdEventType, BannerAd, TestIds, BannerAdSize } from '@react-native-firebase/admob';
 
 GoogleSignin.configure({
   webClientId: '153880057107-8fmpvvgq647977cab5aur29u395chc2a.apps.googleusercontent.com',
@@ -48,10 +49,11 @@ function SingIn() {
 
   return (
     <View>
-      <Text style={{color:'black'}}> Welcome {user.email}</Text>
+      <Text style={{color:'black'}}> Welcome {user.name}</Text>
     </View>
   );
 }
+
 
 export default class SignInScreen extends React.Component {
   state = {
@@ -82,6 +84,43 @@ export default class SignInScreen extends React.Component {
 
   }
 
+  onFacebookButtonPress = async () => {
+    
+    // Attempt login with permissions
+  const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+
+  if (result.isCancelled) {
+    throw 'User cancelled the login process';
+  }
+
+  // Once signed in, get the users AccesToken
+  const data = await AccessToken.getCurrentAccessToken();
+
+  if (!data) {
+    throw 'Something went wrong obtaining access token';
+  }
+
+  // Create a Firebase credential with the AccessToken
+  const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
+
+  console.log('Facebook Credentials are = ',facebookCredential);
+
+  // Sign-in the user with the credential
+  // return auth().signInWithCredential(facebookCredential);
+
+  auth().signInWithCredential(facebookCredential).then(() => {
+    this.setState({visible:false});
+    console.log('User signed in with facebookCredential credentials = ',facebookCredential);
+    this.props.navigation.navigate('AfterLogIn', {themeColor : this.props.route.params.themeColor, token : facebookCredential.token, userId : facebookCredential.uid, email : facebookCredential.email})
+  })
+  .catch(error => {
+    this.setState({visible:false});
+    console.log(error.code);
+    console.error(error);
+  });
+
+  }
+
   componentDidMount(){
     // Testing
     // console.log('Testing my Database');
@@ -94,8 +133,6 @@ export default class SignInScreen extends React.Component {
   }
 
   loginAction(){
-
-
 
   // auth()
   // .signOut()
@@ -117,9 +154,9 @@ export default class SignInScreen extends React.Component {
     // auth()
     // .signInWithEmailAndPassword('saboor12@example.com', '123456')
     // .then((userCredentials) => {
-    //   // var user = userCredentials.user;
+    //   var user = userCredentials.user;
     //   console.log('User signed in!');
-    //   // this.props.navigation.navigate('AfterLogIn', {themeColor : this.props.route.params.themeColor, token : user.uid, userId : user.uid, email : user.email})
+    //   this.props.navigation.navigate('AfterLogIn', {themeColor : this.props.route.params.themeColor, token : user.uid, userId : user.uid, email : user.email})
     // })
     // .catch(error => {
     //   this.setState({visible:false});
@@ -135,8 +172,10 @@ export default class SignInScreen extends React.Component {
     // });
 
 
+
+
   // auth()
-  // .createUserWithEmailAndPassword('saboor1@example.com', '123456')
+  // .createUserWithEmailAndPassword('sadam@gmail.com', '123456')
   // .then(() => {
   //   console.log('User account created & signed in!');
   // })
@@ -151,6 +190,8 @@ export default class SignInScreen extends React.Component {
 
   //   console.error(error);
   // });
+
+
 
 
     if(this.state.username.length == 0 || this.state.password.length == 0){
@@ -169,7 +210,7 @@ export default class SignInScreen extends React.Component {
           this.setState({visible:false});
           var user = userCredentials.user;
           console.log('User signed in!',user);
-          this.props.navigation.navigate('AfterLogIn', {themeColor : this.props.route.params.themeColor, token : user.uid, userId : user.uid, email : user.email})
+          this.props.navigation.navigate('AfterLogIn', {themeColor : this.props.route.params.themeColor, token : user.uid, userId : user.uid, email : user.email});
         })
         .catch(error => {
           this.setState({visible:false});
@@ -259,20 +300,16 @@ export default class SignInScreen extends React.Component {
 
   guestUserAction(){
 
-
-
-
   auth()
   .signInAnonymously()
   .then((userCredentials) => {
     var user = userCredentials.user;
-    console.log('User signed in anonymously',user.uid);
+    console.log('User signed in anonymously',user);
   })
   .catch(error => {
     if (error.code === 'auth/operation-not-allowed') {
       console.log('Enable anonymous in your firebase console.');
     }
-
     console.error(error);
   });
 
@@ -297,20 +334,22 @@ export default class SignInScreen extends React.Component {
   render()
   {
     return (
+
+      //JSX
+
     <ImageBackground source={require('./bcbcbc.png')} style={styles.backgroundImage} >
      
       <View style = {{flex : 1}}>
-     
+        
         <ScrollView showsVerticalScrollIndicator={false}>
-
-        <SingIn />
 
           <View style={{paddingHorizontal: 20, flex: 1}}>
             
             <View style={{marginTop: 50}}>
               {/* Nothing to do with this */}
             </View>
-    
+
+
             <View style={{marginTop: 20}}>
               <View style={STYLES.inputContainer}>
                 <Icon
@@ -335,6 +374,9 @@ export default class SignInScreen extends React.Component {
                   value = {this.state.password} onChangeText = {(value) => this.setState({password : value})}
                 />
               </View>
+
+              <SingIn />
+
             <View style={{flex:1,flexDirection:'row'}}>
               <TouchableOpacity style = {{marginTop : 20, marginLeft:10, marginRight:40}} onPress = {() => this.forgotPasswordAction()}>
                   <Text style={{color: COLORS.dark, fontWeight: 'bold'}}>
@@ -347,6 +389,7 @@ export default class SignInScreen extends React.Component {
                     Forgot a Password?
                   </Text>
               </TouchableOpacity>
+
 
             </View>
 
@@ -411,6 +454,7 @@ export default class SignInScreen extends React.Component {
                    <Text style={{marginLeft:5, fontWeight: 'bold', fontSize: 14}}>
                       Guest User
                    </Text>
+                   
               </TouchableOpacity>
 
                   
@@ -423,6 +467,20 @@ export default class SignInScreen extends React.Component {
                     <Text style={{marginLeft:5, fontWeight: 'bold', fontSize: 14}}>
                       Continue with Google
                     </Text>
+
+                </TouchableOpacity>
+
+
+                <TouchableOpacity style={STYLES.btnGuestUser} onPress = {() => this.onFacebookButtonPress()}>
+                  
+                  <Image
+                    style={STYLES.btnImage}
+                    source={require('../../assests/google.png')}
+                  />
+                  
+                  <Text style={{marginLeft:5, fontWeight: 'bold', fontSize: 14}}>
+                    Facebook
+                  </Text>
 
                 </TouchableOpacity>
 
@@ -461,6 +519,13 @@ export default class SignInScreen extends React.Component {
 
           </View>
         </ScrollView>
+
+        <View style={{flex:0,backgroundColor:'transparent',}}>
+          <BannerAd size={BannerAdSize.SMART_BANNER}
+                    unitId={"ca-app-pub-9152919921144751/3500302987"}>
+          </BannerAd>
+        </View>
+
       </View>
     </ImageBackground>
 

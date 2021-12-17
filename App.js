@@ -27,10 +27,8 @@ export default class App extends React.Component {
 
   themeColor = '';
 
-  constructor(props)
-  {
+  constructor(props){
     super(props);
-
     this.themeColor = '#1f8e46';
   }
 

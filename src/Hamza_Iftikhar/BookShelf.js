@@ -11,6 +11,8 @@ import {
   Image,
   TextInput,
   Dimensions,
+  SectionList,
+
 } from 'react-native';
 
 import AsyncStorage from '@react-native-community/async-storage';
@@ -35,10 +37,113 @@ import MyHeader from './MyHeader';
 
 // Realtime Database
 import database from '@react-native-firebase/database';
+
 // Firestore Database
 import firestore from '@react-native-firebase/firestore';
 
+const DATA = [
+  {
+    title: 'Ali Jahanzaib',
+    msg: 'Whatsupp?',
+    pic: '',
+    time: '6:51 PM',
+    unread: '2',
+    url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
+  },
+  {
+    title: 'Ahmad',
+    msg: 'Hi',
+    pic: '',
+    time: '6:49 PM',
+    unread: '1',
+    url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
+  },
+  {
+    title: 'Waleed',
+    msg: 'Where are you?',
+    pic: '',
+    time: '6:45 PM',
+    unread: '5',
+    url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
+  },
+
+  {
+    title: 'Faizan',
+    msg: 'wanna go?',
+    pic: '',
+    time: '6:33 PM',
+    unread: '1',
+    url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
+  },
+  {
+    title: 'Anas',
+    msg: 'Very nice!',
+    pic: '',
+    time: '6:22 PM',
+    unread: '3',
+    url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
+  },
+  {
+    title: 'Dad',
+    msg: 'Come home',
+    pic: '',
+    time: '5:51 PM',
+    unread: '1',
+    url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
+  },
+  {
+    title: 'Mom',
+    msg: 'Where are you going?',
+    pic: '',
+    time: '1:12 PM',
+    unread: '1',
+    url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
+  },
+  {
+    title: 'Zain',
+    msg: 'lets party',
+    pic: '',
+    time: '8:54 PM',
+    unread: '3',
+    url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
+  },
+  {
+    title: 'Wahaj',
+    msg: 'Join meeting',
+    pic: '',
+    time: '4:50 PM',
+    unread: '12',
+    url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
+  },
+
+  {
+    title: 'Ali Ahmad',
+    msg: 'Dude, Lets meet',
+    pic: '',
+    time: '9:24 PM',
+    unread: '4',
+    url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
+  },
+  {
+    title: 'Amina',
+    msg: 'Tommorrow?',
+    pic: '',
+    time: '7:55 PM',
+    unread: '22',
+    url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
+  },
+  {
+    title: 'Client',
+    msg: 'Excellent job',
+    pic: '',
+    time: '3:59 PM',
+    unread: '3',
+    url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
+  },
+];
+
 export default class BookShelf extends Component{
+
     constructor(props){
       super(props);
       // this.props.navigator.setOnNavigatorEvent(this.onNavigationEvent.bind(this));
@@ -46,47 +151,188 @@ export default class BookShelf extends Component{
           bookArray:[],
           bookArrayNew:[],
           showProgress:true,
+          flag1:45,
+          university:[],
       }
+
+      // this.state = {
+
+      // }
+
     }
     
     componentDidMount() {
-      console.log('Final Book is = ',this.state.bookArray);
-      AsyncStorage.getItem("booksData").then((value) => {
-        var booksData = JSON.parse(value);
-        if (booksData == null) {
-          this.booksLoadAction();
-        }else{
-        this.setState({
-          bookArray:booksData,
-          showProgress:false
-        }); 
-        this.booksLoadAction();
-        }
-      }
-    ).done();
 
- 
- // Complete Collection
-  firestore()
-  .collection('books')
-  .get()
-  .then(querySnapshot => {
-    var tempArray = [];
-    // console.log('Total users: ', querySnapshot.size);
-    querySnapshot.forEach(documentSnapshot => {
-      console.log('Document ', documentSnapshot.id, documentSnapshot.data());
-      tempArray.push(documentSnapshot.data());
-    });
-    this.setState({
-      bookArrayNew:tempArray
-    }); 
-  });
+      // Alert.alert('Value is = ', DATA[0].data[0].title);
+      this.setState({
+        flag1:280
+      });
 
+      // Alert.alert('Flag value is = ' + flag1);
+
+      // Alert.alert('This is BookShelf')
+    //   console.log('Final Book is = ',this.state.bookArray);
+    //   AsyncStorage.getItem("booksData").then((value) => {
+    //     var booksData = JSON.parse(value);
+    //     if (booksData == null) {
+    //       this.booksLoadAction();
+    //     }else{
+    //     this.setState({
+    //       bookArray:booksData,
+    //       showProgress:false
+    //     }); 
+    //     this.booksLoadAction();
+    //     }
+    //   }
+    // ).done();
+
+
+    // const usersCollection = firestore().collection('Users');
+    // console.log('Total Collections: ', usersCollection);
+    
+    // const userDocument = firestore().collection('Users').doc('brFR2nBInbv7RPMZn7A5');
+    // console.log('Total Documents: ', userDocument);
+
+
+  // firestore()
+  // .collection('Users')
+  // .get()
+  // .then(querySnapshot => {
+  //   console.log('Total users: ', querySnapshot.size);
+  //   querySnapshot.forEach(documentSnapshot => {
+  //     console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+  //   });
+  // });
+
+
+  // firestore()
+  // .collection('books')
+  // .doc('0')
+  // .get()
+  // .then(documentSnapshot => {
+  //   console.log('Books exists: ', documentSnapshot.exists);
+  //   if (documentSnapshot.exists) {
+  //     console.log('User data: ', documentSnapshot.data());
+  //   }
+  // });
+
+//  Complete Collection
+
+
+// firestore()
+//   .collection('Student')
+//   .orderBy('marks', 'desc')
+//   .limit(5)
+//   .get()
+//   .then(querySnapshot => {
+//     console.log('Total users: ', querySnapshot.size);
+
+//     querySnapshot.forEach(documentSnapshot => {
+//       console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+//     });
+//   });
+
+var newArray = [];
+
+// firestore()
+//   .collection('Student')
+//   .get()
+//   .then(querySnapshot => {
+//     // console.log('Total users: ', querySnapshot.size);
+//     querySnapshot.forEach(documentSnapshot => {
+//       console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+//       newArray.push(documentSnapshot.data());
+//       this.setState({university:newArray});
+//     });
+//   });
+
+// for (var x = 0; x<22; x++){
+//   var shoaib = x+'';
+
+//   firestore()
+//   .collection('NayaTable')
+//   .doc(shoaib)
+//   .set({
+//     name: 'Ada Lovelace',
+//     age: 30,
+//   })
+//   .then(() => {
+//     console.log('User added!');
+//   });
+// }
+
+
+// firestore()
+//   .collection('Student')
+//   .doc('10')
+//   .update({
+//     age: 22,
+//     name:'Sadam',
+//     class:'BCS',
+//     marks:78,
+//     campus:'Comsats'
+//   })
+//   .then(() => {
+//     console.log('User updated!');
+//   });
+
+  // firestore()
+  // .collection('books')
+  // .orderBy('id', 'desc')
+  // .get()
+  // .then(querySnapshot => {
+  //   var tempArray = [];
+  //   // console.log('Total users: ', querySnapshot.size);
+  //   querySnapshot.forEach(documentSnapshot => {
+  //     console.log('Firestore Document', documentSnapshot.id, documentSnapshot.data());
+  //     tempArray.push(documentSnapshot.data());
+  //   });
+  //   this.setState({
+  //     bookArrayNew:tempArray
+  //   }); 
+  // });
+
+  // firestore()
+  // .collection('Users')
+  // .doc('ABC')
+  // .delete()
+  // .then(() => {
+  //   console.log('User deleted!');
+  // });
   
+  // database()
+  // .ref('/Student/1')
+  // .once('value')
+  // .then(snapshot => {
+  //   console.log('User data: ', snapshot.val());
+  // });
+    
+
+  database()
+  .ref('/University/')
+  .once('value')
+  .then(snapshot => {
+    console.log('User data: ', snapshot.val());
+    this.setState({university:snapshot.val()});
+  });
 
 
   // database()
-  // .ref('/Student/1')
+  // .ref('/users/')
+  // .on('value', snapshot => {
+  //   console.log('User data: ', snapshot.val());
+  // });
+
+
+  
+  // database()
+  // .ref('/Student/')
+  // .on('value', snapshot => {
+  //   console.log('User data: ', snapshot.val());
+  // });
+
+  // database()
+  // .ref('/Student/')
   // .once('value')
   // .then(snapshot => {
   //   console.log('User data: ', snapshot.val());
@@ -477,85 +723,95 @@ booksLoadAction(){
 
     }
 
-  render(){
-    
-    console.log('this.state.bookArrayNew = ',this.state.bookArrayNew);
+    componentWillMount(){
 
-    return(
-      <View style={{flex:1}}>
+      // Alert.alert('componentWillMount');
 
-      <MyHeader themeColor = {this.props.route.params.themeColor} navigation = {this.props.navigation} homeScreen = {true}/>
-      
-      {/* <Header title='تصانیف' showMenu={false} navigator={this.props.navigator} navigation={this.props.navigation}/> */}
-      
-            {/* <FlatList
-                  style={{marginBottom:20}}
-                  data={this.state.bookArray}
-                  numColumns={2}
-                  renderItem={
-                  ({item}) =>
-                  <TouchableOpacity style={styles.buttonStyle} onPress={()=>this.rowSelected(item)}>
-                    <Image source={item.cover} style={styles.imageStyle}/>
-                    <Text style={styles.textStyle}>{item.title}</Text>
-                  </TouchableOpacity>
-                }
-            /> */}
+      // this.state.flag1 = 300;
+
+      this.setState({
+        flag1 : 156
+      });
+
+    }
+
+    render()
+    {
+      return (
+  
+       <View style={{flex:1}}>
             
-            <FlatList
-                 style={{marginBottom:0,flex:1}}
-                 data={this.state.bookArrayNew}
-                 numColumns={1}
-                //  horizontal={true}
-                 renderItem={ ({item}) =>
-               
-               
-               <View style = {styles.viewStyleMain}>
-                 
-                  <View style = {styles.leftView}>
-                    <Image source={{uri: item.url}} style={styles.imageStyle}/>
-                  </View>
-                 
-                  <View style = {styles.rightView}>
+            <View style={{flex:0.8,backgroundColor:'#015E54'}}>
+                
+                <Text>WhatsApp</Text>
+              
+            </View>
+  
+            <View style={{flex:5}}>
+  
+
+  
+                <FlatList
                     
-                    <View style = {styles.viewStyleTop}>
-                      <Text style={styles.titleStyle}>{item.title}</Text>
-                      <Text style={styles.subtitleStyle}>Author: {item.author}</Text>
+                data={this.state.university}
+                
+                keyExtractor={(item, index) => index}
+                
+                renderItem={({item,index}) =>
+
+                <View style={{backgroundColor:'green', padding:10,borderBottomWidth:5}}>
+  
+                    <View style={{flex:1,backgroundColor:'red',flexDirection:'row'}}>
+  
+                      <View style={{flex:2, backgroundColor:'grey'}}>
+                      <Image
+                       style={{width:40, height:40}}
+                       source={{
+                       uri: item.url,
+                        }}
+                     />
+                     </View>
+                      
+                     <View style={{flex:6, backgroundColor:'blue'}}>
+
+                      <Text style={{marginLeft:0,fontWeight:'bold', color:'white'}}> {item.dept} </Text>
+                      <Text style={{marginLeft:0,fontWeight:'bold', color:'white'}}> {item.students}</Text> 
+
+                     </View>
+
+                     <View style={{flex:3, backgroundColor:'white', alignItems:'flex-end'}}>
+                      {/* <Image source={require('./android/app/src/main/assets/images/user.png')}
+                      style={{height:35,width:35}}
+                      /> */}
+
+                      <Text> {item.id} </Text>
+                      <Text> {item.key} </Text>
+                     </View>
+  
                     </View>
-
-                    <View style = {styles.bottomView}>
-
-                      {/* {item.data?( */}
-
-                      <TouchableOpacity style={styles.buttonStyleUnicode} onPress={()=>this.rowSelectedUnicode(item)}>
-                        <Text style={styles.buttontitleStyle}> Unicode </Text>
-                      </TouchableOpacity>
-
-                      {/* ):(null)
-                      } */}
-
-                      {/* {item.pdf?(  */}
-
-                      <TouchableOpacity style={styles.buttonStylePDF} onPress={()=>this.rowSelectedPDF(item)}>
-                        <Text style={styles.buttontitleStyle}> PDF </Text>
-                      </TouchableOpacity>
-
-                      {/* ):(null)
-                      } */}
-
-                    </View>
-
-                 
-                  </View>
-
+  
+                                
+  
+                  
                 </View>
-               }
-           />
+                
+                
+  
+              }
+                />
+  
+              </View>
+  
+        </View>
+  
 
-
-
-      </View>
-    );
+  
+      )
+  
   }
+
+
+
 }
 
 const styles=StyleSheet.create({
@@ -610,7 +866,7 @@ viewStyleMain:{
   // shadowColor: 'grey',
   // alignItems: 'center',
   // justifyContent: 'center',
-  backgroundColor : 'black', 
+  backgroundColor : 'lightgrey', 
 },
 
 leftView:{
@@ -626,7 +882,7 @@ leftView:{
   // borderRadius:4,
   // padding:4,
   // shadowOpacity: 10,
-  backgroundColor : 'red',
+  backgroundColor : 'white',
   // shadowColor: 'black',
   // justifyContent: 'center',
 },
@@ -662,7 +918,7 @@ viewStyleTop:{
   // borderRadius:4,
   // padding:4,
   // shadowOpacity: 10,
-  backgroundColor : 'blue',
+  backgroundColor : 'white',
   // shadowColor: 'black',
   // justifyContent: 'center',
 },
@@ -681,12 +937,12 @@ bottomView:{
   // borderRadius:4,
   // padding:4,
   // shadowOpacity: 10,
-  backgroundColor : 'green',
+  backgroundColor : 'white',
   // shadowColor: 'black',
   // justifyContent: 'center',
 },
 titleStyle:{
-  color:'black',
+  color:'lightgrey',
   marginTop:0,
   // marginBottom:0,
   // textAlign:'center',
@@ -696,7 +952,7 @@ titleStyle:{
 },
 
 buttontitleStyle:{
-  color:'black',
+  color:'lightgrey',
   marginTop:0,
   // marginBottom:0,
   // textAlign:'center',
@@ -729,7 +985,7 @@ buttonStyleAudio:{
   padding:4,
   shadowOpacity: 10,
   backgroundColor : '#D3D3D3',
-  shadowColor: 'black',
+  shadowColor: 'lightgrey',
   justifyContent: 'center',
 },
 
@@ -747,7 +1003,7 @@ buttonStyleUnicode:{
   padding:4,
   shadowOpacity: 10,
   backgroundColor : '#D3D3D3',
-  shadowColor: 'black',
+  shadowColor: 'lightgrey',
   justifyContent: 'center',
 },
 
@@ -765,7 +1021,7 @@ buttonStylePDF:{
   padding:4,
   shadowOpacity: 10,
   backgroundColor : '#D3D3D3',
-  shadowColor: 'black',
+  shadowColor: 'lightgrey',
   justifyContent: 'center',
 },
 
