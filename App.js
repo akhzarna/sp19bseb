@@ -17,11 +17,15 @@ import WishlistScreen from './src/Hamza_Iftikhar/Wishlist_Screen_Items/WishlistS
 import ProductScreen from './src/Hamza_Iftikhar/Product_Screen_Items/ProductScreen';
 import ProductsMenu from './src/Hamza_Iftikhar/Product_Screen_Items/ProductsMenu';
 
+import Allbooks from './src/Hamza_Iftikhar/Allbooks.js'
+
 import { Provider } from 'react-native-paper';
 
 const BasicScreensStack = createStackNavigator();
 const SideMenuDrawer = createDrawerNavigator();
 const CoachingScreensStack = createStackNavigator();
+
+const BooksScreensStack = createStackNavigator();
 
 export default class App extends React.Component {  
 
@@ -33,6 +37,18 @@ export default class App extends React.Component {
   }
 
   render() {
+
+
+    const booksStackScreens = (props) =>
+    {
+      return(
+        <BooksScreensStack.Navigator initialRouteName = 'Home' headerMode = 'none'>
+          <BooksScreensStack.Screen name = 'Home' component = {BookShelf} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
+          <BooksScreensStack.Screen name= 'Allbooks' component={Allbooks} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
+        </BooksScreensStack.Navigator>
+      );
+    }
+
 
     const coachingStackScreens = (props) =>
     {
@@ -51,7 +67,7 @@ export default class App extends React.Component {
     {
       return(
         <SideMenuDrawer.Navigator initialRouteName = "Home" drawerContent = {(props) => <SideMenuContentComponent {...props} />}>
-          <SideMenuDrawer.Screen name="Home" component={BookShelf} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
+          <SideMenuDrawer.Screen name="Home" component={booksStackScreens} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
           <SideMenuDrawer.Screen name="Products-Menu" component={ProductsMenu} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
           <SideMenuDrawer.Screen name="Products-Screen" component={ProductScreen} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
           <SideMenuDrawer.Screen name="Coaching" component={coachingStackScreens} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>

@@ -41,110 +41,112 @@ import database from '@react-native-firebase/database';
 // Firestore Database
 import firestore from '@react-native-firebase/firestore';
 
-import Styles from './aliahtashamdata/BookShelf/Styles';
+import Styles from './aliahtashamdata/AllBooks/Styles';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import BooksData from './aliahtashamdata/AllBooks/BooksData';
 
-const DATA = [
-  {
-    title: 'Ali Jahanzaib',
-    msg: 'Whatsupp?',
-    pic: '',
-    time: '6:51 PM',
-    unread: '2',
-    url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
-  },
-  {
-    title: 'Ahmad',
-    msg: 'Hi',
-    pic: '',
-    time: '6:49 PM',
-    unread: '1',
-    url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
-  },
-  {
-    title: 'Waleed',
-    msg: 'Where are you?',
-    pic: '',
-    time: '6:45 PM',
-    unread: '5',
-    url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
-  },
+// const BooksData = [
+//   {
+//     title: 'Ali Jahanzaib',
+//     msg: 'Whatsupp?',
+//     pic: '',
+//     time: '6:51 PM',
+//     unread: '2',
+//     url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
+//   },
+//   {
+//     title: 'Ahmad',
+//     msg: 'Hi',
+//     pic: '',
+//     time: '6:49 PM',
+//     unread: '1',
+//     url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
+//   },
+//   {
+//     title: 'Waleed',
+//     msg: 'Where are you?',
+//     pic: '',
+//     time: '6:45 PM',
+//     unread: '5',
+//     url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
+//   },
 
-  {
-    title: 'Faizan',
-    msg: 'wanna go?',
-    pic: '',
-    time: '6:33 PM',
-    unread: '1',
-    url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
-  },
-  {
-    title: 'Anas',
-    msg: 'Very nice!',
-    pic: '',
-    time: '6:22 PM',
-    unread: '3',
-    url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
-  },
-  {
-    title: 'Dad',
-    msg: 'Come home',
-    pic: '',
-    time: '5:51 PM',
-    unread: '1',
-    url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
-  },
-  {
-    title: 'Mom',
-    msg: 'Where are you going?',
-    pic: '',
-    time: '1:12 PM',
-    unread: '1',
-    url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
-  },
-  {
-    title: 'Zain',
-    msg: 'lets party',
-    pic: '',
-    time: '8:54 PM',
-    unread: '3',
-    url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
-  },
-  {
-    title: 'Wahaj',
-    msg: 'Join meeting',
-    pic: '',
-    time: '4:50 PM',
-    unread: '12',
-    url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
-  },
+//   {
+//     title: 'Faizan',
+//     msg: 'wanna go?',
+//     pic: '',
+//     time: '6:33 PM',
+//     unread: '1',
+//     url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
+//   },
+//   {
+//     title: 'Anas',
+//     msg: 'Very nice!',
+//     pic: '',
+//     time: '6:22 PM',
+//     unread: '3',
+//     url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
+//   },
+//   {
+//     title: 'Dad',
+//     msg: 'Come home',
+//     pic: '',
+//     time: '5:51 PM',
+//     unread: '1',
+//     url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
+//   },
+//   {
+//     title: 'Mom',
+//     msg: 'Where are you going?',
+//     pic: '',
+//     time: '1:12 PM',
+//     unread: '1',
+//     url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
+//   },
+//   {
+//     title: 'Zain',
+//     msg: 'lets party',
+//     pic: '',
+//     time: '8:54 PM',
+//     unread: '3',
+//     url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
+//   },
+//   {
+//     title: 'Wahaj',
+//     msg: 'Join meeting',
+//     pic: '',
+//     time: '4:50 PM',
+//     unread: '12',
+//     url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
+//   },
 
-  {
-    title: 'Ali Ahmad',
-    msg: 'Dude, Lets meet',
-    pic: '',
-    time: '9:24 PM',
-    unread: '4',
-    url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
-  },
-  {
-    title: 'Amina',
-    msg: 'Tommorrow?',
-    pic: '',
-    time: '7:55 PM',
-    unread: '22',
-    url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
-  },
-  {
-    title: 'Client',
-    msg: 'Excellent job',
-    pic: '',
-    time: '3:59 PM',
-    unread: '3',
-    url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
-  },
-];
+//   {
+//     title: 'Ali Ahmad',
+//     msg: 'Dude, Lets meet',
+//     pic: '',
+//     time: '9:24 PM',
+//     unread: '4',
+//     url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
+//   },
+//   {
+//     title: 'Amina',
+//     msg: 'Tommorrow?',
+//     pic: '',
+//     time: '7:55 PM',
+//     unread: '22',
+//     url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
+//   },
+//   {
+//     title: 'Client',
+//     msg: 'Excellent job',
+//     pic: '',
+//     time: '3:59 PM',
+//     unread: '3',
+//     url:'https://firebasestorage.googleapis.com/v0/b/matabsulemani-23765.appspot.com/o/thumbnail_aak.jpg?alt=media&token=cf23a0c0-be7f-4e12-b8b5-3f7ba776ca00',
+//   },
+// ];
 
-export default class BookShelf extends Component{
+export default class Allbooks extends Component{
 
     constructor(props){
       super(props);
@@ -738,99 +740,59 @@ booksLoadAction(){
     }
 
     booksLoadAction(){
-      
-      this.props.navigation.navigate('Allbooks');
-    
-    }
 
+    }
+    
     render()
     {
       return (
-  
-        <View style ={Styles.Container}>
-                  
-        {/* <Header navigation={navigation}/> */}
-       
-        <View style = {Styles.UpperBody}>
-            <View style = {Styles.sectionright}>
-            <Image
-             style={Styles.founderimg}
-             source={require('./aliahtashamdata/Images/hakeem.png')}
-             />
-             <Text style = {Styles.imgdetails}>حکیم محمد عبداللہ</Text>
-             <Text style = {Styles.imgdetails}>(1974-1904)</Text>
-            </View>
-            <View style = {Styles.sectionleft}>
-                <Text style = {Styles.aboutContent}>حکیم محمد عبداللہؒ کے صاحبزادے حکیم عبدالوحید سلیمانی   ؒنے 1968ء میں پنجاب یونیورسٹی ، لاہور سے فارمیسی اور اسلامیات کی تعلیم کے حصول کے بعد جہانیاں سے عملی زندگی کا آغاز کیا اور کتب و ادویہ کی فروخت اور ترسیل کے لیے ادارہ سلیمانی کی بنیاد رکھی۔</Text>
-                <Pressable style = {Styles.moreBtn}>
-                    <Text style = {Styles.Btntxt}>View More .. </Text>
-                </Pressable>
-            </View>
-        </View>
-      {/*  <View style ={Styles.midBody}>
-        <Image
-             style={Styles. designContent}
-             source={require('../../Assets/Images/leaf.png')}
-             /> 
-            <Text style ={Styles.midContent}>ہماری روایت ۔ ہمارا عزم   فروغ صحت ۔ فروغ علم</Text>
-          <Image
-             style={Styles. designContent}
-             source={require('../../Assets/Images/leaf.png')}
-             /> 
+        <View style = {Styles.container}>
             
-</View> */}
-        <View style ={Styles.Grids}>
-            <View style ={Styles.GridOne}>
-            <Image
-             style={Styles.Gridimg}
-             source={require('./aliahtashamdata/Icons/ExpandMenu_9.png')}
-             /> 
-             <Text style = {Styles.GridNam}>ادویات</Text>
-            </View>
-            <View style ={Styles.GridOne}>
-            <Image
-             style={Styles.Gridimg}
-             source={require('./aliahtashamdata/Icons/ExpandMenu_10.png')}
-             /> 
-             <Text style = {Styles.GridNam}>مطب</Text>
-            </View>
+           
+        <TouchableOpacity style = {Styles.backbtn}>
+            <Icon name='chevron-left' size={32} color='#699c26'  /> 
+            </TouchableOpacity>
 
-        <TouchableOpacity onPress = {() => this.booksLoadAction()}>
-          <View style ={Styles.GridOne}>
-            <Image
-             style={Styles.Gridimg}
-             source={require('./aliahtashamdata/Icons/ExpandMenu_7.png')}
-             /> 
-             <Text style = {Styles.GridNam}>کتب</Text>
-            </View>
-        </TouchableOpacity>
+           <View style={Styles.searchbarDesign}> 
+           <TouchableOpacity>
+           <Icon name='search' size={23} color='#0e0e0e'  /> 
+           </TouchableOpacity>
+               <TextInput
+        style={Styles.bookSearch}
+        placeholder="تلاش کریں"
+      />
+      </View>
 
+      <FlatList 
+            data={BooksData}
+            keyExtractor={(key) => (key.id)}
+            renderItem={
+                ({item}) => 
+             <View style={Styles.midSection}>
+            <View style={Styles.Grid}>
+                <View style={Styles.Gridimg}>
+                    <Image 
+                    style={Styles.Proimage}
+                    source={item.thumbnails} />
+                </View>
+                <View style = {Styles.GridContent}>
+                <Text style = {Styles.MainTitle}>
+                    {item.bookName}
+                    </Text>
+                    <Text style = {Styles.Details}>
+                        {item.details}
+                    </Text>
+                    
+                </View>
+            </View>  
         </View>
-     
-       <View style = {Styles.footer}>
-           <View style = {Styles.footerTxtDesign}>
-       
-           <Text style = {Styles.footerTxt}>
-           ہماری روایت ۔ ہمارا عزم  
-            </Text>
-            </View>
-            
-           <Text style = {Styles.footerTxtSecond}>
-           فروغ صحت ۔ فروغ علم    
-              </Text>
-              
-             
-       </View>
-       
-         </View>
-  
 
+        }/>
+        </View>
   
-      )
+      );
   
   }
-
-
 
 }
 
