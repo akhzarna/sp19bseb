@@ -157,6 +157,7 @@ export default class Allbooks extends Component{
           showProgress:true,
           flag1:45,
           university:[],
+          allBooksData:[],
       }
 
       // this.state = {
@@ -313,11 +314,11 @@ var newArray = [];
     
 
   database()
-  .ref('/University/')
+  .ref('/books/')
   .once('value')
   .then(snapshot => {
-    console.log('User data: ', snapshot.val());
-    this.setState({university:snapshot.val()});
+    console.log('All Books are: ', snapshot.val());
+    this.setState({allBooksData:snapshot.val()});
   });
 
 
@@ -722,37 +723,29 @@ booksLoadAction(){
           finalArray:this.state.bookArray[item.key].data,
           finalDict:this.state.bookArray[item.key],
         });
-
         // this.fetchDataFromDB(bookName);
-
     }
 
     componentWillMount(){
-
       // Alert.alert('componentWillMount');
-
       // this.state.flag1 = 300;
-
       this.setState({
         flag1 : 156
       });
-
     }
 
-    booksLoadAction(){
-
+    chaptersLoadAction(chapters){
+      console.log('All Books Data is = ', chapters);
+      this.props.navigation.navigate('Allchapters',{chapters:chapters});
     }
     
     render()
     {
       return (
         <View style = {Styles.container}>
-            
-           
         <TouchableOpacity style = {Styles.backbtn}>
             <Icon name='chevron-left' size={32} color='#699c26'  /> 
             </TouchableOpacity>
-
            <View style={Styles.searchbarDesign}> 
            <TouchableOpacity>
            <Icon name='search' size={23} color='#0e0e0e'  /> 
@@ -764,36 +757,33 @@ booksLoadAction(){
       </View>
 
       <FlatList 
-            data={BooksData}
+            data={this.state.allBooksData}
             keyExtractor={(key) => (key.id)}
             renderItem={
                 ({item}) => 
-             <View style={Styles.midSection}>
+          <TouchableOpacity onPress = {() => this.chaptersLoadAction(item.chapters)}>
+          <View style={Styles.midSection}>
             <View style={Styles.Grid}>
                 <View style={Styles.Gridimg}>
                     <Image 
                     style={Styles.Proimage}
-                    source={item.thumbnails} />
+                    source={{ uri: item.url}} />
                 </View>
                 <View style = {Styles.GridContent}>
                 <Text style = {Styles.MainTitle}>
-                    {item.bookName}
+                    {item.title}
                     </Text>
                     <Text style = {Styles.Details}>
-                        {item.details}
+                        {item.name}
                     </Text>
-                    
                 </View>
             </View>  
         </View>
-
+        </TouchableOpacity>
         }/>
         </View>
-  
       );
-  
   }
-
 }
 
 const styles=StyleSheet.create({

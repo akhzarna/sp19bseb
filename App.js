@@ -16,8 +16,8 @@ import DietPlanScreen from './src/Muhammad_Sharjeel/DietPlanScreen.js'
 import WishlistScreen from './src/Hamza_Iftikhar/Wishlist_Screen_Items/WishlistScreen';
 import ProductScreen from './src/Hamza_Iftikhar/Product_Screen_Items/ProductScreen';
 import ProductsMenu from './src/Hamza_Iftikhar/Product_Screen_Items/ProductsMenu';
-
 import Allbooks from './src/Hamza_Iftikhar/Allbooks.js'
+import Allchapters from './src/Hamza_Iftikhar/Allchapters.js'
 
 import { Provider } from 'react-native-paper';
 
@@ -45,6 +45,7 @@ export default class App extends React.Component {
         <BooksScreensStack.Navigator initialRouteName = 'Home' headerMode = 'none'>
           <BooksScreensStack.Screen name = 'Home' component = {BookShelf} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
           <BooksScreensStack.Screen name= 'Allbooks' component={Allbooks} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
+          <BooksScreensStack.Screen name= 'Allchapters' component={Allchapters} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
         </BooksScreensStack.Navigator>
       );
     }
