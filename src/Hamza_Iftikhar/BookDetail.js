@@ -13,6 +13,7 @@ import {
   Dimensions,
   SectionList,
   Pressable,
+  ScrollView
 } from 'react-native';
 
 import AsyncStorage from '@react-native-community/async-storage';
@@ -41,9 +42,19 @@ import database from '@react-native-firebase/database';
 // Firestore Database
 import firestore from '@react-native-firebase/firestore';
 
-import Styles from './aliahtashamdata/AllBooks/Styles';
+// import Styles from './aliahtashamdata/AllBooks/Styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import BooksData from './aliahtashamdata/AllBooks/BooksData';
+
+import { Chip } from 'react-native-paper';
+
+const BookPosters = [
+  {key:0,
+  poster:require('./aliahtashamdata/Images/bookpo.jpg')},
+  {key:1,
+    poster:require('./aliahtashamdata/Images/bookPoster.jpg')},
+];
+
 
 // const BooksData = [
 //   {
@@ -146,7 +157,7 @@ import BooksData from './aliahtashamdata/AllBooks/BooksData';
 //   },
 // ];
 
-export default class Allchapters extends Component{
+export default class BookDetail extends Component{
 
     constructor(props){
       super(props);
@@ -157,7 +168,7 @@ export default class Allchapters extends Component{
           showProgress:true,
           flag1:45,
           university:[],
-          allBooksData:this.props.route.params.chapters
+          allBooksData:[],
       }
 
       // this.state = {
@@ -313,15 +324,14 @@ var newArray = [];
   // });
     
 
-  // database()
-  // .ref('/books/')
-  // .once('value')
-  // .then(snapshot => {
-  //   console.log('All Books are: ', snapshot.val());
-  //   this.setState({allBooksData:snapshot.val()});
-  // });
+  database()
+  .ref('/books/')
+  .once('value')
+  .then(snapshot => {
+    console.log('All Books are: ', snapshot.val());
+    this.setState({allBooksData:snapshot.val()});
+  });
 
-    // console.log('All Books Data is = ', this.state.allBooksData[0]);
 
   // database()
   // .ref('/users/')
@@ -727,311 +737,191 @@ booksLoadAction(){
         // this.fetchDataFromDB(bookName);
     }
 
-    // componentWillMount(){
-    //   // Alert.alert('componentWillMount');
-    //   // this.state.flag1 = 300;
-    //   this.setState({
-    //     flag1 : 156
-    //   });
-    // }
+    componentWillMount(){
+      // Alert.alert('componentWillMount');
+      // this.state.flag1 = 300;
+      this.setState({
+        flag1 : 156
+      });
+    }
 
-    chaptersLoadAction(){
-
+    chaptersLoadAction(chapters){
+      console.log('All Books Data is = ', chapters);
+      this.props.navigation.navigate('Allchapters',{chapters:chapters});
     }
     
     render()
     {
-      return (
+      return   (
+      <View style = {Styles.container}>
+      {/* <StatusBar  backgroundColor={'#fff'} barStyle="dark-content" /> */}
+      <View style ={Styles.headerSection}>
+      <View style = {Styles.appBar}>
+     <TouchableOpacity>
+        <Icon name="chevron-left" size={22} color="#0e0e0e" />
+         </TouchableOpacity>
+     <TouchableOpacity>
+        <Icon name="bookmark" size={22} color='#969696' /> 
+        </TouchableOpacity>
+        </View>
+        <View style ={Styles.ProductView}>
+          <View style ={Styles.imgView}>
+              <Image 
+              style = {Styles.prodimg}
+              source ={require('./aliahtashamdata/Images/sirbook.jpg')}/>
+          </View>
+          <View style = {Styles.productContent}>
+          <Text style= {Styles.prodNam}> خواص کیکر</Text>
+          <Text style= {Styles.prodAuthor}>  استاذالحکماء حکیم محمد عبداللہ
+          </Text>
+          </View>
+          </View> 
+          <View style = {Styles.bookActions}>
+            <TouchableOpacity  style = {Styles.bookActionBtn}>
+            <Icon name="comments" size={24} color='#969696' />
+            <Text style = {Styles.actiontxt}>Reviews </Text>
+            </TouchableOpacity>
+            <TouchableOpacity  style = {Styles.bookActionBtn}>
+            <Icon name="download" size={21} color='#969696' />
+            <Text style = {Styles.actiontxt}>Download </Text>
+            </TouchableOpacity>
+            <TouchableOpacity  style = {Styles.bookActionBtn}>
+            <Icon name="share-square" size={22} color='#969696' />
+            <Text style = {Styles.actiontxt}>Share </Text>
+            </TouchableOpacity>
+          </View>
+          </View>
 
-      
-     
-      
-      //   <View style = {Styles.container}>
-      //   <TouchableOpacity style = {Styles.backbtn}>
-      //       <Icon name='chevron-left' size={32} color='#699c26'  /> 
-      //       </TouchableOpacity>
-      //      <View style={Styles.searchbarDesign}> 
-      //      <TouchableOpacity>
-      //      <Icon name='search' size={23} color='#0e0e0e'  /> 
-      //      </TouchableOpacity>
-      //          <TextInput
-      //   style={Styles.bookSearch}
-      //   placeholder="تلاش کریں"
-      // />
-      // </View>
-
-      // <FlatList 
-      //       data={this.state.allBooksData}
-      //       keyExtractor={(key) => (key.id)}
-      //       renderItem={
-      //           ({item}) => 
-      //     <TouchableOpacity onPress = {() => this.chaptersLoadAction()}>
-      //     <View style={Styles.midSection}>
-      //       <View style={Styles.Grid}>
-      //           <View style={Styles.Gridimg}>
-      //               <Image 
-      //               style={Styles.Proimage}
-      //               source={{ uri: item.url}} />
-      //           </View>
-      //           <View style = {Styles.GridContent}>
-      //           <Text style = {Styles.MainTitle}>
-      //               {item.title}
-      //               </Text>
-      //               <Text style = {Styles.Details}>
-      //                   {item.name}
-      //               </Text>
-      //           </View>
-      //       </View>  
-      //   </View>
-      //   </TouchableOpacity>
-      //   }/>
-      //   </View>
-
-
-    <View style={styles.parent}>
-        <Text style={styles.child}>  One </Text> 
-        <Text style={styles.child}>  Two </Text> 
-        <Text style={styles.child}>  Three </Text>
+          <View style = {Styles.midSection}>
+            <Text style ={Styles.descriptionTitle}>مختصر تعارف:</Text>
+            <Text style ={Styles.description}>درد بذات خود محبت ہے، مین سٹوریج سسٹم۔ اداس میں صرف. عظیم انصاف کے لئے، بیورو اور ہفتے کے آخر میں نہیں، ریچھوں کے علاوہ. کوئی بجٹ نہیں، کوئی انتقامی کمان نہیں، کورس صرف نفرت ہے۔ بڑے پیمانے پر کے لئے، کہا میں دروازے پر، کہ زہریلی زمین. بلی کو نیچے رکھنا اور بچے کو لات مارنا۔ میک اپ سے محروم نہ ہوں۔ اس کے مطابق، جیسا کہ یہ حلق ہے، زمین فٹ بال کی ایک رینج ہے، کھلاڑیوں کے برتن. بیماری ایک ایسا عنصر تھا جس نے خوف سے سجانا آسان بنا دیا. </Text>
+          </View>
+          <View style ={Styles.FooterSection}>
+          <TouchableOpacity style={Styles.readBtn}>
+            <Text style={Styles.readBtntxt}>Read Now</Text>
+          </TouchableOpacity>
+          </View>
     </View>
-      
-    );
+);
   }
 }
 
-const styles=StyleSheet.create({
-  parent: {
-    flex: 1,
-    // flexDirection: 'row', 
-    // flexDirection: 'row-reverse', 
-    flexDirection: 'column',
-    // flexDirection: 'column-reverse',  
-    alignItems: 'flex-start', 
-    // alignItems: 'flex-end', 
-    backgroundColor: '#F5FCFF', 
-    borderColor: '#0099AA', 
-    borderWidth: 5,
-    marginTop: 30,
-    // justifyContent:'center',
-    }, 
-  child: {
-    flex: 1,
-    borderColor: '#AA0099',
-    borderWidth: 2,
-    textAlign: 'center',
-    // textAlign: 'left',
-    // textAlign: 'right',
-    fontSize: 24,
-    // justifyContent:'space-around'
-    },
 
-outerContainer:{
-  flex:1,
-  backgroundColor:'white',
-  justifyContent: 'center',
-  alignItems: 'center',
-},
-buttonStyle:{
-  marginLeft:0,
-  marginRight:0,
-  marginTop:10,
-  marginBottom:0,
-  justifyContent: 'center',
-  alignItems: 'center',
-  width:Cell_Width,
-},
 
-imageStyle:{
-  marginLeft:5,
-  marginRight:5,
-  marginTop:5,
-  marginBottom:5,
-  width:80,
-  height:120,
-},
-
-textStyle:{
-  color:'#38803B',
-  marginTop:0,
-  marginBottom:5,
-  textAlign:'center',
-  fontSize:20,
-  // fontWeight:'bold',
-  fontFamily:'MehrNastaliqWeb'
-},
-
-viewStyleMain:{
-  flex:1,
-  flexDirection:'row',
-  // marginLeft:5,
-  // marginRight:5,
-  // marginTop:5,
-  // marginBottom:5,
-  // elevation: 3,
-  // borderRadius:4,
-  padding:4,
-  height:140,
-  // justifyContent: 'flex-start',
-  // shadowOpacity: 10,
-  // shadowColor: 'grey',
-  // alignItems: 'center',
-  // justifyContent: 'center',
-  backgroundColor : 'lightgrey', 
-},
-
-leftView:{
-  flex:0.33,
-  // marginLeft:5,
-  // marginRight:5,
-  // marginTop:5,
-  // marginBottom:5,
-  // elevation: 3,
-  // justifyContent: 'flex-start',
-  // alignItems: 'center',
-  // width:Cell_Width,
-  // borderRadius:4,
-  // padding:4,
-  // shadowOpacity: 10,
-  backgroundColor : 'white',
-  // shadowColor: 'black',
-  // justifyContent: 'center',
-},
-
-rightView:{
-  flex:0.67,
-  // marginLeft:15,
-  // marginRight:5,
-  // marginTop:5,
-  // marginBottom:5,
-  // elevation: 3,
-  // justifyContent: 'flex-start',
-  // alignItems: 'center',
-  // width:Cell_Width,
-  // borderRadius:4,
-  // padding:4,
-  // shadowOpacity: 10,
-  backgroundColor : 'grey',
-  // shadowColor: 'black',
-  // justifyContent: 'center',
-},
-
-viewStyleTop:{
-  flex:0.50,
-  // marginLeft:15,
-  // marginRight:5,
-  // marginTop:5,
-  // marginBottom:5,
-  // elevation: 3,
-  // justifyContent: 'flex-start',
-  // alignItems: 'center',
-  // width:Cell_Width,
-  // borderRadius:4,
-  // padding:4,
-  // shadowOpacity: 10,
-  backgroundColor : 'white',
-  // shadowColor: 'black',
-  // justifyContent: 'center',
-},
-
-bottomView:{
-  flex:0.50,
-  flexDirection:'row',
-  // marginLeft:15,
-  // marginRight:5,
-  // marginTop:5,
-  // marginBottom:5,
-  // elevation: 3,
-  // justifyContent: 'flex-start',
-  // alignItems: 'center',
-  // width:Cell_Width,
-  // borderRadius:4,
-  // padding:4,
-  // shadowOpacity: 10,
-  backgroundColor : 'white',
-  // shadowColor: 'black',
-  // justifyContent: 'center',
-},
-titleStyle:{
-  color:'lightgrey',
-  marginTop:0,
-  // marginBottom:0,
-  // textAlign:'center',
-  fontSize:18,
-  // fontWeight:'bold',
-  // fontFamily:'MehrNastaliqWeb'
-},
-
-buttontitleStyle:{
-  color:'lightgrey',
-  marginTop:0,
-  // marginBottom:0,
-  // textAlign:'center',
-  fontSize:12,
-  // fontWeight:'bold',
-  // fontFamily:'MehrNastaliqWeb'
-},
-
-subtitleStyle:{
-  color:'grey',
-  marginTop:5,
-  // marginBottom:0,
-  // textAlign:'center',
-  fontSize:13,
-  // fontWeight:'bold',
-  // fontFamily:'MehrNastaliqWeb'
-},
-
-buttonStyleAudio:{
-  marginLeft:5,
-  marginRight:5,
-  marginTop:50,
-  marginBottom:5,
-  elevation: 3,
-  // justifyContent: 'flex-start',
-  alignItems: 'center',
-  width:60,
-  height:35,
-  borderRadius:4,
-  padding:4,
-  shadowOpacity: 10,
-  backgroundColor : '#D3D3D3',
-  shadowColor: 'lightgrey',
-  justifyContent: 'center',
-},
-
-buttonStyleUnicode:{
-  // marginLeft:0,
-  marginRight:5,
-  marginTop:50,
-  // marginBottom:5,
-  // elevation: 3,
-  // justifyContent: 'flex-start',
-  alignItems: 'center',
-  width:60,
-  height:35,
-  borderRadius:4,
-  padding:4,
-  shadowOpacity: 10,
-  backgroundColor : '#D3D3D3',
-  shadowColor: 'lightgrey',
-  justifyContent: 'center',
-},
-
-buttonStylePDF:{
-  // marginLeft:0,
-  // marginRight:5,
-  marginTop:50,
-  // marginBottom:5,
-  elevation: 3,
-  // justifyContent: 'flex-start',
-  alignItems: 'center',
-  width:60,
-  height:35,
-  borderRadius:4,
-  padding:4,
-  shadowOpacity: 10,
-  backgroundColor : '#D3D3D3',
-  shadowColor: 'lightgrey',
-  justifyContent: 'center',
-},
-
+const Styles = StyleSheet.create({
+  container:{
+      flex:1,
+      backgroundColor:'#fff',
+      
+  },
+  headerSection:{
+      paddingHorizontal:10,
+      backgroundColor:'#fafafa',
+      shadowColor: '#000',
+      shadowOffset: { width: 1, height: 1 },
+      shadowOpacity:  0.4,
+      shadowRadius: 3,
+      elevation: 5,
+      borderBottomLeftRadius:20,
+      borderBottomRightRadius:20,
+  },
+  appBar:{
+      flexDirection:'row',
+      margin:8,
+      paddingHorizontal:10,
+      justifyContent:'space-between'
+  },
+  ProductView:{
+      flexDirection:'row',
+      margin:8,
+      paddingHorizontal:10,
+  },
+  imgView:{
+      width:150,
+      height:230,
+      margin:10,
+      borderRadius:20, 
+      shadowColor: '#000',
+      shadowOffset: { width: 1, height: 1 },
+      shadowOpacity:  0.4,
+      shadowRadius: 3,
+      elevation: 5,
+      
+  },
+  prodimg:{
+      height:'100%',
+      width:'100%',
+      resizeMode:'cover',
+      borderRadius:20,
+  },
+  productContent:{
+      
+     height:230,
+     width:'50%',
+     margin:10,
+     justifyContent:'center'
+  },
+  prodNam:{
+      fontFamily:'300 Regular',
+      fontSize:30,
+      color:'#18191A'
+  },
+  prodAuthor:{
+      fontFamily:'Jameel Noori Nastaleeq Regular',
+      fontSize:20,
+      color:'#969696'
+  },
+  bookActions:{
+      flexDirection:'row',
+      justifyContent:'space-between',
+      margin:10,
+     
+  },
+  bookActionBtn:{
+      flexDirection:'row',
+      marginHorizontal:10,
+      alignItems:'center'
+  },
+  actiontxt:{
+      fontFamily:'Poppins-SemiBold',
+      color:'#969696',
+      fontSize:14,
+      marginLeft:10,
+      marginTop:8,
+  },
+  midSection:{
+      margin:20,
+  },
+  descriptionTitle:{
+      fontFamily:'300 Regular',
+      fontSize:22,
+      marginHorizontal:10,
+      color:'#18191A'
+  },
+  description:{
+      fontFamily:'Jameel Noori Nastaleeq Regular',
+      fontSize:20,
+      marginHorizontal:20,
+      
+  },
+  FooterSection:{
+      flex:1,
+      position:'relative',
+  },
+  readBtn:{
+      position:'absolute',
+      bottom:0,
+      right:0,
+      height:45,
+      width:150,
+      justifyContent:'center',
+      alignItems:'center',
+      borderTopLeftRadius:10,
+      backgroundColor:'#24A148'
+  },
+  readBtntxt:{
+      color:'#fff',
+      fontFamily:'Poppins-SemiBold',
+      fontSize:15
+  }
 })

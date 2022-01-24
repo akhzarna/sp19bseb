@@ -8,10 +8,8 @@ import Icon from 'react-native-vector-icons/Fontisto';
 export default function MainScreen({navigation}) {
     return (
 
-                <View style ={Styles.Container}>
-
+            <View style ={Styles.Container}>
                <Header navigation={navigation}/>
-
                <View style = {Styles.UpperBody}>
                    <View style = {Styles.sectionright}>
                    <Image

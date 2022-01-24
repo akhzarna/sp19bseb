@@ -41,7 +41,9 @@ import database from '@react-native-firebase/database';
 // Firestore Database
 import firestore from '@react-native-firebase/firestore';
 
-import Styles from './aliahtashamdata/BookShelf/Styles';
+// import Styles from './aliahtashamdata/BookShelf/Styles';
+
+import Icon from 'react-native-vector-icons/AntDesign';
 
 const DATA = [
   {
@@ -165,7 +167,7 @@ export default class BookShelf extends Component{
     
     componentDidMount() {
 
-      // Alert.alert('Value is = ', DATA[0].data[0].title);
+      // Alert.alert('I am Bookshel');
       this.setState({
         flag1:280
       });
@@ -343,334 +345,334 @@ var newArray = [];
 
 }
 
-booksLoadAction(){
-  console.log('Book Load Action Always Call or Not');
-  var allBooksInOne = '';
-  if (isiPhone) {
-  // isiPhone
-  allBooksInOne = RNFS.MainBundlePath+'/allbooks.txt';
+// booksLoadAction(){
+//   console.log('Book Load Action Always Call or Not');
+//   var allBooksInOne = '';
+//   if (isiPhone) {
+//   // isiPhone
+//   allBooksInOne = RNFS.MainBundlePath+'/allbooks.txt';
 
-  var finalBookArrayCarrot = [];
-  RNFS.readFile(allBooksInOne)
-      .then((contents) => {
-        var contentString = contents.toString();
-        console.log('contentString for iOS is = ', contentString);
-        var chaptersArray=[];
-        // For Chapters Titles denoted by & Sign
-        for (var i = 0; i < contentString.length; i++) {
-          var firstIndex=contentString.indexOf('^',i);
-          var secondIndex=contentString.indexOf('^',firstIndex+1);
-          if (secondIndex==-1 || firstIndex==-1) {
-            break;
-          }
-          var tempString=contentString.slice(firstIndex+1,secondIndex-1);
-          chaptersArray.push(tempString);
-          i=secondIndex;
-        }
-        // console.log('Chapters Array is = ',chaptersArray);
-        var diseasesArray = [];
-        // For Main Titles denoted by @ Sign
-        for (var i = 0; i < chaptersArray.length; i++) {
-          var stringAtIndex = chaptersArray[i];
-          var headingEndIndex = stringAtIndex.indexOf('\r',1);
-          var testStringChapters=stringAtIndex.slice(0,headingEndIndex);
-          var titlesArray=[];
-          for (var x = 0; x < stringAtIndex.length; x++) {
-            var firstIndex=stringAtIndex.indexOf('&',x);
-            var secondIndex=stringAtIndex.indexOf('&',firstIndex+1);
-            if (secondIndex==-1 || firstIndex==-1) {
-              break;
-            }
-            var tempString=stringAtIndex.slice(firstIndex+1,secondIndex-1);
-            // Save String and Heading Both in Array
-            // var ObjectToSaveInArray = {heading:testString,data:tempString.trim()};
-            titlesArray.push(tempString.trim());
-            x=secondIndex;
-          }
-          var mainArrayObjIs = {key:i, title:testStringChapters,data:titlesArray};
-          diseasesArray.push(mainArrayObjIs);
-          // console.log('diseasesArray Array = ',diseasesArray);
-        }
-        var completeBookArray = [];
-        // For Main Titles denoted by @ Sign
-        for (var i = 0; i < diseasesArray.length; i++) {
-          var prescriptionArray = [];
-          for (var j = 0; j < diseasesArray[i].data.length; j++) {
-            var titlesArrayNew = [];
-            var stringAtIndex = diseasesArray[i].data[j];
-            var headingEndIndex = stringAtIndex.indexOf('\r',1);
-            var testStringChapters=stringAtIndex.slice(0,headingEndIndex);
-            for (var x = 0; x < stringAtIndex.length; x++) {
-              var firstIndex=stringAtIndex.indexOf('@',x);
-              var secondIndex=stringAtIndex.indexOf('@',firstIndex+1);
-              if (secondIndex==-1 || firstIndex==-1) {
-                break;
-              }
-              var tempString=stringAtIndex.slice(firstIndex+1,secondIndex-1);
-              // Save String and Heading Both in Array
-              titlesArrayNew.push(tempString.trim());
-              x=secondIndex;
-            }
-            var mainArrayObjIs = {key:j, title:testStringChapters,data:titlesArrayNew};
-            prescriptionArray.push(mainArrayObjIs);
-          }
-          var aiknaiarrayObj = {key:i, title:diseasesArray[i].title,data:prescriptionArray};
-          completeBookArray.push(aiknaiarrayObj);
-        }
+//   var finalBookArrayCarrot = [];
+//   RNFS.readFile(allBooksInOne)
+//       .then((contents) => {
+//         var contentString = contents.toString();
+//         console.log('contentString for iOS is = ', contentString);
+//         var chaptersArray=[];
+//         // For Chapters Titles denoted by & Sign
+//         for (var i = 0; i < contentString.length; i++) {
+//           var firstIndex=contentString.indexOf('^',i);
+//           var secondIndex=contentString.indexOf('^',firstIndex+1);
+//           if (secondIndex==-1 || firstIndex==-1) {
+//             break;
+//           }
+//           var tempString=contentString.slice(firstIndex+1,secondIndex-1);
+//           chaptersArray.push(tempString);
+//           i=secondIndex;
+//         }
+//         // console.log('Chapters Array is = ',chaptersArray);
+//         var diseasesArray = [];
+//         // For Main Titles denoted by @ Sign
+//         for (var i = 0; i < chaptersArray.length; i++) {
+//           var stringAtIndex = chaptersArray[i];
+//           var headingEndIndex = stringAtIndex.indexOf('\r',1);
+//           var testStringChapters=stringAtIndex.slice(0,headingEndIndex);
+//           var titlesArray=[];
+//           for (var x = 0; x < stringAtIndex.length; x++) {
+//             var firstIndex=stringAtIndex.indexOf('&',x);
+//             var secondIndex=stringAtIndex.indexOf('&',firstIndex+1);
+//             if (secondIndex==-1 || firstIndex==-1) {
+//               break;
+//             }
+//             var tempString=stringAtIndex.slice(firstIndex+1,secondIndex-1);
+//             // Save String and Heading Both in Array
+//             // var ObjectToSaveInArray = {heading:testString,data:tempString.trim()};
+//             titlesArray.push(tempString.trim());
+//             x=secondIndex;
+//           }
+//           var mainArrayObjIs = {key:i, title:testStringChapters,data:titlesArray};
+//           diseasesArray.push(mainArrayObjIs);
+//           // console.log('diseasesArray Array = ',diseasesArray);
+//         }
+//         var completeBookArray = [];
+//         // For Main Titles denoted by @ Sign
+//         for (var i = 0; i < diseasesArray.length; i++) {
+//           var prescriptionArray = [];
+//           for (var j = 0; j < diseasesArray[i].data.length; j++) {
+//             var titlesArrayNew = [];
+//             var stringAtIndex = diseasesArray[i].data[j];
+//             var headingEndIndex = stringAtIndex.indexOf('\r',1);
+//             var testStringChapters=stringAtIndex.slice(0,headingEndIndex);
+//             for (var x = 0; x < stringAtIndex.length; x++) {
+//               var firstIndex=stringAtIndex.indexOf('@',x);
+//               var secondIndex=stringAtIndex.indexOf('@',firstIndex+1);
+//               if (secondIndex==-1 || firstIndex==-1) {
+//                 break;
+//               }
+//               var tempString=stringAtIndex.slice(firstIndex+1,secondIndex-1);
+//               // Save String and Heading Both in Array
+//               titlesArrayNew.push(tempString.trim());
+//               x=secondIndex;
+//             }
+//             var mainArrayObjIs = {key:j, title:testStringChapters,data:titlesArrayNew};
+//             prescriptionArray.push(mainArrayObjIs);
+//           }
+//           var aiknaiarrayObj = {key:i, title:diseasesArray[i].title,data:prescriptionArray};
+//           completeBookArray.push(aiknaiarrayObj);
+//         }
 
-        // For Test
-        for (var g = 0; g < completeBookArray.length; g++) {
-          var completeBookArrayCarrot = [];
-          for (var h = 0; h < completeBookArray[g].data.length; h++) {
-            var prescriptionArrayCarrot = [];
-            for (var k = 0; k < completeBookArray[g].data[h].data.length; k++) {
-              var titlesArrayNew = [];
-              var stringAtIndex = completeBookArray[g].data[h].data[k];
-              var headingEndIndex = stringAtIndex.indexOf('\r',1);
-              var testStringChapters=stringAtIndex.slice(0,headingEndIndex);
-              var indexforDollar = -1;
-              for (var x = 0; x < stringAtIndex.length; x++) {
-                // console.log('String At Index = ',completeBookArray[g].data[h].data[k]);
-                var firstIndex=stringAtIndex.indexOf('$',x);
-                var secondIndex=stringAtIndex.indexOf('$',firstIndex+1);
-                if (secondIndex==-1 || firstIndex==-1) {
-                  break;
-                }
-                var tempString=stringAtIndex.slice(firstIndex+1,secondIndex-1);
-                // Save String and Heading Both in Array
-                indexforDollar++;
-                var titlesArrayObj = {key:indexforDollar, title:tempString.trim()};
-                titlesArrayNew.push(titlesArrayObj);
-                x=secondIndex;
-              }
-              var mainArrayObjIs = {key:k, title:testStringChapters,data:titlesArrayNew};
-              prescriptionArrayCarrot.push(mainArrayObjIs);
-            }
-            var aiknaiarrayObj = {key:h, title:completeBookArray[g].data[h].title,data:prescriptionArrayCarrot};
-            completeBookArrayCarrot.push(aiknaiarrayObj);
-          }
+//         // For Test
+//         for (var g = 0; g < completeBookArray.length; g++) {
+//           var completeBookArrayCarrot = [];
+//           for (var h = 0; h < completeBookArray[g].data.length; h++) {
+//             var prescriptionArrayCarrot = [];
+//             for (var k = 0; k < completeBookArray[g].data[h].data.length; k++) {
+//               var titlesArrayNew = [];
+//               var stringAtIndex = completeBookArray[g].data[h].data[k];
+//               var headingEndIndex = stringAtIndex.indexOf('\r',1);
+//               var testStringChapters=stringAtIndex.slice(0,headingEndIndex);
+//               var indexforDollar = -1;
+//               for (var x = 0; x < stringAtIndex.length; x++) {
+//                 // console.log('String At Index = ',completeBookArray[g].data[h].data[k]);
+//                 var firstIndex=stringAtIndex.indexOf('$',x);
+//                 var secondIndex=stringAtIndex.indexOf('$',firstIndex+1);
+//                 if (secondIndex==-1 || firstIndex==-1) {
+//                   break;
+//                 }
+//                 var tempString=stringAtIndex.slice(firstIndex+1,secondIndex-1);
+//                 // Save String and Heading Both in Array
+//                 indexforDollar++;
+//                 var titlesArrayObj = {key:indexforDollar, title:tempString.trim()};
+//                 titlesArrayNew.push(titlesArrayObj);
+//                 x=secondIndex;
+//               }
+//               var mainArrayObjIs = {key:k, title:testStringChapters,data:titlesArrayNew};
+//               prescriptionArrayCarrot.push(mainArrayObjIs);
+//             }
+//             var aiknaiarrayObj = {key:h, title:completeBookArray[g].data[h].title,data:prescriptionArrayCarrot};
+//             completeBookArrayCarrot.push(aiknaiarrayObj);
+//           }
 
-          // To Separate Title from CoverPhoto
-          var coverArray = completeBookArray[g].title.split(':cover:');
-          var aiknaiarrayObjCarrot = [];
-          if (g==0) {
-            aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_arind.jpg'), data:completeBookArrayCarrot};
-          }else if (g==1){
-            aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_indrain.jpg'), data:completeBookArrayCarrot};
-          }else if (g==2){
-            aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_angoor.jpg'), data:completeBookArrayCarrot};
-          }else if (g==3){
-            aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_aam.jpg'), data:completeBookArrayCarrot};
-          }else if (g==4){
-            aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_aak.jpg'), data:completeBookArrayCarrot};
-          }else if (g==5){
-            aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_badam.jpg'), data:completeBookArrayCarrot};
-          }else if (g==6){
-            aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_bargad.jpg'), data:completeBookArrayCarrot};
-          }else if (g==7){
-            aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_dhatoora.jpg'), data:completeBookArrayCarrot};
-          }else if (g==8){
-            aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_anar.jpg'), data:completeBookArrayCarrot};
-          }else if (g==9){
-            aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_anar.jpg'), data:completeBookArrayCarrot};
-          }else if (g==10){
-            aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_anar.jpg'), data:completeBookArrayCarrot};
-          }else if (g==11){
-            aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_anar.jpg'), data:completeBookArrayCarrot};
-          }else if (g==12){
-            aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_anar.jpg'), data:completeBookArrayCarrot};
-          }else if (g==13){
-            aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_anar.jpg'), data:completeBookArrayCarrot};
-          }else if (g==14){
-            aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_anar.jpg'), data:completeBookArrayCarrot};
-          }else if (g==15){
-            aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_anar.jpg'), data:completeBookArrayCarrot};
-          }
-          finalBookArrayCarrot.push(aiknaiarrayObjCarrot);
-        }
-        // console.log('Final Book Array is = ',finalBookArrayCarrot);
-        this.setState({showProgress:false});
-        AsyncStorage.setItem('booksData', JSON.stringify(finalBookArrayCarrot));
-        // this.horizontalrowselected();
-        // this.dumpIntoDB();
-      })
+//           // To Separate Title from CoverPhoto
+//           var coverArray = completeBookArray[g].title.split(':cover:');
+//           var aiknaiarrayObjCarrot = [];
+//           if (g==0) {
+//             aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_arind.jpg'), data:completeBookArrayCarrot};
+//           }else if (g==1){
+//             aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_indrain.jpg'), data:completeBookArrayCarrot};
+//           }else if (g==2){
+//             aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_angoor.jpg'), data:completeBookArrayCarrot};
+//           }else if (g==3){
+//             aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_aam.jpg'), data:completeBookArrayCarrot};
+//           }else if (g==4){
+//             aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_aak.jpg'), data:completeBookArrayCarrot};
+//           }else if (g==5){
+//             aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_badam.jpg'), data:completeBookArrayCarrot};
+//           }else if (g==6){
+//             aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_bargad.jpg'), data:completeBookArrayCarrot};
+//           }else if (g==7){
+//             aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_dhatoora.jpg'), data:completeBookArrayCarrot};
+//           }else if (g==8){
+//             aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_anar.jpg'), data:completeBookArrayCarrot};
+//           }else if (g==9){
+//             aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_anar.jpg'), data:completeBookArrayCarrot};
+//           }else if (g==10){
+//             aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_anar.jpg'), data:completeBookArrayCarrot};
+//           }else if (g==11){
+//             aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_anar.jpg'), data:completeBookArrayCarrot};
+//           }else if (g==12){
+//             aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_anar.jpg'), data:completeBookArrayCarrot};
+//           }else if (g==13){
+//             aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_anar.jpg'), data:completeBookArrayCarrot};
+//           }else if (g==14){
+//             aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_anar.jpg'), data:completeBookArrayCarrot};
+//           }else if (g==15){
+//             aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_anar.jpg'), data:completeBookArrayCarrot};
+//           }
+//           finalBookArrayCarrot.push(aiknaiarrayObjCarrot);
+//         }
+//         // console.log('Final Book Array is = ',finalBookArrayCarrot);
+//         this.setState({showProgress:false});
+//         AsyncStorage.setItem('booksData', JSON.stringify(finalBookArrayCarrot));
+//         // this.horizontalrowselected();
+//         // this.dumpIntoDB();
+//       })
 
-      Constants.BookArray=finalBookArrayCarrot;
-      Constants.isBookLoaded=true;
-      this.setState({
-        bookArray:finalBookArrayCarrot
-      })
+//       Constants.BookArray=finalBookArrayCarrot;
+//       Constants.isBookLoaded=true;
+//       this.setState({
+//         bookArray:finalBookArrayCarrot
+//       })
 
-      console.log('final array to dump all bookss into DB is = ',this.state.bookArray);
+//       console.log('final array to dump all bookss into DB is = ',this.state.bookArray);
 
-    }else{
-    // isAndroid
-    allBooksInOne ='allbooks.txt';
+//     }else{
+//     // isAndroid
+//     allBooksInOne ='allbooks.txt';
 
-    var finalBookArrayCarrot = [];
-    RNFS.readFileAssets(allBooksInOne)
-        .then((contents) => {
-          var contentString = contents.toString();
-          // console.log('contentString for Android is = ', contentString);
-          var chaptersArray=[];
-          // For Chapters Titles denoted by & Sign
-          for (var i = 0; i < contentString.length; i++) {
-            var firstIndex=contentString.indexOf('^',i);
-            var secondIndex=contentString.indexOf('^',firstIndex+1);
-            if (secondIndex==-1 || firstIndex==-1) {
-              break;
-            }
-            var tempString=contentString.slice(firstIndex+1,secondIndex-1);
-            chaptersArray.push(tempString);
-            i=secondIndex;
-          }
-          // console.log('Chapters Array is = ',chaptersArray);
-          var diseasesArray = [];
-          // For Main Titles denoted by @ Sign
-          for (var i = 0; i < chaptersArray.length; i++) {
-            var stringAtIndex = chaptersArray[i];
-            var headingEndIndex = stringAtIndex.indexOf('\r',1);
-            var testStringChapters=stringAtIndex.slice(0,headingEndIndex);
-            var titlesArray=[];
-            for (var x = 0; x < stringAtIndex.length; x++) {
-              var firstIndex=stringAtIndex.indexOf('&',x);
-              var secondIndex=stringAtIndex.indexOf('&',firstIndex+1);
-              if (secondIndex==-1 || firstIndex==-1) {
-                break;
-              }
-              var tempString=stringAtIndex.slice(firstIndex+1,secondIndex-1);
-              // Save String and Heading Both in Array
-              // var ObjectToSaveInArray = {heading:testString,data:tempString.trim()};
-              titlesArray.push(tempString.trim());
-              x=secondIndex;
-            }
-            var mainArrayObjIs = {key:i, title:testStringChapters,data:titlesArray};
-            diseasesArray.push(mainArrayObjIs);
-            // console.log('diseasesArray Array = ',diseasesArray);
-          }
-          var completeBookArray = [];
-          // For Main Titles denoted by @ Sign
-          for (var i = 0; i < diseasesArray.length; i++) {
-            var prescriptionArray = [];
-            for (var j = 0; j < diseasesArray[i].data.length; j++) {
-              var titlesArrayNew = [];
-              var stringAtIndex = diseasesArray[i].data[j];
-              var headingEndIndex = stringAtIndex.indexOf('\r',1);
-              var testStringChapters=stringAtIndex.slice(0,headingEndIndex);
-              for (var x = 0; x < stringAtIndex.length; x++) {
-                var firstIndex=stringAtIndex.indexOf('@',x);
-                var secondIndex=stringAtIndex.indexOf('@',firstIndex+1);
-                if (secondIndex==-1 || firstIndex==-1) {
-                  break;
-                }
-                var tempString=stringAtIndex.slice(firstIndex+1,secondIndex-1);
-                // Save String and Heading Both in Array
-                titlesArrayNew.push(tempString.trim());
-                x=secondIndex;
-              }
-              var mainArrayObjIs = {key:j, title:testStringChapters,data:titlesArrayNew};
-              prescriptionArray.push(mainArrayObjIs);
-            }
-            var aiknaiarrayObj = {key:i, title:diseasesArray[i].title,data:prescriptionArray};
-            completeBookArray.push(aiknaiarrayObj);
-          }
+//     var finalBookArrayCarrot = [];
+//     RNFS.readFileAssets(allBooksInOne)
+//         .then((contents) => {
+//           var contentString = contents.toString();
+//           // console.log('contentString for Android is = ', contentString);
+//           var chaptersArray=[];
+//           // For Chapters Titles denoted by & Sign
+//           for (var i = 0; i < contentString.length; i++) {
+//             var firstIndex=contentString.indexOf('^',i);
+//             var secondIndex=contentString.indexOf('^',firstIndex+1);
+//             if (secondIndex==-1 || firstIndex==-1) {
+//               break;
+//             }
+//             var tempString=contentString.slice(firstIndex+1,secondIndex-1);
+//             chaptersArray.push(tempString);
+//             i=secondIndex;
+//           }
+//           // console.log('Chapters Array is = ',chaptersArray);
+//           var diseasesArray = [];
+//           // For Main Titles denoted by @ Sign
+//           for (var i = 0; i < chaptersArray.length; i++) {
+//             var stringAtIndex = chaptersArray[i];
+//             var headingEndIndex = stringAtIndex.indexOf('\r',1);
+//             var testStringChapters=stringAtIndex.slice(0,headingEndIndex);
+//             var titlesArray=[];
+//             for (var x = 0; x < stringAtIndex.length; x++) {
+//               var firstIndex=stringAtIndex.indexOf('&',x);
+//               var secondIndex=stringAtIndex.indexOf('&',firstIndex+1);
+//               if (secondIndex==-1 || firstIndex==-1) {
+//                 break;
+//               }
+//               var tempString=stringAtIndex.slice(firstIndex+1,secondIndex-1);
+//               // Save String and Heading Both in Array
+//               // var ObjectToSaveInArray = {heading:testString,data:tempString.trim()};
+//               titlesArray.push(tempString.trim());
+//               x=secondIndex;
+//             }
+//             var mainArrayObjIs = {key:i, title:testStringChapters,data:titlesArray};
+//             diseasesArray.push(mainArrayObjIs);
+//             // console.log('diseasesArray Array = ',diseasesArray);
+//           }
+//           var completeBookArray = [];
+//           // For Main Titles denoted by @ Sign
+//           for (var i = 0; i < diseasesArray.length; i++) {
+//             var prescriptionArray = [];
+//             for (var j = 0; j < diseasesArray[i].data.length; j++) {
+//               var titlesArrayNew = [];
+//               var stringAtIndex = diseasesArray[i].data[j];
+//               var headingEndIndex = stringAtIndex.indexOf('\r',1);
+//               var testStringChapters=stringAtIndex.slice(0,headingEndIndex);
+//               for (var x = 0; x < stringAtIndex.length; x++) {
+//                 var firstIndex=stringAtIndex.indexOf('@',x);
+//                 var secondIndex=stringAtIndex.indexOf('@',firstIndex+1);
+//                 if (secondIndex==-1 || firstIndex==-1) {
+//                   break;
+//                 }
+//                 var tempString=stringAtIndex.slice(firstIndex+1,secondIndex-1);
+//                 // Save String and Heading Both in Array
+//                 titlesArrayNew.push(tempString.trim());
+//                 x=secondIndex;
+//               }
+//               var mainArrayObjIs = {key:j, title:testStringChapters,data:titlesArrayNew};
+//               prescriptionArray.push(mainArrayObjIs);
+//             }
+//             var aiknaiarrayObj = {key:i, title:diseasesArray[i].title,data:prescriptionArray};
+//             completeBookArray.push(aiknaiarrayObj);
+//           }
 
-          // For Test
-          for (var g = 0; g < completeBookArray.length; g++) {
-            var completeBookArrayCarrot = [];
-            for (var h = 0; h < completeBookArray[g].data.length; h++) {
-              var prescriptionArrayCarrot = [];
-              for (var k = 0; k < completeBookArray[g].data[h].data.length; k++) {
-                var titlesArrayNew = [];
-                var stringAtIndex = completeBookArray[g].data[h].data[k];
-                var headingEndIndex = stringAtIndex.indexOf('\r',1);
-                var testStringChapters=stringAtIndex.slice(0,headingEndIndex);
-                var indexforDollar = -1;
-                for (var x = 0; x < stringAtIndex.length; x++) {
-                  // console.log('String At Index = ',completeBookArray[g].data[h].data[k]);
-                  var firstIndex=stringAtIndex.indexOf('$',x);
-                  var secondIndex=stringAtIndex.indexOf('$',firstIndex+1);
-                  if (secondIndex==-1 || firstIndex==-1) {
-                    break;
-                  }
-                  var tempString=stringAtIndex.slice(firstIndex+1,secondIndex-1);
-                  // Save String and Heading Both in Array
-                  indexforDollar++;
-                  var titlesArrayObj = {key:indexforDollar, title:tempString.trim()};
-                  titlesArrayNew.push(titlesArrayObj);
-                  x=secondIndex;
-                }
-                var mainArrayObjIs = {key:k, title:testStringChapters,data:titlesArrayNew};
-                prescriptionArrayCarrot.push(mainArrayObjIs);
-              }
-              var aiknaiarrayObj = {key:h, title:completeBookArray[g].data[h].title,data:prescriptionArrayCarrot};
-              completeBookArrayCarrot.push(aiknaiarrayObj);
-            }
+//           // For Test
+//           for (var g = 0; g < completeBookArray.length; g++) {
+//             var completeBookArrayCarrot = [];
+//             for (var h = 0; h < completeBookArray[g].data.length; h++) {
+//               var prescriptionArrayCarrot = [];
+//               for (var k = 0; k < completeBookArray[g].data[h].data.length; k++) {
+//                 var titlesArrayNew = [];
+//                 var stringAtIndex = completeBookArray[g].data[h].data[k];
+//                 var headingEndIndex = stringAtIndex.indexOf('\r',1);
+//                 var testStringChapters=stringAtIndex.slice(0,headingEndIndex);
+//                 var indexforDollar = -1;
+//                 for (var x = 0; x < stringAtIndex.length; x++) {
+//                   // console.log('String At Index = ',completeBookArray[g].data[h].data[k]);
+//                   var firstIndex=stringAtIndex.indexOf('$',x);
+//                   var secondIndex=stringAtIndex.indexOf('$',firstIndex+1);
+//                   if (secondIndex==-1 || firstIndex==-1) {
+//                     break;
+//                   }
+//                   var tempString=stringAtIndex.slice(firstIndex+1,secondIndex-1);
+//                   // Save String and Heading Both in Array
+//                   indexforDollar++;
+//                   var titlesArrayObj = {key:indexforDollar, title:tempString.trim()};
+//                   titlesArrayNew.push(titlesArrayObj);
+//                   x=secondIndex;
+//                 }
+//                 var mainArrayObjIs = {key:k, title:testStringChapters,data:titlesArrayNew};
+//                 prescriptionArrayCarrot.push(mainArrayObjIs);
+//               }
+//               var aiknaiarrayObj = {key:h, title:completeBookArray[g].data[h].title,data:prescriptionArrayCarrot};
+//               completeBookArrayCarrot.push(aiknaiarrayObj);
+//             }
 
-            // To Separate Title from CoverPhoto
-            var coverArray = completeBookArray[g].title.split(':cover:');
-            // console.log('coverArray is =');
-            // console.log(coverArray[0]);
-            // console.log(coverArray[1]);
-            var aiknaiarrayObjCarrot = [];
-            if (g==0) {
-              aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_arind.jpg'), data:completeBookArrayCarrot};
-            }
-            // else if (g==1){
-            //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/indrain.jpg'), data:completeBookArrayCarrot};
-            // }
-            // else if (g==2){
-            //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/angoor.jpg'), data:completeBookArrayCarrot};
-            // }else if (g==3){
-            //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/aam.jpg'), data:completeBookArrayCarrot};
-            // }else if (g==4){
-            //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_aak.jpg'), data:completeBookArrayCarrot};
-            // }else if (g==5){
-            //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/badam.jpg'), data:completeBookArrayCarrot};
-            // }else if (g==6){
-            //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/bargad.jpg'), data:completeBookArrayCarrot};
-            // }else if (g==7){
-            //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/dhatoora.jpg'), data:completeBookArrayCarrot};
-            // }else if (g==8){
-            //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/anar.jpg'), data:completeBookArrayCarrot};
-            // }else if (g==9){
-            //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/anar.jpg'), data:completeBookArrayCarrot};
-            // }else if (g==10){
-            //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/anar.jpg'), data:completeBookArrayCarrot};
-            // }else if (g==11){
-            //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/anar.jpg'), data:completeBookArrayCarrot};
-            // }else if (g==12){
-            //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/anar.jpg'), data:completeBookArrayCarrot};
-            // }else if (g==13){
-            //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/anar.jpg'), data:completeBookArrayCarrot};
-            // }else if (g==14){
-            //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/anar.jpg'), data:completeBookArrayCarrot};
-            // }else if (g==15){
-            //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/anar.jpg'), data:completeBookArrayCarrot};
-            // }
-            finalBookArrayCarrot.push(aiknaiarrayObjCarrot);
-          } 
-          this.setState({showProgress:false});
-          AsyncStorage.setItem('booksData', JSON.stringify(finalBookArrayCarrot));
-          // this.horizontalrowselected();
-          // this.dumpIntoDB();
-        })
+//             // To Separate Title from CoverPhoto
+//             var coverArray = completeBookArray[g].title.split(':cover:');
+//             // console.log('coverArray is =');
+//             // console.log(coverArray[0]);
+//             // console.log(coverArray[1]);
+//             var aiknaiarrayObjCarrot = [];
+//             if (g==0) {
+//               aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_arind.jpg'), data:completeBookArrayCarrot};
+//             }
+//             // else if (g==1){
+//             //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/indrain.jpg'), data:completeBookArrayCarrot};
+//             // }
+//             // else if (g==2){
+//             //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/angoor.jpg'), data:completeBookArrayCarrot};
+//             // }else if (g==3){
+//             //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/aam.jpg'), data:completeBookArrayCarrot};
+//             // }else if (g==4){
+//             //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/thumbnail_aak.jpg'), data:completeBookArrayCarrot};
+//             // }else if (g==5){
+//             //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/badam.jpg'), data:completeBookArrayCarrot};
+//             // }else if (g==6){
+//             //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/bargad.jpg'), data:completeBookArrayCarrot};
+//             // }else if (g==7){
+//             //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/dhatoora.jpg'), data:completeBookArrayCarrot};
+//             // }else if (g==8){
+//             //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/anar.jpg'), data:completeBookArrayCarrot};
+//             // }else if (g==9){
+//             //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/anar.jpg'), data:completeBookArrayCarrot};
+//             // }else if (g==10){
+//             //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/anar.jpg'), data:completeBookArrayCarrot};
+//             // }else if (g==11){
+//             //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/anar.jpg'), data:completeBookArrayCarrot};
+//             // }else if (g==12){
+//             //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/anar.jpg'), data:completeBookArrayCarrot};
+//             // }else if (g==13){
+//             //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/anar.jpg'), data:completeBookArrayCarrot};
+//             // }else if (g==14){
+//             //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/anar.jpg'), data:completeBookArrayCarrot};
+//             // }else if (g==15){
+//             //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/anar.jpg'), data:completeBookArrayCarrot};
+//             // }
+//             finalBookArrayCarrot.push(aiknaiarrayObjCarrot);
+//           } 
+//           this.setState({showProgress:false});
+//           AsyncStorage.setItem('booksData', JSON.stringify(finalBookArrayCarrot));
+//           // this.horizontalrowselected();
+//           // this.dumpIntoDB();
+//         })
 
-        // console.log(coverArray[0]);
-        // console.log('Final Array Testing is =', finalBookArrayCarrot[0]);
+//         // console.log(coverArray[0]);
+//         // console.log('Final Array Testing is =', finalBookArrayCarrot[0]);
 
-        Constants.BookArray=finalBookArrayCarrot;
-        Constants.isBookLoaded=true;
-        this.setState({
-          bookArray:finalBookArrayCarrot
-        })
+//         Constants.BookArray=finalBookArrayCarrot;
+//         Constants.isBookLoaded=true;
+//         this.setState({
+//           bookArray:finalBookArrayCarrot
+//         })
 
-        // console.log('Final Book is = ',this.state.bookArray);
-      }
+//         // console.log('Final Book is = ',this.state.bookArray);
+//       }
 
-      console.log('Final Book is = ',this.state.bookArray);
+//       console.log('Final Book is = ',this.state.bookArray);
 
-}
+// }
 
   // fetchDataFromDB(bookName){
   //   // console.log('bookName is = ',bookName);
@@ -741,12 +743,27 @@ booksLoadAction(){
     
     }
 
+    medicineLoadAction(){
+      
+      this.props.navigation.navigate('Products-Screen');
+    
+    }
+
     render()
     {
       return (
-  
-        <View style ={Styles.Container}>
-                  
+
+        <View style = {Styles.Container}>
+
+        <View style = {Styles.innerContainer}>
+        <Pressable onPress={()=>{navigation.toggleDrawer()}}> 
+            <Icon name='menu-fold' size={30} color='#24A148'/>  
+            </Pressable>
+            <Image 
+            source={require('./aliahtashamdata/Images/logoresize.png')} 
+            style={Styles.logo}/>
+       </View>
+
         {/* <Header navigation={navigation}/> */}
        
         <View style = {Styles.UpperBody}>
@@ -777,7 +794,10 @@ booksLoadAction(){
              /> 
             
 </View> */}
+
         <View style ={Styles.Grids}>
+
+        <TouchableOpacity onPress = {() => this.medicineLoadAction()}>
             <View style ={Styles.GridOne}>
             <Image
              style={Styles.Gridimg}
@@ -785,6 +805,10 @@ booksLoadAction(){
              /> 
              <Text style = {Styles.GridNam}>ادویات</Text>
             </View>
+          </TouchableOpacity>
+          
+          <TouchableOpacity onPress = {() => this.booksLoadAction()}>
+
             <View style ={Styles.GridOne}>
             <Image
              style={Styles.Gridimg}
@@ -792,6 +816,7 @@ booksLoadAction(){
              /> 
              <Text style = {Styles.GridNam}>مطب</Text>
             </View>
+          </TouchableOpacity>
 
         <TouchableOpacity onPress = {() => this.booksLoadAction()}>
           <View style ={Styles.GridOne}>
@@ -816,23 +841,33 @@ booksLoadAction(){
            <Text style = {Styles.footerTxtSecond}>
            فروغ صحت ۔ فروغ علم    
               </Text>
-              
-             
-       </View>
-       
-         </View>
-  
-
-  
+                   
+        </View>
+        </View>
       )
-  
   }
-
-
-
 }
 
-const styles=StyleSheet.create({
+const Styles=StyleSheet.create({
+
+  innerContainer:{
+    height:'10%',
+    backgroundColor:'#fff',
+    shadowColor: '#000',
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity:  0.4,
+    shadowRadius: 3,
+    elevation: 5,
+    alignItems:'center',
+    paddingHorizontal:20,
+    flexDirection:'row'
+    },
+    logo:{
+      height:'100%',
+       width:'55%',
+       marginHorizontal:50,
+       marginTop:-20
+    },
 outerContainer:{
   flex:1,
   backgroundColor:'white',
@@ -1043,4 +1078,130 @@ buttonStylePDF:{
   justifyContent: 'center',
 },
 
+Container:{
+  backgroundColor:'#fff',
+flex:1,
+},
+UpperBody:{
+  flexDirection:'row-reverse',
+  backgroundColor:'#fff',
+  borderBottomLeftRadius:10,
+  borderBottomRightRadius:10,
+  shadowColor: '#000',
+  shadowOpacity: 0.26,
+  shadowOffset: { width: 0, height: 2},
+  shadowRadius: 10,
+  elevation: 5 
+},
+sectionright:{
+  margin:15,
+  borderWidth:.8,
+  borderRadius:20,
+  borderColor:'#ffb422'
+},
+founderimg:{
+  height:130,
+  width:120,
+  borderRadius:20,
+  borderColor:'#fff',
+ borderWidth:7,
+
+},
+
+imgdetails:{
+  textAlign:'center',
+  color:'#a5a5a5',
+  fontFamily:'Jameel-Noori-Nastaleeq-Kasheeda',
+},
+sectionleft:{
+  width:'60%',
+ marginVertical:15,
+ paddingTop:10,  
+ paddingLeft:10,
+},
+aboutContent:{
+  textAlign:'auto',
+  color:'#a5a5a5',
+  fontFamily:'Jameel-Noori-Nastaleeq-Kasheeda',
+  fontSize:14,
+  lineHeight:25,
+},
+moreBtn:{
+ marginLeft:5,
+},
+Btntxt:{
+  fontFamily:'Poppins-SemiBold',
+  color:'#24A148',
+  textDecorationLine:'underline'
+},
+midBody:{
+  flexDirection:'row',
+  justifyContent:'center',
+  marginVertical:30
+},
+midContent:{
+  fontFamily:'Jameel-Noori-Nastaleeq-Kasheeda',
+  fontSize:16,
+  color:'#24A148',
+  textDecorationLine:'underline',
+ 
+},
+designContent:{
+  width:30, 
+  height:30,
+  margin:6,
+},
+Grids:{
+  
+  flexDirection:'row',
+ marginHorizontal:10,
+ marginVertical:30,
+  
+},
+GridOne:{
+  borderWidth:2,
+ marginHorizontal:10,
+  width:110,
+  height:160,
+  borderRadius:20,
+  justifyContent:'center',
+  alignItems:'center',
+  borderColor:'#ffb422',
+  shadowColor: '#000',
+  shadowOffset: { width: 1, height: 1 },
+  shadowOpacity:  0.4,
+  shadowRadius: 3,
+  elevation: 5,
+  backgroundColor:'#fff'
+  
+},
+Gridimg:{
+  width:75,
+  height:75,
+},
+GridNam:{
+  fontSize:22,
+  fontWeight:'700',
+  color:'#ffb422',
+  marginTop:18,
+},
+footer:{
+  margin:20,
+},
+footerTxtDesign:{
+  flexDirection:'row-reverse'
+},
+footerTxt:{
+  fontFamily:'AlQalam Irtaza Hassan Regular',
+  fontSize:30,
+  color:'#24A148',
+  margin:10,
+},
+footerTxtSecond:{
+  fontFamily:'AlQalam Irtaza Hassan Regular',
+  fontSize:30,
+  color:'#ffb422',
+  textAlign:'left',
+  margin:10,
+}
 })

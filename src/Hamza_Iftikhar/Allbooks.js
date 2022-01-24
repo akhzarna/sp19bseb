@@ -13,6 +13,7 @@ import {
   Dimensions,
   SectionList,
   Pressable,
+  ScrollView
 } from 'react-native';
 
 import AsyncStorage from '@react-native-community/async-storage';
@@ -41,9 +42,19 @@ import database from '@react-native-firebase/database';
 // Firestore Database
 import firestore from '@react-native-firebase/firestore';
 
-import Styles from './aliahtashamdata/AllBooks/Styles';
+// import Styles from './aliahtashamdata/AllBooks/Styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import BooksData from './aliahtashamdata/AllBooks/BooksData';
+
+import { Chip } from 'react-native-paper';
+
+const BookPosters = [
+  {key:0,
+  poster:require('./aliahtashamdata/Images/bookpo.jpg')},
+  {key:1,
+    poster:require('./aliahtashamdata/Images/bookPoster.jpg')},
+];
+
 
 // const BooksData = [
 //   {
@@ -742,11 +753,19 @@ booksLoadAction(){
     render()
     {
       return (
-        <View style = {Styles.container}>
-        <TouchableOpacity style = {Styles.backbtn}>
-            <Icon name='chevron-left' size={32} color='#699c26'  /> 
+
+
+
+        <ScrollView 
+        style = {Styles.container}
+        nestedScrollEnabled={true}> 
+        
+      <View style ={Styles.Bookheader}>
+      <TouchableOpacity style = {Styles.backbtn}>
+            <Icon name='chevron-left' size={30} color='#699c26'  /> 
             </TouchableOpacity>
-           <View style={Styles.searchbarDesign}> 
+
+            <View style={Styles.searchbarDesign}> 
            <TouchableOpacity>
            <Icon name='search' size={23} color='#0e0e0e'  /> 
            </TouchableOpacity>
@@ -755,246 +774,459 @@ booksLoadAction(){
         placeholder="تلاش کریں"
       />
       </View>
+      </View>
+            <FlatList 
+            style={Styles.posterList}
+            showsHorizontalScrollIndicator={false}
+            nestedScrollEnabled
+            horizontal={true}
+            data={BookPosters}
+            keyExtractor={(key) => (key.key)}
+            renderItem={({item})=>
+         <View style = {Styles.poster}>
+         <Image 
+                    style={Styles.undraw}
+                    source={item.poster} />
+            
+</View>
+       } />
+           <View style ={Styles.chipDesign}>
+           <Chip icon="slack" onPress={() => console.log('Pressed')} >Featured</Chip>
+           <Chip icon="star" onPress={() => console.log('Pressed')}>Popular</Chip>
+           <Chip  icon="tag" onPress={() => console.log('Pressed')}>Top Rated</Chip>
+</View>
 
-      <FlatList 
-            data={this.state.allBooksData}
-            keyExtractor={(key) => (key.id)}
+<View  style={Styles.midSection}>
+
+    <FlatList 
+            
+            data={BooksData}
             renderItem={
-                ({item}) => 
-          <TouchableOpacity onPress = {() => this.chaptersLoadAction(item.chapters)}>
-          <View style={Styles.midSection}>
-            <View style={Styles.Grid}>
-                <View style={Styles.Gridimg}>
+                ({item}) => ( 
+             
+            <TouchableOpacity  style={Styles.Grid} onPress={()=>this.props.navigation.navigate('BookDetail',{item :[item]})}>
+                <View style ={Styles.imgBox}>
                     <Image 
                     style={Styles.Proimage}
-                    source={{ uri: item.url}} />
-                </View>
+                    source={item.thumbnails} />
+                    </View>
+                
                 <View style = {Styles.GridContent}>
                 <Text style = {Styles.MainTitle}>
-                    {item.title}
+                    {item.bookName}
                     </Text>
                     <Text style = {Styles.Details}>
-                        {item.name}
+                        {item.details}
                     </Text>
+                    
                 </View>
-            </View>  
-        </View>
-        </TouchableOpacity>
-        }/>
-        </View>
+                {/* <TouchableOpacity style ={Styles.action} onPress={()=>navigation.navigate('booksDetails')}>
+                <Icon name='angle-double-right' size={32} color='#fafafa'  /> 
+                     </TouchableOpacity> */}
+           
+            </TouchableOpacity >  ) }
+            numColumns={2}
+            keyExtractor={(item) => item.id}
+            nestedScrollEnabled={true}/>
+       </View>
+        </ScrollView>
+
+
+
+      //   <View style = {Styles.container}>
+      //   <TouchableOpacity style = {Styles.backbtn}>
+      //       <Icon name='chevron-left' size={32} color='#699c26'  /> 
+      //       </TouchableOpacity>
+      //      <View style={Styles.searchbarDesign}> 
+      //      <TouchableOpacity>
+      //      <Icon name='search' size={23} color='#0e0e0e'  /> 
+      //      </TouchableOpacity>
+      //          <TextInput
+      //   style={Styles.bookSearch}
+      //   placeholder="تلاش کریں"
+      // />
+      // </View>
+
+      // <FlatList 
+      //       data={this.state.allBooksData}
+      //       keyExtractor={(key) => (key.id)}
+      //       renderItem={
+      //           ({item}) => 
+      //     <TouchableOpacity onPress = {() => this.chaptersLoadAction(item.chapters)}>
+      //     <View style={Styles.midSection}>
+      //       <View style={Styles.Grid}>
+      //           <View style={Styles.Gridimg}>
+      //               <Image 
+      //               style={Styles.Proimage}
+      //               source={{ uri: item.url}} />
+      //           </View>
+      //           <View style = {Styles.GridContent}>
+      //           <Text style = {Styles.MainTitle}>
+      //               {item.title}
+      //               </Text>
+      //               <Text style = {Styles.Details}>
+      //                   {item.name}
+      //               </Text>
+      //           </View>
+      //       </View>  
+      //   </View>
+      //   </TouchableOpacity>
+      //   }/>
+      //   </View>
       );
   }
 }
 
-const styles=StyleSheet.create({
-outerContainer:{
-  flex:1,
-  backgroundColor:'white',
-  justifyContent: 'center',
-  alignItems: 'center',
-},
-buttonStyle:{
-  marginLeft:0,
-  marginRight:0,
-  marginTop:10,
-  marginBottom:0,
-  justifyContent: 'center',
-  alignItems: 'center',
-  width:Cell_Width,
-},
 
-imageStyle:{
-  marginLeft:5,
-  marginRight:5,
-  marginTop:5,
-  marginBottom:5,
-  width:80,
-  height:120,
-},
 
-textStyle:{
-  color:'#38803B',
-  marginTop:0,
-  marginBottom:5,
-  textAlign:'center',
-  fontSize:20,
-  // fontWeight:'bold',
-  fontFamily:'MehrNastaliqWeb'
-},
+const Styles = StyleSheet.create({
 
-viewStyleMain:{
-  flex:1,
-  flexDirection:'row',
-  // marginLeft:5,
-  // marginRight:5,
-  // marginTop:5,
-  // marginBottom:5,
-  // elevation: 3,
-  // borderRadius:4,
-  padding:4,
-  height:140,
-  // justifyContent: 'flex-start',
-  // shadowOpacity: 10,
-  // shadowColor: 'grey',
-  // alignItems: 'center',
-  // justifyContent: 'center',
-  backgroundColor : 'lightgrey', 
-},
+  container:{
+      flex:1,
+      backgroundColor:'#fff',
+  },
+  Bookheader:{
+      flexDirection:'row',
+      marginVertical:15,
+  },
+  backbtn:{
+      height:45,
+      width:45,
+      padding:8,
+      borderRadius:100/2,
+      backgroundColor:'rgba(217, 215, 215, 0.5)',
+      marginHorizontal:10,
+  },
+  
+  searchbarDesign:{
+      width:'80%',
+      height:45,
+      borderRadius:20,
+      backgroundColor:'#fff',
+      shadowColor: '#000',
+      shadowOffset: { width: 1, height: 1 },
+      shadowOpacity:  0.4,
+      shadowRadius: 3,
+      elevation: 4,
+      paddingHorizontal:20,
+      flexDirection:'row-reverse',
+      alignItems:'center',
+      borderWidth:1,
+      borderColor:'#24A148'
+    },
+    bookSearch:{
+       
+        marginHorizontal:10,
+        borderRightWidth:1,
+        borderColor:'#e5e5e5',
+        paddingHorizontal:20,
+        fontSize:16,
+        
+    },
+  posterList:{
+      marginHorizontal:20,
+  },
+  poster:{
+      width:340,
+      height:150,
+      backgroundColor:'#fafafa',
+      shadowColor: '#000',
+      shadowOffset: { width: 1, height: 1 },
+      shadowOpacity:  0.4,
+      shadowRadius: 3,
+      elevation: 5,
+      alignSelf:'center',
+      borderRadius:20,
+      marginVertical:10,
+      marginHorizontal:7
+      
+  },
+  undraw:{
+      width:'100%',
+      height:'100%',
+      borderRadius:20,
+     
+  },
 
-leftView:{
-  flex:0.33,
-  // marginLeft:5,
-  // marginRight:5,
-  // marginTop:5,
-  // marginBottom:5,
-  // elevation: 3,
-  // justifyContent: 'flex-start',
-  // alignItems: 'center',
-  // width:Cell_Width,
-  // borderRadius:4,
-  // padding:4,
-  // shadowOpacity: 10,
-  backgroundColor : 'white',
-  // shadowColor: 'black',
-  // justifyContent: 'center',
-},
+  chipDesign:{
+      flexDirection:'row',
+  justifyContent:'space-evenly',
+  margin:10,
+  },
 
-rightView:{
-  flex:0.67,
-  // marginLeft:15,
-  // marginRight:5,
-  // marginTop:5,
-  // marginBottom:5,
-  // elevation: 3,
-  // justifyContent: 'flex-start',
-  // alignItems: 'center',
-  // width:Cell_Width,
-  // borderRadius:4,
-  // padding:4,
-  // shadowOpacity: 10,
-  backgroundColor : 'grey',
-  // shadowColor: 'black',
-  // justifyContent: 'center',
-},
+  midSection:{
+      flex:1,
+    
+      margin:10, 
+  },
+  
+  Grid:{
+     width:135,
+     height:270,
+     alignItems:'center',
+     borderRadius:10,
+     backgroundColor:"#fafafa",
+      marginHorizontal:30,
+      marginVertical:18,
+      shadowColor: '#000',
+      shadowOffset: { width: 1, height: 1 },
+      shadowOpacity:  0.3,
+      shadowRadius: 3,
+      elevation: 5,
+  },
+  imgBox:{
+      width:135,
+      height:200,
+    
+     borderRadius:10,
+      
+  },
+  Proimage:{
+     width:'100%',
+      height:'100%',
+      borderRadius:10,
+      resizeMode:'cover'
+  },
+  GridContent:{
+      alignSelf:'flex-end',
+      marginHorizontal:10,
+      marginVertical:5,
+  },
+  MainTitle:{
+      color:'#18191A',
+      fontFamily:'Jameel-Noori-Nastaleeq-Kasheeda',
+      fontSize:19,
+      
+  },
+  Details:{
+      fontFamily:'Jameel Noori Nastaleeq Regular',
+  color:'#a5a5a5',
+  fontSize:14, 
+  marginTop:-5
+ 
+  },
+  action:{
+      flex:2,
+      backgroundColor:'#24A148',
+      borderTopRightRadius:20,
+      borderBottomRightRadius:20,
+      justifyContent:'center',
+      alignItems:'center'
+  }
 
-viewStyleTop:{
-  flex:0.50,
-  // marginLeft:15,
-  // marginRight:5,
-  // marginTop:5,
-  // marginBottom:5,
-  // elevation: 3,
-  // justifyContent: 'flex-start',
-  // alignItems: 'center',
-  // width:Cell_Width,
-  // borderRadius:4,
-  // padding:4,
-  // shadowOpacity: 10,
-  backgroundColor : 'white',
-  // shadowColor: 'black',
-  // justifyContent: 'center',
-},
+});
 
-bottomView:{
-  flex:0.50,
-  flexDirection:'row',
-  // marginLeft:15,
-  // marginRight:5,
-  // marginTop:5,
-  // marginBottom:5,
-  // elevation: 3,
-  // justifyContent: 'flex-start',
-  // alignItems: 'center',
-  // width:Cell_Width,
-  // borderRadius:4,
-  // padding:4,
-  // shadowOpacity: 10,
-  backgroundColor : 'white',
-  // shadowColor: 'black',
-  // justifyContent: 'center',
-},
-titleStyle:{
-  color:'lightgrey',
-  marginTop:0,
-  // marginBottom:0,
-  // textAlign:'center',
-  fontSize:18,
-  // fontWeight:'bold',
-  // fontFamily:'MehrNastaliqWeb'
-},
 
-buttontitleStyle:{
-  color:'lightgrey',
-  marginTop:0,
-  // marginBottom:0,
-  // textAlign:'center',
-  fontSize:12,
-  // fontWeight:'bold',
-  // fontFamily:'MehrNastaliqWeb'
-},
 
-subtitleStyle:{
-  color:'grey',
-  marginTop:5,
-  // marginBottom:0,
-  // textAlign:'center',
-  fontSize:13,
-  // fontWeight:'bold',
-  // fontFamily:'MehrNastaliqWeb'
-},
+// const styles=StyleSheet.create({
+// outerContainer:{
+//   flex:1,
+//   backgroundColor:'white',
+//   justifyContent: 'center',
+//   alignItems: 'center',
+// },
+// buttonStyle:{
+//   marginLeft:0,
+//   marginRight:0,
+//   marginTop:10,
+//   marginBottom:0,
+//   justifyContent: 'center',
+//   alignItems: 'center',
+//   width:Cell_Width,
+// },
 
-buttonStyleAudio:{
-  marginLeft:5,
-  marginRight:5,
-  marginTop:50,
-  marginBottom:5,
-  elevation: 3,
-  // justifyContent: 'flex-start',
-  alignItems: 'center',
-  width:60,
-  height:35,
-  borderRadius:4,
-  padding:4,
-  shadowOpacity: 10,
-  backgroundColor : '#D3D3D3',
-  shadowColor: 'lightgrey',
-  justifyContent: 'center',
-},
+// imageStyle:{
+//   marginLeft:5,
+//   marginRight:5,
+//   marginTop:5,
+//   marginBottom:5,
+//   width:80,
+//   height:120,
+// },
 
-buttonStyleUnicode:{
-  // marginLeft:0,
-  marginRight:5,
-  marginTop:50,
-  // marginBottom:5,
-  // elevation: 3,
-  // justifyContent: 'flex-start',
-  alignItems: 'center',
-  width:60,
-  height:35,
-  borderRadius:4,
-  padding:4,
-  shadowOpacity: 10,
-  backgroundColor : '#D3D3D3',
-  shadowColor: 'lightgrey',
-  justifyContent: 'center',
-},
+// textStyle:{
+//   color:'#38803B',
+//   marginTop:0,
+//   marginBottom:5,
+//   textAlign:'center',
+//   fontSize:20,
+//   // fontWeight:'bold',
+//   fontFamily:'MehrNastaliqWeb'
+// },
 
-buttonStylePDF:{
-  // marginLeft:0,
-  // marginRight:5,
-  marginTop:50,
-  // marginBottom:5,
-  elevation: 3,
-  // justifyContent: 'flex-start',
-  alignItems: 'center',
-  width:60,
-  height:35,
-  borderRadius:4,
-  padding:4,
-  shadowOpacity: 10,
-  backgroundColor : '#D3D3D3',
-  shadowColor: 'lightgrey',
-  justifyContent: 'center',
-},
+// viewStyleMain:{
+//   flex:1,
+//   flexDirection:'row',
+//   // marginLeft:5,
+//   // marginRight:5,
+//   // marginTop:5,
+//   // marginBottom:5,
+//   // elevation: 3,
+//   // borderRadius:4,
+//   padding:4,
+//   height:140,
+//   // justifyContent: 'flex-start',
+//   // shadowOpacity: 10,
+//   // shadowColor: 'grey',
+//   // alignItems: 'center',
+//   // justifyContent: 'center',
+//   backgroundColor : 'lightgrey', 
+// },
 
-})
+// leftView:{
+//   flex:0.33,
+//   // marginLeft:5,
+//   // marginRight:5,
+//   // marginTop:5,
+//   // marginBottom:5,
+//   // elevation: 3,
+//   // justifyContent: 'flex-start',
+//   // alignItems: 'center',
+//   // width:Cell_Width,
+//   // borderRadius:4,
+//   // padding:4,
+//   // shadowOpacity: 10,
+//   backgroundColor : 'white',
+//   // shadowColor: 'black',
+//   // justifyContent: 'center',
+// },
+
+// rightView:{
+//   flex:0.67,
+//   // marginLeft:15,
+//   // marginRight:5,
+//   // marginTop:5,
+//   // marginBottom:5,
+//   // elevation: 3,
+//   // justifyContent: 'flex-start',
+//   // alignItems: 'center',
+//   // width:Cell_Width,
+//   // borderRadius:4,
+//   // padding:4,
+//   // shadowOpacity: 10,
+//   backgroundColor : 'grey',
+//   // shadowColor: 'black',
+//   // justifyContent: 'center',
+// },
+
+// viewStyleTop:{
+//   flex:0.50,
+//   // marginLeft:15,
+//   // marginRight:5,
+//   // marginTop:5,
+//   // marginBottom:5,
+//   // elevation: 3,
+//   // justifyContent: 'flex-start',
+//   // alignItems: 'center',
+//   // width:Cell_Width,
+//   // borderRadius:4,
+//   // padding:4,
+//   // shadowOpacity: 10,
+//   backgroundColor : 'white',
+//   // shadowColor: 'black',
+//   // justifyContent: 'center',
+// },
+
+// bottomView:{
+//   flex:0.50,
+//   flexDirection:'row',
+//   // marginLeft:15,
+//   // marginRight:5,
+//   // marginTop:5,
+//   // marginBottom:5,
+//   // elevation: 3,
+//   // justifyContent: 'flex-start',
+//   // alignItems: 'center',
+//   // width:Cell_Width,
+//   // borderRadius:4,
+//   // padding:4,
+//   // shadowOpacity: 10,
+//   backgroundColor : 'white',
+//   // shadowColor: 'black',
+//   // justifyContent: 'center',
+// },
+// titleStyle:{
+//   color:'lightgrey',
+//   marginTop:0,
+//   // marginBottom:0,
+//   // textAlign:'center',
+//   fontSize:18,
+//   // fontWeight:'bold',
+//   // fontFamily:'MehrNastaliqWeb'
+// },
+
+// buttontitleStyle:{
+//   color:'lightgrey',
+//   marginTop:0,
+//   // marginBottom:0,
+//   // textAlign:'center',
+//   fontSize:12,
+//   // fontWeight:'bold',
+//   // fontFamily:'MehrNastaliqWeb'
+// },
+
+// subtitleStyle:{
+//   color:'grey',
+//   marginTop:5,
+//   // marginBottom:0,
+//   // textAlign:'center',
+//   fontSize:13,
+//   // fontWeight:'bold',
+//   // fontFamily:'MehrNastaliqWeb'
+// },
+
+// buttonStyleAudio:{
+//   marginLeft:5,
+//   marginRight:5,
+//   marginTop:50,
+//   marginBottom:5,
+//   elevation: 3,
+//   // justifyContent: 'flex-start',
+//   alignItems: 'center',
+//   width:60,
+//   height:35,
+//   borderRadius:4,
+//   padding:4,
+//   shadowOpacity: 10,
+//   backgroundColor : '#D3D3D3',
+//   shadowColor: 'lightgrey',
+//   justifyContent: 'center',
+// },
+
+// buttonStyleUnicode:{
+//   // marginLeft:0,
+//   marginRight:5,
+//   marginTop:50,
+//   // marginBottom:5,
+//   // elevation: 3,
+//   // justifyContent: 'flex-start',
+//   alignItems: 'center',
+//   width:60,
+//   height:35,
+//   borderRadius:4,
+//   padding:4,
+//   shadowOpacity: 10,
+//   backgroundColor : '#D3D3D3',
+//   shadowColor: 'lightgrey',
+//   justifyContent: 'center',
+// },
+
+// buttonStylePDF:{
+//   // marginLeft:0,
+//   // marginRight:5,
+//   marginTop:50,
+//   // marginBottom:5,
+//   elevation: 3,
+//   // justifyContent: 'flex-start',
+//   alignItems: 'center',
+//   width:60,
+//   height:35,
+//   borderRadius:4,
+//   padding:4,
+//   shadowOpacity: 10,
+//   backgroundColor : '#D3D3D3',
+//   shadowColor: 'lightgrey',
+//   justifyContent: 'center',
+// },
+
+// })

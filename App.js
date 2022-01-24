@@ -17,6 +17,7 @@ import WishlistScreen from './src/Hamza_Iftikhar/Wishlist_Screen_Items/WishlistS
 import ProductScreen from './src/Hamza_Iftikhar/Product_Screen_Items/ProductScreen';
 import ProductsMenu from './src/Hamza_Iftikhar/Product_Screen_Items/ProductsMenu';
 import Allbooks from './src/Hamza_Iftikhar/Allbooks.js'
+import BookDetail from './src/Hamza_Iftikhar/BookDetail.js'
 import Allchapters from './src/Hamza_Iftikhar/Allchapters.js'
 
 import { Provider } from 'react-native-paper';
@@ -46,6 +47,8 @@ export default class App extends React.Component {
           <BooksScreensStack.Screen name = 'Home' component = {BookShelf} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
           <BooksScreensStack.Screen name= 'Allbooks' component={Allbooks} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
           <BooksScreensStack.Screen name= 'Allchapters' component={Allchapters} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
+          <BooksScreensStack.Screen name= 'BookDetail' component={BookDetail} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
+          <BooksScreensStack.Screen name="Products-Screen" component={ProductScreen} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
         </BooksScreensStack.Navigator>
       );
     }
