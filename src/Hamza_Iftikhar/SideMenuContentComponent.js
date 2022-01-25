@@ -67,7 +67,7 @@ export default function CustomDrawerContent(props) {
                         style={{marginTop : 0}}
                     />
                 </View>
-            )} onPress = {() => props.navigation.navigate('Products-Menu')} 
+            )} onPress = {() => props.navigation.navigate('Products-Screen')} 
                 icon = {({ focused, size }) => (
                     // <Icon
                     //     name="circle"
@@ -91,7 +91,7 @@ export default function CustomDrawerContent(props) {
                         style={{marginTop : -3}}
                     />
                 </View>
-            )} onPress = {() => props.navigation.navigate('Coaching')} 
+            )} onPress = {() => props.navigation.navigate('Products-Screen')} 
                 icon = {({ focused, size }) => (
                     // <Icon
                     //     name="circle"

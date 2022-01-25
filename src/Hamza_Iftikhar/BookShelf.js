@@ -754,15 +754,17 @@ var newArray = [];
       return (
 
         <View style = {Styles.Container}>
+        
+        <MyHeader themeColor = {this.props.route.params.themeColor} navigation = {this.props.navigation} homeScreen = {true}/>
 
-        <View style = {Styles.innerContainer}>
+        {/* <View style = {Styles.innerContainer}>
         <Pressable onPress={()=>{navigation.toggleDrawer()}}> 
             <Icon name='menu-fold' size={30} color='#24A148'/>  
             </Pressable>
             <Image 
             source={require('./aliahtashamdata/Images/logoresize.png')} 
             style={Styles.logo}/>
-       </View>
+       </View> */}
 
         {/* <Header navigation={navigation}/> */}
        
