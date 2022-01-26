@@ -305,6 +305,7 @@ export default class SignInScreen extends React.Component {
   .then((userCredentials) => {
     var user = userCredentials.user;
     console.log('User signed in anonymously',user);
+    this.props.navigation.navigate('AfterLogIn', {themeColor : this.props.route.params.themeColor, token : user.uid, userId : user.uid, email : user.email});
   })
   .catch(error => {
     if (error.code === 'auth/operation-not-allowed') {

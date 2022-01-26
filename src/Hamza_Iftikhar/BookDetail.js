@@ -178,14 +178,8 @@ export default class BookDetail extends Component{
     }
     
     componentDidMount() {
-
-      // Alert.alert('Value is = ', DATA[0].data[0].title);
-      this.setState({
-        flag1:280
-      });
-
+      console.log('Hello Hello' + this.props.route.params.item.title);
       // Alert.alert('Flag value is = ' + flag1);
-
       // Alert.alert('This is BookShelf')
     //   console.log('Final Book is = ',this.state.bookArray);
     //   AsyncStorage.getItem("booksData").then((value) => {
@@ -324,13 +318,13 @@ var newArray = [];
   // });
     
 
-  database()
-  .ref('/books/')
-  .once('value')
-  .then(snapshot => {
-    console.log('All Books are: ', snapshot.val());
-    this.setState({allBooksData:snapshot.val()});
-  });
+  // database()
+  // .ref('/books/')
+  // .once('value')
+  // .then(snapshot => {
+  //   console.log('All Books are: ', snapshot.val());
+  //   this.setState({allBooksData:snapshot.val()});
+  // });
 
 
   // database()
@@ -753,27 +747,29 @@ booksLoadAction(){
     render()
     {
       return   (
+
+      <ScrollView>
+
       <View style = {Styles.container}>
       {/* <StatusBar  backgroundColor={'#fff'} barStyle="dark-content" /> */}
       <View style ={Styles.headerSection}>
       <View style = {Styles.appBar}>
-     <TouchableOpacity>
-        <Icon name="chevron-left" size={22} color="#0e0e0e" />
-         </TouchableOpacity>
+     <TouchableOpacity onPress={()=>this.props.navigation.pop()}>
+      <Icon name="chevron-left" size={22} color="#0e0e0e" />
+      </TouchableOpacity>
      <TouchableOpacity>
         <Icon name="bookmark" size={22} color='#969696' /> 
-        </TouchableOpacity>
+     </TouchableOpacity>
         </View>
         <View style ={Styles.ProductView}>
           <View style ={Styles.imgView}>
               <Image 
               style = {Styles.prodimg}
-              source ={require('./aliahtashamdata/Images/sirbook.jpg')}/>
+              source = {{ uri: this.props.route.params.item.url}}/>
           </View>
           <View style = {Styles.productContent}>
-          <Text style= {Styles.prodNam}> خواص کیکر</Text>
-          <Text style= {Styles.prodAuthor}>  استاذالحکماء حکیم محمد عبداللہ
-          </Text>
+          <Text style= {Styles.prodNam}> {this.props.route.params.item.title} </Text>
+          <Text style= {Styles.prodAuthor}> {this.props.route.params.item.author} </Text>
           </View>
           </View> 
           <View style = {Styles.bookActions}>
@@ -794,7 +790,7 @@ booksLoadAction(){
 
           <View style = {Styles.midSection}>
             <Text style ={Styles.descriptionTitle}>مختصر تعارف:</Text>
-            <Text style ={Styles.description}>درد بذات خود محبت ہے، مین سٹوریج سسٹم۔ اداس میں صرف. عظیم انصاف کے لئے، بیورو اور ہفتے کے آخر میں نہیں، ریچھوں کے علاوہ. کوئی بجٹ نہیں، کوئی انتقامی کمان نہیں، کورس صرف نفرت ہے۔ بڑے پیمانے پر کے لئے، کہا میں دروازے پر، کہ زہریلی زمین. بلی کو نیچے رکھنا اور بچے کو لات مارنا۔ میک اپ سے محروم نہ ہوں۔ اس کے مطابق، جیسا کہ یہ حلق ہے، زمین فٹ بال کی ایک رینج ہے، کھلاڑیوں کے برتن. بیماری ایک ایسا عنصر تھا جس نے خوف سے سجانا آسان بنا دیا. </Text>
+            <Text style ={Styles.description}> {this.props.route.params.item.bookintro} </Text>
           </View>
           <View style ={Styles.FooterSection}>
           <TouchableOpacity style={Styles.readBtn}>
@@ -802,7 +798,8 @@ booksLoadAction(){
           </TouchableOpacity>
           </View>
     </View>
-);
+    </ScrollView>
+    );
   }
 }
 
