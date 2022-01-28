@@ -164,7 +164,7 @@ export default class BookShelf extends Component{
       // }
 
     }
-    
+
     componentDidMount() {
 
       // Alert.alert('I am Bookshel');
@@ -184,7 +184,7 @@ export default class BookShelf extends Component{
     //     this.setState({
     //       bookArray:booksData,
     //       showProgress:false
-    //     }); 
+    //     });
     //     this.booksLoadAction();
     //     }
     //   }
@@ -193,7 +193,7 @@ export default class BookShelf extends Component{
 
     // const usersCollection = firestore().collection('Users');
     // console.log('Total Collections: ', usersCollection);
-    
+
     // const userDocument = firestore().collection('Users').doc('brFR2nBInbv7RPMZn7A5');
     // console.log('Total Documents: ', userDocument);
 
@@ -293,7 +293,7 @@ var newArray = [];
   //   });
   //   this.setState({
   //     bookArrayNew:tempArray
-  //   }); 
+  //   });
   // });
 
   // firestore()
@@ -303,14 +303,14 @@ var newArray = [];
   // .then(() => {
   //   console.log('User deleted!');
   // });
-  
+
   // database()
   // .ref('/Student/1')
   // .once('value')
   // .then(snapshot => {
   //   console.log('User data: ', snapshot.val());
   // });
-    
+
 
   database()
   .ref('/University/')
@@ -328,7 +328,7 @@ var newArray = [];
   // });
 
 
-  
+
   // database()
   // .ref('/Student/')
   // .on('value', snapshot => {
@@ -651,7 +651,7 @@ var newArray = [];
 //             //   aiknaiarrayObjCarrot = {key:g, title:coverArray[0], cover:require('./Icons/anar.jpg'), data:completeBookArrayCarrot};
 //             // }
 //             finalBookArrayCarrot.push(aiknaiarrayObjCarrot);
-//           } 
+//           }
 //           this.setState({showProgress:false});
 //           AsyncStorage.setItem('booksData', JSON.stringify(finalBookArrayCarrot));
 //           // this.horizontalrowselected();
@@ -725,28 +725,22 @@ var newArray = [];
         // this.fetchDataFromDB(bookName);
     }
 
-    componentWillMount(){
-
-      // Alert.alert('componentWillMount');
-
-      // this.state.flag1 = 300;
-
-      this.setState({
-        flag1 : 156
-      });
-
-    }
+    // componentWillMount(){
+    //   this.setState({
+    //     flag1 : 156
+    //   });
+    // }
 
     booksLoadAction(){
-      
+
       this.props.navigation.navigate('Allbooks');
-    
+
     }
 
     medicineLoadAction(){
-      
+
       this.props.navigation.navigate('Products-Screen');
-    
+
     }
 
     render()
@@ -754,20 +748,20 @@ var newArray = [];
       return (
 
         <View style = {Styles.Container}>
-        
+
         <MyHeader themeColor = {this.props.route.params.themeColor} navigation = {this.props.navigation} homeScreen = {true}/>
 
         {/* <View style = {Styles.innerContainer}>
-        <Pressable onPress={()=>{navigation.toggleDrawer()}}> 
-            <Icon name='menu-fold' size={30} color='#24A148'/>  
+        <Pressable onPress={()=>{navigation.toggleDrawer()}}>
+            <Icon name='menu-fold' size={30} color='#24A148'/>
             </Pressable>
-            <Image 
-            source={require('./aliahtashamdata/Images/logoresize.png')} 
+            <Image
+            source={require('./aliahtashamdata/Images/logoresize.png')}
             style={Styles.logo}/>
        </View> */}
 
         {/* <Header navigation={navigation}/> */}
-       
+
         <View style = {Styles.UpperBody}>
             <View style = {Styles.sectionright}>
             <Image
@@ -788,13 +782,13 @@ var newArray = [];
         <Image
              style={Styles. designContent}
              source={require('../../Assets/Images/leaf.png')}
-             /> 
+             />
             <Text style ={Styles.midContent}>ہماری روایت ۔ ہمارا عزم   فروغ صحت ۔ فروغ علم</Text>
           <Image
              style={Styles. designContent}
              source={require('../../Assets/Images/leaf.png')}
-             /> 
-            
+             />
+
 </View> */}
 
         <View style ={Styles.Grids}>
@@ -804,18 +798,18 @@ var newArray = [];
             <Image
              style={Styles.Gridimg}
              source={require('./aliahtashamdata/Icons/ExpandMenu_9.png')}
-             /> 
+             />
              <Text style = {Styles.GridNam}>ادویات</Text>
             </View>
           </TouchableOpacity>
-          
+
           <TouchableOpacity onPress = {() => this.booksLoadAction()}>
 
             <View style ={Styles.GridOne}>
             <Image
              style={Styles.Gridimg}
              source={require('./aliahtashamdata/Icons/ExpandMenu_10.png')}
-             /> 
+             />
              <Text style = {Styles.GridNam}>مطب</Text>
             </View>
           </TouchableOpacity>
@@ -825,25 +819,25 @@ var newArray = [];
             <Image
              style={Styles.Gridimg}
              source={require('./aliahtashamdata/Icons/ExpandMenu_7.png')}
-             /> 
+             />
              <Text style = {Styles.GridNam}>کتب</Text>
             </View>
         </TouchableOpacity>
 
         </View>
-     
+
        <View style = {Styles.footer}>
            <View style = {Styles.footerTxtDesign}>
-       
+
            <Text style = {Styles.footerTxt}>
-           ہماری روایت ۔ ہمارا عزم  
+           ہماری روایت ۔ ہمارا عزم
             </Text>
             </View>
-            
+
            <Text style = {Styles.footerTxtSecond}>
-           فروغ صحت ۔ فروغ علم    
+           فروغ صحت ۔ فروغ علم
               </Text>
-                   
+
         </View>
         </View>
       )
@@ -921,7 +915,7 @@ viewStyleMain:{
   // shadowColor: 'grey',
   // alignItems: 'center',
   // justifyContent: 'center',
-  backgroundColor : 'lightgrey', 
+  backgroundColor : 'lightgrey',
 },
 
 leftView:{
@@ -1093,7 +1087,7 @@ UpperBody:{
   shadowOpacity: 0.26,
   shadowOffset: { width: 0, height: 2},
   shadowRadius: 10,
-  elevation: 5 
+  elevation: 5
 },
 sectionright:{
   margin:15,
@@ -1118,7 +1112,7 @@ imgdetails:{
 sectionleft:{
   width:'60%',
  marginVertical:15,
- paddingTop:10,  
+ paddingTop:10,
  paddingLeft:10,
 },
 aboutContent:{
@@ -1146,19 +1140,19 @@ midContent:{
   fontSize:16,
   color:'#24A148',
   textDecorationLine:'underline',
- 
+
 },
 designContent:{
-  width:30, 
+  width:30,
   height:30,
   margin:6,
 },
 Grids:{
-  
+
   flexDirection:'row',
  marginHorizontal:10,
  marginVertical:30,
-  
+
 },
 GridOne:{
   borderWidth:2,
@@ -1175,7 +1169,7 @@ GridOne:{
   shadowRadius: 3,
   elevation: 5,
   backgroundColor:'#fff'
-  
+
 },
 Gridimg:{
   width:75,

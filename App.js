@@ -13,19 +13,21 @@ import HealthHistoryScreen from './src/Hamza_Iftikhar/HealthHistoryScreen.js'
 import BookShelf from './src/Hamza_Iftikhar/BookShelf';
 import SideMenuContentComponent from './src/Hamza_Iftikhar/SideMenuContentComponent'
 import DietPlanScreen from './src/Muhammad_Sharjeel/DietPlanScreen.js'
-import WishlistScreen from './src/Hamza_Iftikhar/Wishlist_Screen_Items/WishlistScreen';
-import ProductScreen from './src/Hamza_Iftikhar/Product_Screen_Items/ProductScreen';
-import ProductsMenu from './src/Hamza_Iftikhar/Product_Screen_Items/ProductsMenu';
+import WishlistScreen from './src/Hamza_Iftikhar/Wishlist_Screen_Items/WishlistScreen'
+import ProductScreen from './src/Hamza_Iftikhar/Product_Screen_Items/ProductScreen'
+import ProductsMenu from './src/Hamza_Iftikhar/Product_Screen_Items/ProductsMenu'
 import Allbooks from './src/Hamza_Iftikhar/Allbooks.js'
 import BookDetail from './src/Hamza_Iftikhar/BookDetail.js'
 import ChaptersListComponent from './src/Hamza_Iftikhar/ChaptersListComponent.js'
+import ChaptersListDetailComponent from './src/Hamza_Iftikhar/ChaptersListDetailComponent.js'
+import ReadingComponentFromBooks from './src/Hamza_Iftikhar/ReadingComponentFromBooks.js'
 import Allchapters from './src/Hamza_Iftikhar/Allchapters.js'
-import ProductDetailsScreen from './src/Hamza_Iftikhar/Product_Screen_Items/ProductDetailsScreen.js';
-import CartDetailsScreen from './src/Hamza_Iftikhar/Product_Screen_Items/CartDetailsScreen.js';
-import CheckAddressScreen from './src/Hamza_Iftikhar/Product_Screen_Items/CheckAddressScreen.js';
-import AddNewAddressScreen from './src/Hamza_Iftikhar/Product_Screen_Items/AddNewAddressScreen.js';
-import PaymentOptionsScreen from './src/Hamza_Iftikhar/Product_Screen_Items/PaymentOptionsScreen.js';
-import PaymentSubmitScreen from './src/Hamza_Iftikhar/Product_Screen_Items/PaymentSubmitScreen.js';
+import ProductDetailsScreen from './src/Hamza_Iftikhar/Product_Screen_Items/ProductDetailsScreen.js'
+import CartDetailsScreen from './src/Hamza_Iftikhar/Product_Screen_Items/CartDetailsScreen.js'
+import CheckAddressScreen from './src/Hamza_Iftikhar/Product_Screen_Items/CheckAddressScreen.js'
+import AddNewAddressScreen from './src/Hamza_Iftikhar/Product_Screen_Items/AddNewAddressScreen.js'
+import PaymentOptionsScreen from './src/Hamza_Iftikhar/Product_Screen_Items/PaymentOptionsScreen.js'
+import PaymentSubmitScreen from './src/Hamza_Iftikhar/Product_Screen_Items/PaymentSubmitScreen.js'
 
 import { Provider } from 'react-native-paper';
 
@@ -52,6 +54,8 @@ export default class App extends React.Component {
           <BooksScreensStack.Screen name= 'Allchapters' component={Allchapters} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
           <BooksScreensStack.Screen name= 'BookDetail' component={BookDetail} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
           <BooksScreensStack.Screen name= 'ChaptersListComponent' component={ChaptersListComponent} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
+          <BooksScreensStack.Screen name= 'ChaptersListDetailComponent' component={ChaptersListDetailComponent} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
+          <BooksScreensStack.Screen name= 'ReadingComponentFromBooks' component={ReadingComponentFromBooks} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
           <BooksScreensStack.Screen name="Products-Screen" component={ProductScreen} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email}}/>
           <BooksScreensStack.Screen name="Product-Detail-Screen" component={ProductDetailsScreen} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
           <BooksScreensStack.Screen name="CartDetailsScreen" component={CartDetailsScreen} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>

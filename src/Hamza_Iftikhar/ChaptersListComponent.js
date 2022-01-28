@@ -207,18 +207,13 @@
     if (item.key == -1) {
       return ;
     }
-
     console.log('section.key =',section.key);
     console.log('item.key =',item.key);
-
     console.log('selectedRow ===',this.state.mainArray[section.key].title);
-    // console.log('selectedRow ===',this.state.mainArray[section.key].data[item.key]);
-    // console.log('Selected Row item is = ' + item.key);
-    // console.log('Final Data is = ' + this.state.mainArray[section.key].data[item.key].title);
+    console.log('Final Data is ===',this.state.mainArray[section.key].data[item.key]);
+
     var finalArrayClone = [];
     finalArrayClone.push(this.state.mainArray[section.key].data[item.key]);
-    // console.log('Final clone Data is = ' + finalArrayClone.length);
-    // console.log('Final clone Data is = ' + finalArrayClone.data);
     if (this.state.mainArray[section.key].data[item.key].data.length>1) {
       this.props.navigation.navigate('ChaptersListDetailComponent',{
         finalArray:finalArrayClone,
@@ -229,25 +224,8 @@
         sectionArray:this.state.mainArray[section.key].data[item.key].data,
         selectedRow:0,
         title:this.state.mainArray[section.key].data[item.key].title,
-
-        // title:this.state.mainArray[section.key].title,
-        // disease_name:this.state.mainArray[section.key].data[item.key].title,
-        // prescription_name:this.state.mainArray[section.key].data[item.key].title
       });
     }
-
-    // this.props.navigation.navigate('ReadingComponentFromBooks',{
-    //   // selectedItem:selectedItem,
-    // });
-
-    // var dataSelected=this.props.navigation.state.params.finalArray[section.key].searchedArray[item.key].data;
-    // // // console.log('DataSelected is =' + dataSelected);
-    // var searchWord=this.props.navigation.state.params.finalArray[0].word;
-    // var selectedItem={key:item.key,data:dataSelected,searchWord:searchWord};
-
-    // this.props.navigation.navigate('DescriptionScreen',{
-    //   selectedItem:selectedItem,
-    // });
   }
 
   actButtonSearch(){
@@ -302,14 +280,14 @@ searchArray:tempArray,
   // }
 }
 
-  componentWillUnmount(){
-    console.warn('componentWillUnmount()');
-  }
+  // componentWillUnmount(){
+  //   console.warn('componentWillUnmount()');
+  // }
 
     render(){
       return(
         <View style={styles.outerContainer}>
-          <View style={{marginTop:5,marginBottom:5,backgroundColor:'grey',flexDirection:'row'}}>
+          <View style={{marginTop:5,marginBottom:5,backgroundColor:'#24A148',flexDirection:'row'}}>
               <TouchableOpacity onPress={()=>this.actButtonSearch()} style={{marginLeft:10,marginRight:10,marginTop:5,marginBottom:5,}}>
                   <Image style={{width:24,height:24}} source={searchIcon}/>
                 </TouchableOpacity>
@@ -350,7 +328,7 @@ searchArray:tempArray,
                       <View style={styles.lineView}/>
                       </TouchableOpacity>}
         renderSectionHeader={({section}) =>
-        <View style={{height:40,backgroundColor:'#999999',justifyContent:'center'}}>
+        <View style={{height:40,backgroundColor:'#24A148',justifyContent:'center'}}>
         <Text style={{color:'white',textAlign:'right',
         paddingLeft:15,paddingRight:15,
         fontSize:20,
