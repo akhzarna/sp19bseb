@@ -434,67 +434,57 @@ export default class SignInScreen extends React.Component {
 
               <View
                 style={{
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                }}>
-
-                <View>
-                  <Text style={{textAlign:'center', marginTop:5, marginBottom:5}}>  Login with: </Text>
-                </View>
-
-              <View style={{width: 10,}}></View>
-
-
+                  flexDirection:'column',
+                  marginTop:10,
+                   }}>
+                  <Text style={{textAlign:'center', 
+                                 marginTop:5,
+                                 marginBottom:5,
+                                 fontWeight:'bold',
+                                 fontSize:15
+                    }}>  Login with: </Text>
+                
               <TouchableOpacity style={STYLES.btnGuestUser} onPress = {() => this.guestUserAction()}>
 
               <Image
                     style={STYLES.btnImage}
                     source={require('../../assests/guestuser.jpeg')}
                    />
-                   <Text style={{marginLeft:5, fontWeight: 'bold', fontSize: 14}}>
+                   <Text style={{marginLeft:5,fontSize: 16 ,fontWeight:'bold'}}>
                       Guest User
                    </Text>
 
               </TouchableOpacity>
 
+              <View style={{flexDirection:'row',marginTop:25}}>
 
-              <TouchableOpacity style={STYLES.btnGuestUser} onPress = {() => this.onGoogleButtonPress()}>
+ 
 
-                  <Image
-                    style={STYLES.btnImage}
-                    source={require('../../assests/google.png')}
-                  />
-                    <Text style={{marginLeft:5, fontWeight: 'bold', fontSize: 14}}>
-                      Continue with Google
-                    </Text>
+                <TouchableOpacity style={STYLES.btnFb} onPress = {() => this.onFacebookButtonPress()}>
 
-                </TouchableOpacity>
-
-
-                <TouchableOpacity style={STYLES.btnGuestUser} onPress = {() => this.onFacebookButtonPress()}>
-
-                  <Image
-                    style={STYLES.btnImage}
-                    source={require('../../assests/google.png')}
-                  />
-
-                  <Text style={{marginLeft:5, fontWeight: 'bold', fontSize: 14}}>
-                    Facebook
-                  </Text>
-
-                </TouchableOpacity>
-
-
-                <View style={STYLES.btnSecondary}>
                   <Image
                     style={STYLES.btnImage}
                     source={require('../../assests/facebook.png')}
                   />
-                  <Text style={{marginLeft:5, fontWeight: 'bold', fontSize: 13}}>
-                    Continue with Facebook
-                  </Text>
-                </View>
 
+                  <Text style={{marginLeft:15, fontWeight: 'bold', fontSize: 16,color:'#fff'}}>
+                    FACBOOK
+                  </Text>
+
+                </TouchableOpacity>
+         <TouchableOpacity style={STYLES.btnGo} onPress = {() => this.onGoogleButtonPress()}>
+
+                   <Image
+                    style={STYLES.btnImage}
+                    source={require('../../assests/goog.png')}
+                   />
+             <Text style={{marginLeft:15, fontWeight: 'bold', fontSize: 16,color:'#fff'}}>
+                   GOOGLE
+             </Text>
+
+          </TouchableOpacity>
+
+                </View>
               </View>
 
             </View>
