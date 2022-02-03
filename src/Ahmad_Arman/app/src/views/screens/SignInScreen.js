@@ -479,7 +479,7 @@ export default class SignInScreen extends React.Component {
                     source={require('../../assests/goog.png')}
                    />
              <Text style={{marginLeft:15, fontWeight: 'bold', fontSize: 16,color:'#fff'}}>
-                   GOOGLE
+                   GOOGLE with Ali Hussain
              </Text>
 
           </TouchableOpacity>
