@@ -437,13 +437,13 @@ export default class SignInScreen extends React.Component {
                   flexDirection:'column',
                   marginTop:10,
                    }}>
-                  <Text style={{textAlign:'center', 
+                  <Text style={{textAlign:'center',
                                  marginTop:5,
                                  marginBottom:5,
                                  fontWeight:'bold',
                                  fontSize:15
                     }}>  Login with: </Text>
-                
+
               <TouchableOpacity style={STYLES.btnGuestUser} onPress = {() => this.guestUserAction()}>
 
               <Image
@@ -458,7 +458,7 @@ export default class SignInScreen extends React.Component {
 
               <View style={{flexDirection:'row',marginTop:25}}>
 
- 
+
 
                 <TouchableOpacity style={STYLES.btnFb} onPress = {() => this.onFacebookButtonPress()}>
 
@@ -468,7 +468,7 @@ export default class SignInScreen extends React.Component {
                   />
 
                   <Text style={{marginLeft:15, fontWeight: 'bold', fontSize: 16,color:'#fff'}}>
-                    FACBOOK Ali Hussain
+                    FACBOOK Ali Hussain - This is Akhzar Nazir
                   </Text>
 
                 </TouchableOpacity>
