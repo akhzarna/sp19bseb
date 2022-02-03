@@ -468,7 +468,7 @@ export default class SignInScreen extends React.Component {
                   />
 
                   <Text style={{marginLeft:15, fontWeight: 'bold', fontSize: 16,color:'#fff'}}>
-                    FACBOOK
+                    FACBOOK Ali Hussain
                   </Text>
 
                 </TouchableOpacity>
