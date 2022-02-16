@@ -30,6 +30,7 @@ import PaymentOptionsScreen from './src/Hamza_Iftikhar/Product_Screen_Items/Paym
 import PaymentSubmitScreen from './src/Hamza_Iftikhar/Product_Screen_Items/PaymentSubmitScreen.js'
 
 import { Provider } from 'react-native-paper';
+import BookView from './src/Ali_Ahtasham/src/Screens/Book View/BookView.js';
 
 const BasicScreensStack = createStackNavigator();
 const SideMenuDrawer = createDrawerNavigator();
@@ -53,6 +54,7 @@ export default class App extends React.Component {
           <BooksScreensStack.Screen name= 'Allbooks' component={Allbooks} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
           <BooksScreensStack.Screen name= 'Allchapters' component={Allchapters} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
           <BooksScreensStack.Screen name= 'BookDetail' component={BookDetail} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
+          <BooksScreensStack.Screen name= 'BookView' component={BookView} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
           <BooksScreensStack.Screen name= 'ChaptersListComponent' component={ChaptersListComponent} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
           <BooksScreensStack.Screen name= 'ChaptersListDetailComponent' component={ChaptersListDetailComponent} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
           <BooksScreensStack.Screen name= 'ReadingComponentFromBooks' component={ReadingComponentFromBooks} initialParams = {{themeColor : props.route.params.themeColor, token : props.route.params.token, userId : props.route.params.userId, email : props.route.params.email, name : props.route.params.name}}/>
