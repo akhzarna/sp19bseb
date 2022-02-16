@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {SafeAreaView, View, Text, TextInput, Image, Alert, ToastAndroid, StyleSheet,
   TouchableOpacity, ScrollView, ImageBackground,
-  ActivityIndicator,
+  ActivityIndicator, Button
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from '../../consts/color'
@@ -42,7 +42,7 @@ function SingIn() {
   if (!user) {
     return (
       <View>
-        <Text>Login</Text>
+        <Text> Login </Text>
       </View>
     );
   }
@@ -332,8 +332,7 @@ export default class SignInScreen extends React.Component {
 
   }
 
-  render()
-  {
+  render(){
     return (
 
       //JSX
@@ -350,6 +349,17 @@ export default class SignInScreen extends React.Component {
               {/* Nothing to do with this */}
             </View>
 
+            <Button
+            title="Learn More"
+            color="#841584"
+            accessibilityLabel="Learn more about this purple button"
+            />
+
+            <Text> In The Name of Allah </Text>
+
+            <Text> In The Name of Allah </Text>
+
+            <Text> In The Name of Allah </Text>
 
             <View style={{marginTop: 20}}>
               <View style={STYLES.inputContainer}>
@@ -410,7 +420,7 @@ export default class SignInScreen extends React.Component {
 
               <TouchableOpacity style={STYLES.btnPrimary} onPress = {() => this.loginAction()}>
                   <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 18}}>
-                    Log In
+                    Ali Log In
                   </Text>
               </TouchableOpacity>
 
