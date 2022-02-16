@@ -1,4 +1,6 @@
+
 import React, { Component } from 'react';
+
 import {
   AppRegistry,
   StyleSheet,
@@ -613,7 +615,7 @@ booksLoadAction(){
     rowSelected(){
         console.log(this.props.route.params.item.chapters);
         // var bookName = this.state.bookArray[item.key]
-        this.props.navigation.navigate('ChaptersListComponent',{
+        this.props.navigation.navigate('BookView',{
           bookdetail:this.props.route.params.item,
           // finalDict:this.props.route.params.item,
         });
@@ -628,6 +630,7 @@ booksLoadAction(){
     {
       return   (
 
+
       <ScrollView>
 
       <View style = {Styles.container}>
@@ -635,7 +638,7 @@ booksLoadAction(){
       <View style ={Styles.headerSection}>
       <View style = {Styles.appBar}>
      <TouchableOpacity onPress={()=>this.props.navigation.pop()}>
-      <Icon name="chevron-left" size={22} color="#0e0e0e" />
+      <Icon name="chevron-left" size={22} color="#969696" />
       </TouchableOpacity>
      <TouchableOpacity>
         <Icon name="bookmark" size={22} color='#969696' />
@@ -679,6 +682,7 @@ booksLoadAction(){
           </View>
     </View>
     </ScrollView>
+
     );
   }
 }
@@ -692,7 +696,7 @@ const Styles = StyleSheet.create({
 
   },
   headerSection:{
-      paddingHorizontal:10,
+      padding:10,
       backgroundColor:'#fafafa',
       shadowColor: '#000',
       shadowOffset: { width: 1, height: 1 },

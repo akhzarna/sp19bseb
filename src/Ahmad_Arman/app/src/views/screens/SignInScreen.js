@@ -334,32 +334,14 @@ export default class SignInScreen extends React.Component {
 
   render(){
     return (
-
       //JSX
-
     <ImageBackground source={require('./bcbcbc.png')} style={styles.backgroundImage} >
-
       <View style = {{flex : 1}}>
-
         <ScrollView showsVerticalScrollIndicator={false}>
-
           <View style={{paddingHorizontal: 20, flex: 1}}>
-
             <View style={{marginTop: 50}}>
               {/* Nothing to do with this */}
             </View>
-
-            <Button
-            title="Learn More"
-            color="#841584"
-            accessibilityLabel="Learn more about this purple button"
-            />
-
-            <Text> In The Name of Allah </Text>
-
-            <Text> In The Name of Allah </Text>
-
-            <Text> In The Name of Allah </Text>
 
             <View style={{marginTop: 20}}>
               <View style={STYLES.inputContainer}>
