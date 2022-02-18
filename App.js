@@ -28,7 +28,8 @@ import CheckAddressScreen from './src/Hamza_Iftikhar/Product_Screen_Items/CheckA
 import AddNewAddressScreen from './src/Hamza_Iftikhar/Product_Screen_Items/AddNewAddressScreen.js'
 import PaymentOptionsScreen from './src/Hamza_Iftikhar/Product_Screen_Items/PaymentOptionsScreen.js'
 import PaymentSubmitScreen from './src/Hamza_Iftikhar/Product_Screen_Items/PaymentSubmitScreen.js'
-
+import ForgetScreen from './src/Ali_Hussain/ForgetScreen.js';
+import PasswordScreen from './src/Ali_Hussain/PasswordScreen.js';
 import { Provider } from 'react-native-paper';
 import BookView from './src/Ali_Ahtasham/src/Screens/Book View/BookView.js';
 
@@ -108,6 +109,8 @@ export default class App extends React.Component {
         <BasicScreensStack.Navigator initialRouteName = "SignIn" headerMode = 'none'>
           <BasicScreensStack.Screen name="SignIn" component={SignInScreen} initialParams = {{themeColor : this.themeColor}}/>
           <BasicScreensStack.Screen name="SignUp" component={SignUpScreen} />
+          <BasicScreensStack.Screen name="Forget"  component={ForgetScreen}/>
+          <BasicScreensStack.Screen name='PasswordScreen' component={PasswordScreen}/>
           <BasicScreensStack.Screen name="AfterLogIn" component={sideMenuDrawerScreens}/>
         </BasicScreensStack.Navigator>
       );
