@@ -54,7 +54,7 @@ const BookView = ({navigation}) => {
     return (
         <View  style = {Styles.container}>
             <View style = { Styles.appbar}>
-            <TouchableOpacity >
+            <TouchableOpacity onPress={()=>{navigation.navigate("BookDetail")}}>
       <Icon name="chevron-left" size={22} color="#fafafa" />
       </TouchableOpacity>
       <TouchableOpacity  >

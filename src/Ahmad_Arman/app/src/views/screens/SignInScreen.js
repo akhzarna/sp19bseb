@@ -290,7 +290,7 @@ export default class SignInScreen extends React.Component {
 
   forgotPasswordAction()
   {
-    ToastAndroid.show('Forget Password Pressed ', ToastAndroid.SHORT);
+    this.props.navigation.navigate('Forget')
   }
 
   signUpAction()
@@ -370,15 +370,17 @@ export default class SignInScreen extends React.Component {
 
               <SingIn />
 
-            <View style={{flex:1,flexDirection:'row'}}>
-              <TouchableOpacity style = {{marginTop : 20, marginLeft:10, marginRight:40}} onPress = {() => this.forgotPasswordAction()}>
-                  <Text style={{color: COLORS.dark, fontWeight: 'bold'}}>
+            <View style={{flex:1,flexDirection:'row',}}>
+              <TouchableOpacity style = {{marginTop : 22, marginLeft:10, marginRight:40}} onPress = {() => this.forgotPasswordAction()}>
+                  <Text style={{color: COLORS.dark, fontWeight: 'bold',fontSize:15}}>
                     Remember me
                   </Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style = {{marginTop : 20}} onPress = {() => this.forgotPasswordAction()}>
-                  <Text style={{color: COLORS.dark, fontWeight: 'bold'}}>
+              <TouchableOpacity 
+              style = {{marginTop : 22,marginLeft:40}} 
+              onPress = {() => this.forgotPasswordAction()}>
+                  <Text style={{color: COLORS.dark, fontWeight: 'bold',fontSize:15}}>
                     Forgot a Password?
                   </Text>
               </TouchableOpacity>
@@ -400,9 +402,10 @@ export default class SignInScreen extends React.Component {
               (null)
             }
 
-              <TouchableOpacity style={STYLES.btnPrimary} onPress = {() => this.loginAction()}>
+              <TouchableOpacity style={STYLES.btnPrimary}
+               onPress = {() => this.loginAction()}>
                   <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 18}}>
-                    Ali Log In
+                     LOG IN
                   </Text>
               </TouchableOpacity>
 
@@ -420,7 +423,7 @@ export default class SignInScreen extends React.Component {
 
               <TouchableOpacity style={STYLES.btnSecondarySignUp} onPress = {() => this.signUpAction()}>
                   <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 18}}>
-                    Sign Up
+                    SIGN UP
                   </Text>
               </TouchableOpacity>
 
@@ -430,10 +433,9 @@ export default class SignInScreen extends React.Component {
                   marginTop:10,
                    }}>
                   <Text style={{textAlign:'center',
-                                 marginTop:5,
+                                 marginTop:7,
                                  marginBottom:5,
-                                 fontWeight:'bold',
-                                 fontSize:15
+                                 fontSize:16
                     }}>  Login with: </Text>
 
               <TouchableOpacity style={STYLES.btnGuestUser} onPress = {() => this.guestUserAction()}>
@@ -460,7 +462,7 @@ export default class SignInScreen extends React.Component {
                   />
 
                   <Text style={{marginLeft:15, fontWeight: 'bold', fontSize: 16,color:'#fff'}}>
-                    FACBOOK Ali Hussain - This is Akhzar Nazir
+                    FACBOOK
                   </Text>
 
                 </TouchableOpacity>
@@ -471,7 +473,7 @@ export default class SignInScreen extends React.Component {
                     source={require('../../assests/goog.png')}
                    />
              <Text style={{marginLeft:15, fontWeight: 'bold', fontSize: 16,color:'#fff'}}>
-                   GOOGLE with Ali Hussain
+                   GOOGLE
              </Text>
 
           </TouchableOpacity>
