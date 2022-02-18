@@ -1,9 +1,9 @@
 import React from 'react'
-import { View, Text, Image, ImageBackground, TouchableOpacity, ScrollView, FlatList, Dimensions } from 'react-native';
+import { View, Text, Image, ImageBackground, TouchableOpacity, ScrollView, FlatList, Dimensions,   } from 'react-native';
 import Styles from './Styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Menu } from 'react-native-paper';
+import { Menu, Modal, Portal} from 'react-native-paper';
 
 
 const fontfamilies = ['UrduTypesetting','Jameel-Noori-Nastaleeq','UrduNaskhAsiatype','noorehuda',]
@@ -25,6 +25,7 @@ const BookView = ({navigation}) => {
     const [fontSize , setSize] = React.useState(26);
     const [fontfamily , changefontFamily] = React.useState(fontfamilies[0]);
     const [visible, setVisible] = React.useState(false);
+    const [modal, modalVisible] = React.useState(false);
     const [index, setIndex] = React.useState(0);
 
     const reff = React.useRef();
@@ -46,12 +47,18 @@ const BookView = ({navigation}) => {
         const ClickDecremental = () =>{
             setSize(fontSize-3)};
 
+            const SearchHandler =()=>{
+              modalVisible(true)
+            };
 
     return (
         <View  style = {Styles.container}>
             <View style = { Styles.appbar}>
             <TouchableOpacity >
       <Icon name="chevron-left" size={22} color="#fafafa" />
+      </TouchableOpacity>
+      <TouchableOpacity  >
+      <Icon name="search" size={22} color="#fafafa" onPress={SearchHandler}/>
       </TouchableOpacity>
             </View>
             <View style={Styles.bodySection}>
@@ -95,6 +102,44 @@ const BookView = ({navigation}) => {
         /> */}
        
             </View>
+            <Portal>
+            <Modal
+            visible={modal}
+             onDismiss={() => {
+              modalVisible(false);
+            }} 
+             contentContainerStyle={{justifyContent:'center',alignItems:'center'}}
+
+       /*  animationType='fade'
+        transparent={true}
+        visible={modal}
+        onRequestClose={() => {
+          modalVisible(!modal);
+        }} */
+      >
+
+      <View style = {{
+        height:'90%',
+        width:'80%', 
+        backgroundColor:'rgba( 255, 255, 255, 0.90 )', 
+        borderRadius:16,
+        borderWidth:1,
+        borderColor:'rgba( 255, 255, 255, 0.35 )',
+        padding:10
+          }}> 
+          <TouchableOpacity style = {{
+            alignSelf:'flex-end',
+            margin:10,
+          }}
+          onPress={()=>{
+            modalVisible(false);
+          }}>
+          <Icon name="remove" size={30} color="#454545" />
+          </TouchableOpacity>
+    <Text>Hyee</Text>
+      </View>
+      </Modal>
+      </Portal>
     <View style ={Styles.footer}>
     <Icon name="caret-left" size={35} color="#454545" onPress={()=>
    {
@@ -125,8 +170,9 @@ const BookView = ({navigation}) => {
           <Menu.Item onPress={() => {changefontFamily(fontfamilies[3])}} title="Noor-e-Huda" titleStyle={Styles.menuItemDesign}/>
     </Menu>
     
-    <MaterialCommunityIcons name="invert-colors" size={30} color="#454545" style={Styles.iconMargin}/>
-    <Icon name="caret-right" size={35} color="#454545" onPress={()=>
+{/*     <MaterialCommunityIcons name="invert-colors" size={30} color="#454545" style={Styles.iconMargin}/>
+ */}   
+  <Icon name="caret-right" size={35} color="#454545" onPress={()=>
    {
     if(index===data.length-1){
       return;
