@@ -25,6 +25,16 @@ const BookView = ({navigation}) => {
     const [fontSize , setSize] = React.useState(26);
     const [fontfamily , changefontFamily] = React.useState(fontfamilies[0]);
     const [visible, setVisible] = React.useState(false);
+    const [index, setIndex] = React.useState(0);
+
+    const reff = React.useRef();
+
+    React.useEffect(()=>{
+      reff.current?.scrollToIndex({
+        index ,
+        animated:true
+      });
+    }, [index]);
     
   const openMenu = () => setVisible(true);
 
@@ -49,6 +59,8 @@ const BookView = ({navigation}) => {
            
              <FlatList
              data={data}
+             ref={reff}
+             initialScrollIndex={index}
              keyExtractor={(key)=>key.key}
              pagingEnabled
              horizontal
@@ -84,7 +96,14 @@ const BookView = ({navigation}) => {
        
             </View>
     <View style ={Styles.footer}>
-    <Icon name="caret-left" size={35} color="#454545" />
+    <Icon name="caret-left" size={35} color="#454545" onPress={()=>
+   {
+     if(index===0){
+       return;
+     }
+    setIndex(index - 1);
+   
+   }}/>
         <TouchableOpacity style = {Styles.fontSizeIcon} onPress={ClickIncremental} >
     <Icon name="font" size={28} color="#454545" />
     <Icon name="plus" size={15} color="#454545" />
@@ -107,7 +126,14 @@ const BookView = ({navigation}) => {
     </Menu>
     
     <MaterialCommunityIcons name="invert-colors" size={30} color="#454545" style={Styles.iconMargin}/>
-    <Icon name="caret-right" size={35} color="#454545" />
+    <Icon name="caret-right" size={35} color="#454545" onPress={()=>
+   {
+    if(index===data.length-1){
+      return;
+    }
+   setIndex (index+1);
+  
+  }}/>
      </View>
         </View>
     )
