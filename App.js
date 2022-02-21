@@ -17,9 +17,9 @@ export default class App extends React.Component {
     return (
 
 
-      <View style={{flex:1, flexDirection:'row'}}>
+      <View style={{flex:1, flexDirection:'column'}}>
 
-      
+
 
         <View style={{flex:0.20}}>
           <Text> Login Screen </Text>
