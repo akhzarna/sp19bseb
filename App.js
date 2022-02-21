@@ -19,6 +19,8 @@ export default class App extends React.Component {
 
       <View style={{flex:1, flexDirection:'column'}}>
 
+      <Text> SP19BSEB </Text>
+
 
 
         <View style={{flex:0.20}}>
