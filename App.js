@@ -16,7 +16,7 @@ export default class App extends React.Component {
   render(){
     return (
 
-    <View style={{backgroundColor:'grey', flex:1}}>
+    <View style={{backgroundColor:'blue', flex:1}}>
 
       <View style={{backgroundColor:'red', flex:0.25}}>
 
