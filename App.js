@@ -21,7 +21,7 @@ export default class App extends React.Component {
       <View style={{backgroundColor:'red', flex:0.25}}>
 
       <Text style={{color:'white'}}>
-                  SP19 BSE C First Commit Login
+                   Usama Working SP19 BSE C First Commit Login
       </Text>
 
       </View>
