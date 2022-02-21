@@ -402,7 +402,7 @@ export default class SignInScreen extends React.Component {
 
               <TouchableOpacity style={STYLES.btnPrimary} onPress = {() => this.loginAction()}>
                   <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 18}}>
-                    Ali Log In
+                    SP19BSEB
                   </Text>
               </TouchableOpacity>
 
