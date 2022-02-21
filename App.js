@@ -37,6 +37,14 @@ export default class App extends React.Component {
       <View style={{backgroundColor:'blue', flex:0.45}}>
 
 
+
+
+
+
+
+
+
+
       <Button
       title="Sin In"
       color="#841584"
