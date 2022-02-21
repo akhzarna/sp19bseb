@@ -1,5 +1,4 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native'
 import {createDrawerNavigator} from '@react-navigation/drawer'
@@ -41,6 +40,11 @@ const CoachingScreensStack = createStackNavigator();
 const BooksScreensStack = createStackNavigator();
 
 export default class App extends React.Component {
+  themeColor = '';
+  constructor(props){
+    super(props);
+    this.themeColor = '#1f8e46';
+  }
 
   render() {
     const booksStackScreens = (props) =>
@@ -121,7 +125,3 @@ export default class App extends React.Component {
       );
   }
 }
-
-const styles = StyleSheet.create({
-
-});

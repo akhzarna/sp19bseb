@@ -377,8 +377,8 @@ export default class SignInScreen extends React.Component {
                   </Text>
               </TouchableOpacity>
 
-              <TouchableOpacity 
-              style = {{marginTop : 22,marginLeft:40}} 
+              <TouchableOpacity
+              style = {{marginTop : 22,marginLeft:40}}
               onPress = {() => this.forgotPasswordAction()}>
                   <Text style={{color: COLORS.dark, fontWeight: 'bold',fontSize:15}}>
                     Forgot a Password?
@@ -405,11 +405,7 @@ export default class SignInScreen extends React.Component {
               <TouchableOpacity style={STYLES.btnPrimary}
                onPress = {() => this.loginAction()}>
                   <Text style={{color: '#fff', fontWeight: 'bold', fontSize: 18}}>
-<<<<<<< HEAD
-                    SP19BSEB
-=======
                      LOG IN
->>>>>>> 886562226eed5869eee0f82fa6290ea5dab9988d
                   </Text>
               </TouchableOpacity>
 
