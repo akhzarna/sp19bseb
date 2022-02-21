@@ -21,7 +21,7 @@ export default class App extends React.Component {
       <View style={{backgroundColor:'red', flex:0.25}}>
 
       <Text style={{color:'white'}}>
-        Login
+                 Login
       </Text>
 
       </View>
