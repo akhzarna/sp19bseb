@@ -9,7 +9,9 @@ container:{
 appbar:{
     flex:.5,
     padding:20,
-    backgroundColor:'#24A148'
+    backgroundColor:'#24A148',
+    flexDirection:'row',
+    justifyContent:'space-between'
    
 },
 bodySection:{
